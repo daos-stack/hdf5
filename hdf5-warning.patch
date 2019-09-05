@@ -1,0 +1,76 @@
+diff -up hdf5-1.10.4/testpar/t_cache.c.warning hdf5-1.10.4/testpar/t_cache.c
+--- hdf5-1.10.4/testpar/t_cache.c.warning	2018-09-10 08:43:41.000000000 -0600
++++ hdf5-1.10.4/testpar/t_cache.c	2018-11-24 08:08:37.333832898 -0700
+@@ -79,8 +79,8 @@ long local_pins           = 0;
+ 
+ 
+ /* the following fields are used by the server process only */
+-int total_reads           = 0;
+-int total_writes           = 0;
++unsigned total_reads           = 0;
++unsigned total_writes           = 0;
+ 
+ 
+ /*****************************************************************************
+@@ -175,8 +175,8 @@ struct datum
+     hbool_t        local_pinned;
+     hbool_t        cleared;
+     hbool_t             flushed;
+-    int            reads;
+-    int            writes;
++    unsigned       reads;
++    unsigned       writes;
+     int            index;
+     struct H5AC_aux_t * aux_ptr;
+ };
+@@ -2197,7 +2197,7 @@ serve_entry_reads_request(struct mssg_t
+             reply.base_addr = target_addr;
+             reply.len       = 0;
+             reply.ver       = 0;
+-        reply.count     = (long)(data[target_index].reads);
++            reply.count     = data[target_index].reads;
+             reply.magic     = MSSG_MAGIC;
+         }
+     }
+@@ -2446,12 +2446,12 @@ static herr_t
+ datum_image_len(const void *thing, size_t *image_len)
+ {
+     int idx;
+-    struct datum * entry_ptr;
++    const struct datum * entry_ptr;
+ 
+     HDassert( thing );
+     HDassert( image_len );
+ 
+-    entry_ptr = (struct datum *)thing;
++    entry_ptr = (const struct datum *)thing;
+ 
+     idx = addr_to_datum_index(entry_ptr->base_addr);
+ 
+@@ -4615,7 +4615,7 @@ verify_entry_reads(haddr_t addr,
+                    int expected_entry_reads)
+ {
+     hbool_t success = TRUE;
+-    int reported_entry_reads;
++    unsigned reported_entry_reads = 0;
+     struct mssg_t mssg;
+ 
+     if ( success ) {
+@@ -4722,7 +4722,7 @@ verify_entry_writes(haddr_t addr,
+                     int expected_entry_writes)
+ {
+     hbool_t success = TRUE;
+-    int reported_entry_writes;
++    unsigned reported_entry_writes = 0;
+     struct mssg_t mssg;
+ 
+     if ( success ) {
+@@ -4827,7 +4827,7 @@ static hbool_t
+ verify_total_reads(int expected_total_reads)
+ {
+     hbool_t success = TRUE; /* will set to FALSE if appropriate. */
+-    long reported_total_reads;
++    unsigned reported_total_reads;
+     struct mssg_t mssg;
+ 
+     if ( success ) {
