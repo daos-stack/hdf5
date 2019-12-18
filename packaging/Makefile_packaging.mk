@@ -105,6 +105,14 @@ all: $(TARGETS)
 	rm -f $@
 	gzip $<
 
+%.bz2: %
+	rm -f $@
+	bzip2 $<
+
+%.xz: %
+	rm -f $@
+	xz -z $<
+
 _topdir/SOURCES/%: % | _topdir/SOURCES/
 	rm -f $@
 	ln $< $@
@@ -142,15 +150,15 @@ $(DEB_TARBASE).orig.tar.$(SRC_EXT) : $(DEB_BUILD).tar.$(SRC_EXT)
 	rm -f $(DEB_TOP)/*.orig.tar.*
 	ln -f $< $@
 
-$(DEB_TOP)/.detar: $(notdir $(SOURCE)) $(DEB_TARBASE).orig.tar.$(SRC_EXT) 
+deb_detar: $(notdir $(SOURCE)) $(DEB_TARBASE).orig.tar.$(SRC_EXT)
 	# Unpack tarball
-	rm -rf ./$(DEB_BUILD)/*
+	rm -rf ./$(DEB_TOP)/.patched ./$(DEB_TOP)/.detar
+	rm -rf ./$(DEB_BUILD)/* ./$(DEB_BUILD)/.pc ./$(DEB_BUILD)/.libs
 	mkdir -p $(DEB_BUILD)
 	tar -C $(DEB_BUILD) --strip-components=1 -xpf $<
-	touch $@
 
 # Extract patches for Debian
-$(DEB_TOP)/.patched: $(PATCHES) check-env $(DEB_TOP)/.detar | \
+$(DEB_TOP)/.patched: $(PATCHES) check-env deb_detar | \
 	$(DEB_BUILD)/debian/
 	mkdir -p ${DEB_BUILD}/debian/patches
 	mkdir -p $(DEB_TOP)/patches
@@ -181,8 +189,7 @@ $(DEB_TOP)/.patched: $(PATCHES) check-env $(DEB_TOP)/.detar | \
 
 # Move the debian files into the Debian directory.
 ifeq ($(ID_LIKE),debian)
-$(DEB_TOP)/.deb_files : $(shell find debian -type f) \
-	  $(DEB_TOP)/.detar | \
+$(DEB_TOP)/.deb_files : $(shell find debian -type f) deb_detar | \
 	  $(DEB_BUILD)/debian/
 	find debian -maxdepth 1 -type f -exec cp '{}' '$(DEB_BUILD)/{}' ';'
 	if [ -e debian/source ]; then \
@@ -197,6 +204,11 @@ $(DEB_TOP)/.deb_files : $(shell find debian -type f) \
 	  cp -r debian/tests $(DEB_BUILD)/debian; fi
 	rm -f $(DEB_BUILD)/debian/*.ex $(DEB_BUILD)/debian/*.EX
 	rm -f $(DEB_BUILD)/debian/*.orig
+ifneq ($(GIT_INFO),)
+	cd $(DEB_BUILD); dch --distribution unstable \
+	  --newversion $(DEB_PREV_RELEASE)$(GIT_INFO) \
+	  "Git commit information"
+endif
 	touch $@
 endif
 
@@ -207,7 +219,7 @@ $(subst rpm,%,$(RPMS)): $(SPEC) $(SOURCES)
 	rpmbuild -bb $(COMMON_RPM_ARGS) $(RPM_BUILD_OPTIONS) $(SPEC)
 
 $(subst deb,%,$(DEBS)): $(DEB_BUILD).tar.$(SRC_EXT) \
-	  $(DEB_TOP)/.deb_files $(DEB_TOP)/.detar $(DEB_TOP)/.patched
+	  deb_detar $(DEB_TOP)/.deb_files $(DEB_TOP)/.patched
 	rm -f $(DEB_TOP)/*.deb $(DEB_TOP)/*.ddeb $(DEB_TOP)/*.dsc \
 	      $(DEB_TOP)/*.dsc $(DEB_TOP)/*.build* $(DEB_TOP)/*.changes \
 	      $(DEB_TOP)/*.debian.tar.*
@@ -230,6 +242,14 @@ $(subst deb,%,$(DEBS)): $(DEB_BUILD).tar.$(SRC_EXT) \
 	for f in $(DEB_TOP)/*.deb; do \
 	  echo $$f; dpkg -c $$f; done
 
+$(DEB_TOP)/$(DEB_DSC): $(CALLING_MAKEFILE) $(DEB_BUILD).tar.$(SRC_EXT) \
+          deb_detar $(DEB_TOP)/.deb_files $(DEB_TOP)/.patched
+	rm -f $(DEB_TOP)/*.deb $(DEB_TOP)/*.ddeb $(DEB_TOP)/*.dsc \
+	  $(DEB_TOP)/*.dsc $(DEB_TOP)/*.build* $(DEB_TOP)/*.changes \
+	  $(DEB_TOP)/*.debian.tar.*
+	rm -rf $(DEB_TOP)/*-tmp
+	cd $(DEB_BUILD); dpkg-buildpackage -S --no-sign --no-check-builddeps
+
 $(SRPM): $(SPEC) $(SOURCES)
 	rpmbuild -bs $(COMMON_RPM_ARGS) $(RPM_BUILD_OPTIONS) $(SPEC)
 
@@ -246,44 +266,51 @@ debs: $(DEBS)
 ls: $(TARGETS)
 	ls -ld $^
 
-ifeq ($(ID_LIKE),rhel fedora)
-chrootbuild: $(SRPM) $(CALLING_MAKEFILE)
-	if [ -w /etc/mock/default.cfg ]; then                                    \
-	    echo -e "config_opts['yum.conf'] += \"\"\"\n" >> /etc/mock/default.cfg;  \
-	    for repo in $(ADD_REPOS); do                                             \
-	        if [[ $$repo = *@* ]]; then                                          \
-	            branch="$${repo#*@}";                                            \
-	            repo="$${repo%@*}";                                              \
-	        else                                                                 \
-	            branch="master";                                                 \
-	        fi;                                                                  \
-	        echo -e "[$$repo:$$branch:lastSuccessful]\n\
-name=$$repo:$$branch:lastSuccessful\n\
-baseurl=$${JENKINS_URL}job/daos-stack/job/$$repo/job/$$branch/lastSuccessfulBuild/artifact/artifacts/centos7/\n\
-enabled=1\n\
-gpgcheck = False\n" >> /etc/mock/default.cfg;                                        \
-	    done;                                                                    \
-	    echo "\"\"\"" >> /etc/mock/default.cfg;                                  \
-	else                                                                         \
-	    echo "Unable to update /etc/mock/default.cfg.";                          \
-            echo "You need to make sure it has the needed repos in it yourself.";    \
-	fi
-	mock $(MOCK_OPTIONS) $(RPM_BUILD_OPTIONS) $<
+# *_LOCAL_* repos are locally built packages.
+# *_GROUP_* repos are a local mirror of a group of upstream repos.
+# *_GROUP_* repos may not supply a repomd.xml.key.
+ifneq ($(REPOSITORY_URL),)
+ifneq ($(DAOS_STACK_$(DISTRO_BASE)_LOCAL_REPO),)
+$(DISTRO_BASE)_LOCAL_REPOS  := $(REPOSITORY_URL)$(DAOS_STACK_$(DISTRO_BASE)_LOCAL_REPO)/
+endif
+ifneq ($(DAOS_STACK_$(DISTRO_BASE)_GROUP_REPO),)
+$(DISTRO_BASE)_LOCAL_REPOS  += $(REPOSITORY_URL)$(DAOS_STACK_$(DISTRO_BASE)_GROUP_REPO)/
+endif
+endif
+
+ifeq ($(ID_LIKE),debian)
+ifneq ($(DAOS_STACK_REPO_SUPPORT),)
+TEST_STR := $(DAOS_STACK_REPO_UBUNTU_$(VERSION_ID_STR)_LIST)
+ifneq ($(TEST_STR),)
+UBUNTU_REPOS := $(shell curl $(DAOS_STACK_REPO_SUPPORT)$(TEST_STR))
+# Additional repos can be added but must be separated by a | character.
+UBUNTU_ADD_REPOS = --othermirror "$(UBUNTU_REPOS)"
 else
-sle12_REPOS += --repo https://download.opensuse.org/repositories/science:/HPC/openSUSE_Leap_42.3/     \
-	       --repo http://cobbler/cobbler/repo_mirror/sdkupdate-sles12.3-x86_64/                   \
-	       --repo http://cobbler/cobbler/repo_mirror/sdk-sles12.3-x86_64                          \
-	       --repo http://download.opensuse.org/repositories/openSUSE:/Backports:/SLE-12/standard/ \
-	       --repo http://cobbler/cobbler/repo_mirror/updates-sles12.3-x86_64                      \
-	       --repo http://cobbler/cobbler/pub/SLES-12.3-x86_64/
+ifneq ($(DAOS_STACK_REPO_UBUNTU_ROLLING_LIST),)
+UBUNTU_REPOS := $(shell curl $(DAOS_STACK_REPO_SUPPORT)$(DAOS_STACK_REPO_UBUNTU_ROLLING_LIST))
+# Additional repos can be added but must be separated by a | character.
+UBUNTU_ADD_REPOS = --othermirror "$(UBUNTU_REPOS)"
+endif
+endif
+# Need to figure out how to support multiple keys, such as for IPMCTL
+ifneq ($(DAOS_STACK_REPO_PUB_KEY),)
+HAVE_DAOS_STACK_KEY := TRUE
 
-sl42_REPOS += --repo https://download.opensuse.org/repositories/science:/HPC/openSUSE_Leap_42.3 \
-	      --repo http://download.opensuse.org/update/leap/42.3/oss/                         \
-	      --repo http://download.opensuse.org/distribution/leap/42.3/repo/oss/suse/
+$(DAOS_STACK_REPO_PUB_KEY):
+	curl -f -L -O '$(DAOS_STACK_REPO_SUPPORT)$(DAOS_STACK_REPO_PUB_KEY)'
+endif
+endif
 
-sl15_REPOS += --repo http://download.opensuse.org/update/leap/15.1/oss/            \
-	      --repo http://download.opensuse.org/distribution/leap/15.1/repo/oss/
-
+chrootbuild: $(DEB_TOP)/$(DEB_DSC) $(DAOS_STACK_REPO_PUB_KEY)
+	sudo pbuilder create \
+	    --extrapackages "gnupg ca-certificates" $(DISTRO_ID_OPT)
+ifneq ($(HAVE_DAOS_STACK_KEY),)
+	printf "apt-key add - <<EOF\n$$(cat $(DAOS_STACK_REPO_PUB_KEY))\nEOF" \
+	       | sudo pbuilder --login --save-after-login
+endif
+	cd $(DEB_TOP); sudo pbuilder --update --override-config $(UBUNTU_ADD_REPOS)
+	cd $(DEB_TOP); sudo pbuilder build $(DEB_DSC)
+else
 chrootbuild: $(SRPM) $(CALLING_MAKEFILE)
 	if [ -w /etc/mock/$(CHROOT_NAME).cfg ]; then                                        \
 	    echo -e "config_opts['yum.conf'] += \"\"\"\n" >> /etc/mock/$(CHROOT_NAME).cfg;  \
@@ -364,6 +391,9 @@ ifndef DEBFULLNAME
 	$(error DEBFULLNAME is undefined)
 endif
 
+test:
+	@echo "No test defined for this module"
+
 show_version:
 	@echo $(VERSION)
 
@@ -388,6 +418,9 @@ show_makefiles:
 show_calling_makefile:
 	@echo $(CALLING_MAKEFILE)
 
-.PHONY: srpm rpms debs ls chrootbuild rpmlint FORCE \
+show_git_metadata:
+	@echo $(GIT_SHA1):$(GIT_SHORT):$(GIT_NUM_COMMITS)
+
+.PHONY: srpm rpms debs deb_detar ls chrootbuild rpmlint FORCE        \
         show_version show_release show_rpms show_source show_sources \
         show_targets check-env show_git_metadata 
