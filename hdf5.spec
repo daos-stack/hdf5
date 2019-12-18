@@ -105,7 +105,7 @@ Group: Development/Libraries
 Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
-# RHEL doesn't provide with %{_isa}
+# RHEL doesn't provide with #{_isa}
 Requires: mpich-devel
 Provides: %{name}-mpich2-devel = %{version}-%{release}
 Obsoletes: %{name}-mpich2-devel < 1.8.11-4
