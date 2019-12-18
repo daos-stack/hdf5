@@ -13,7 +13,7 @@ License: BSD
 Group: System Environment/Libraries
 URL: http://www.hdfgroup.org/HDF5/
 
-Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
+Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}-4.debian.tar.gz
