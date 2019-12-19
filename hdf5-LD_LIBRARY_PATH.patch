@@ -1,0 +1,45 @@
+--- hdf5-1.8.12/configure.ac.LD_LIBRARY_PATH	2015-03-04 13:20:53.164831682 -0700
++++ hdf5-1.8.12/configure.ac	2015-03-04 13:23:17.852904172 -0700
+@@ -2342,14 +2342,9 @@
+ ## Try to figure out how to print `long long'.  Some machines use `%lld'
+ ## and others use `%qd'.  There may be more!  The final `l' is a
+ ## default in case none of the others work.
+-## Need to patch up LD_LIBRARY_PATH so that the execution can find all
+-## the dynamic library.  The correct way to do it should be updating
+-## LD_LIBRARY_PATH along with LDFLAGS or do it with the AC_TRY_RUN macro.
+ ##
+ AC_MSG_CHECKING([how to print long long])
+ AC_CACHE_VAL([hdf5_cv_printf_ll], [
+-LD_LIBRARY_PATH="$LD_LIBRARY_PATH`echo $AM_LDFLAGS $LDFLAGS | sed -e 's/-L/:/g' -e 's/ //g'`"
+-export LD_LIBRARY_PATH
+ 
+ for hdf5_cv_printf_ll in l ll L q unknown; do
+    AC_TRY_RUN([
+--- hdf5-1.8.12/src/Makefile.am.LD_LIBRARY_PATH	2013-11-21 08:13:52.000000000 -0700
++++ hdf5-1.8.12/src/Makefile.am	2015-03-04 13:22:19.355266916 -0700
+@@ -122,25 +122,17 @@
+ settings_DATA=libhdf5.settings
+ 
+ # Number format detection
+-# The LD_LIBRARY_PATH setting is a kludge.
+-# Things should have been all set during H5detect making.
+ # Remove the generated .c file if errors occur unless HDF5_Make_Ignore
+ # is set to ignore the error.
+ H5Tinit.c: H5detect$(EXEEXT)
+-	LD_LIBRARY_PATH="$$LD_LIBRARY_PATH`echo $(LDFLAGS) |                  \
+-		sed -e 's/-L/:/g' -e 's/ //g'`"                               \
+ 	$(RUNSERIAL) ./H5detect$(EXEEXT) > $@  ||                               \
+ 	    (test $$HDF5_Make_Ignore && echo "*** Error ignored") ||          \
+ 	    ($(RM) $@ ; exit 1)
+ 
+ # Build configuration header file generation
+-# The LD_LIBRARY_PATH setting is a kludge.
+-# Things should have been all set during H5make_libsettings making.
+ # Remove the generated .c file if errors occur unless HDF5_Make_Ignore
+ # is set to ignore the error.
+ H5lib_settings.c: H5make_libsettings$(EXEEXT) libhdf5.settings
+-	LD_LIBRARY_PATH="$$LD_LIBRARY_PATH`echo $(LDFLAGS) |                  \
+-		sed -e 's/-L/:/g' -e 's/ //g'`"                               \
+ 	$(RUNSERIAL) ./H5make_libsettings$(EXEEXT) > $@  ||                               \
+ 	    (test $$HDF5_Make_Ignore && echo "*** Error ignored") ||          \
+ 	    ($(RM) $@ ; exit 1)
