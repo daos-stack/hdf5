@@ -1,10 +1,15 @@
 NAME      := hdf5
 SRC_EXT   := bz2
 
-LOCAL_REPOS := false
-
 include packaging/Makefile_packaging.mk
 
-hdf5_$(VERSION)-4.debian.tar.gz:
-	curl -f -L -O https://src.fedoraproject.org/repo/pkgs/hdf5/hdf5_$(VERSION)-4.debian.tar.gz/918828a109a7c4ee0639a7515fcfb1e0/hdf5_$(VERSION)-4.debian.tar.gz
+PR_REPOS := mpich@PR-10
 
+hdf5_1.10.4+repack-1.debian.tar.xz:
+	curl -f -L -O http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.10.4+repack-1.debian.tar.xz
+
+hdf5comp:
+	curl -f -L -O https://src.fedoraproject.org/rpms/hdf5/raw/master/f/$@
+
+%.patch:
+	curl -f -L -O https://src.fedoraproject.org/rpms/hdf5/raw/master/f/$@

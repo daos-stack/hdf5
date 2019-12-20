@@ -1,0 +1,134 @@
+diff -up hdf5-1.10.5/java/examples/datasets/JavaDatasetExample.sh.in.build hdf5-1.10.5/java/examples/datasets/JavaDatasetExample.sh.in
+--- hdf5-1.10.5/java/examples/datasets/JavaDatasetExample.sh.in.build	2018-09-10 08:43:41.000000000 -0600
++++ hdf5-1.10.5/java/examples/datasets/JavaDatasetExample.sh.in	2019-04-07 15:29:56.304854644 -0600
+@@ -39,7 +39,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
+ BLDLIBDIR="$top_builddir/hdf5/lib"
+ BLDDIR="."
+ HDFTEST_HOME="$top_srcdir/java/examples/datasets"
+-JARFILE=jar@PACKAGE_TARNAME@-@PACKAGE_VERSION@.jar
++JARFILE=@PACKAGE_TARNAME@.jar
+ TESTJARFILE=jar@PACKAGE_TARNAME@datasets.jar
+ test -d $BLDLIBDIR || mkdir -p $BLDLIBDIR
+ 
+diff -up hdf5-1.10.5/java/examples/datasets/Makefile.am.build hdf5-1.10.5/java/examples/datasets/Makefile.am
+--- hdf5-1.10.5/java/examples/datasets/Makefile.am.build	2018-09-03 20:54:44.000000000 -0600
++++ hdf5-1.10.5/java/examples/datasets/Makefile.am	2019-04-07 15:29:56.305854652 -0600
+@@ -27,7 +27,7 @@ classes:
+ 	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
+ 
+ pkgpath = examples/datasets
+-hdfjarfile = jar$(PACKAGE_TARNAME)-$(PACKAGE_VERSION).jar
++hdfjarfile = $(PACKAGE_TARNAME).jar
+ CLASSPATH_ENV=CLASSPATH=.:$(JAVAROOT):$(top_builddir)/java/src/$(hdfjarfile):$(top_srcdir)/java/lib/slf4j-api-1.7.25.jar:$(top_srcdir)/java/lib/ext/slf4j-simple-1.7.25.jar:$$CLASSPATH
+ 
+ jarfile = jar$(PACKAGE_TARNAME)datasets.jar
+diff -up hdf5-1.10.5/java/examples/datatypes/JavaDatatypeExample.sh.in.build hdf5-1.10.5/java/examples/datatypes/JavaDatatypeExample.sh.in
+--- hdf5-1.10.5/java/examples/datatypes/JavaDatatypeExample.sh.in.build	2018-09-10 08:43:41.000000000 -0600
++++ hdf5-1.10.5/java/examples/datatypes/JavaDatatypeExample.sh.in	2019-04-07 15:29:56.305854652 -0600
+@@ -36,7 +36,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
+ BLDLIBDIR="$top_builddir/hdf5/lib"
+ BLDDIR="."
+ HDFTEST_HOME="$top_srcdir/java/examples/datatypes"
+-JARFILE=jar@PACKAGE_TARNAME@-@PACKAGE_VERSION@.jar
++JARFILE=@PACKAGE_TARNAME@.jar
+ TESTJARFILE=jar@PACKAGE_TARNAME@datatypes.jar
+ test -d $BLDLIBDIR || mkdir -p $BLDLIBDIR
+ 
+diff -up hdf5-1.10.5/java/examples/datatypes/Makefile.am.build hdf5-1.10.5/java/examples/datatypes/Makefile.am
+--- hdf5-1.10.5/java/examples/datatypes/Makefile.am.build	2018-09-03 20:54:44.000000000 -0600
++++ hdf5-1.10.5/java/examples/datatypes/Makefile.am	2019-04-07 15:29:56.306854659 -0600
+@@ -27,7 +27,7 @@ classes:
+ 	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
+ 
+ pkgpath = examples/datatypes
+-hdfjarfile = jar$(PACKAGE_TARNAME)-$(PACKAGE_VERSION).jar
++hdfjarfile = $(PACKAGE_TARNAME).jar
+ CLASSPATH_ENV=CLASSPATH=.:$(JAVAROOT):$(top_builddir)/java/src/$(hdfjarfile):$(top_srcdir)/java/lib/slf4j-api-1.7.25.jar:$(top_srcdir)/java/lib/ext/slf4j-simple-1.7.25.jar:$$CLASSPATH
+ 
+ jarfile = jar$(PACKAGE_TARNAME)datatypes.jar
+diff -up hdf5-1.10.5/java/examples/groups/JavaGroupExample.sh.in.build hdf5-1.10.5/java/examples/groups/JavaGroupExample.sh.in
+--- hdf5-1.10.5/java/examples/groups/JavaGroupExample.sh.in.build	2018-09-10 08:43:41.000000000 -0600
++++ hdf5-1.10.5/java/examples/groups/JavaGroupExample.sh.in	2019-04-07 15:29:56.306854659 -0600
+@@ -37,7 +37,7 @@ BLDLIBDIR="$top_builddir/hdf5/lib"
+ BLDITERDIR="./groups"
+ BLDDIR="."
+ HDFTEST_HOME="$top_srcdir/java/examples/groups"
+-JARFILE=jar@PACKAGE_TARNAME@-@PACKAGE_VERSION@.jar
++JARFILE=@PACKAGE_TARNAME@.jar
+ TESTJARFILE=jar@PACKAGE_TARNAME@groups.jar
+ test -d $BLDLIBDIR || mkdir -p $BLDLIBDIR
+ test -d $BLDITERDIR || mkdir -p $BLDITERDIR
+diff -up hdf5-1.10.5/java/examples/groups/Makefile.am.build hdf5-1.10.5/java/examples/groups/Makefile.am
+--- hdf5-1.10.5/java/examples/groups/Makefile.am.build	2018-09-03 20:54:44.000000000 -0600
++++ hdf5-1.10.5/java/examples/groups/Makefile.am	2019-04-07 15:29:56.306854659 -0600
+@@ -27,7 +27,7 @@ classes:
+ 	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
+ 
+ pkgpath = examples/groups
+-hdfjarfile = jar$(PACKAGE_TARNAME)-$(PACKAGE_VERSION).jar
++hdfjarfile = $(PACKAGE_TARNAME).jar
+ CLASSPATH_ENV=CLASSPATH=.:$(JAVAROOT):$(top_builddir)/java/src/$(hdfjarfile):$(top_srcdir)/java/lib/slf4j-api-1.7.25.jar:$(top_srcdir)/java/lib/ext/slf4j-simple-1.7.25.jar:$$CLASSPATH
+ 
+ jarfile = jar$(PACKAGE_TARNAME)groups.jar
+diff -up hdf5-1.10.5/java/examples/intro/JavaIntroExample.sh.in.build hdf5-1.10.5/java/examples/intro/JavaIntroExample.sh.in
+--- hdf5-1.10.5/java/examples/intro/JavaIntroExample.sh.in.build	2018-09-10 08:43:41.000000000 -0600
++++ hdf5-1.10.5/java/examples/intro/JavaIntroExample.sh.in	2019-04-07 15:29:56.307854667 -0600
+@@ -36,7 +36,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
+ BLDLIBDIR="$top_builddir/hdf5/lib"
+ BLDDIR="."
+ HDFTEST_HOME="$top_srcdir/java/examples/intro"
+-JARFILE=jar@PACKAGE_TARNAME@-@PACKAGE_VERSION@.jar
++JARFILE=@PACKAGE_TARNAME@.jar
+ TESTJARFILE=jar@PACKAGE_TARNAME@intro.jar
+ test -d $BLDLIBDIR || mkdir -p $BLDLIBDIR
+ 
+diff -up hdf5-1.10.5/java/examples/intro/Makefile.am.build hdf5-1.10.5/java/examples/intro/Makefile.am
+--- hdf5-1.10.5/java/examples/intro/Makefile.am.build	2018-09-03 20:54:44.000000000 -0600
++++ hdf5-1.10.5/java/examples/intro/Makefile.am	2019-04-07 15:29:56.307854667 -0600
+@@ -27,7 +27,7 @@ classes:
+ 	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
+ 
+ pkgpath = examples/intro
+-hdfjarfile = jar$(PACKAGE_TARNAME)-$(PACKAGE_VERSION).jar
++hdfjarfile = $(PACKAGE_TARNAME).jar
+ CLASSPATH_ENV=CLASSPATH=.:$(JAVAROOT):$(top_builddir)/java/src/$(hdfjarfile):$(top_srcdir)/java/lib/slf4j-api-1.7.25.jar:$(top_srcdir)/java/lib/ext/slf4j-simple-1.7.25.jar:$$CLASSPATH
+ 
+ jarfile = jar$(PACKAGE_TARNAME)intro.jar
+diff -up hdf5-1.10.5/java/src/Makefile.am.build hdf5-1.10.5/java/src/Makefile.am
+--- hdf5-1.10.5/java/src/Makefile.am.build	2018-09-03 20:54:44.000000000 -0600
++++ hdf5-1.10.5/java/src/Makefile.am	2019-04-07 15:29:56.308854675 -0600
+@@ -33,8 +33,8 @@ JAVAROOT = .classes
+ classes:
+ 	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
+ 
+-jarfile = jar$(PACKAGE_TARNAME)-$(PACKAGE_VERSION).jar
+-hdf5_javadir = $(libdir)
++jarfile = $(PACKAGE_TARNAME).jar
++hdf5_javadir = $(prefix)/lib/java
+ 
+ pkgpath = hdf/hdf5lib
+ CLASSPATH_ENV=CLASSPATH=.:$(top_srcdir)/java/lib/slf4j-api-1.7.25.jar:$$CLASSPATH
+diff -up hdf5-1.10.5/java/test/junit.sh.in.build hdf5-1.10.5/java/test/junit.sh.in
+--- hdf5-1.10.5/java/test/junit.sh.in.build	2019-02-18 13:19:25.000000000 -0700
++++ hdf5-1.10.5/java/test/junit.sh.in	2019-04-07 15:30:29.450114380 -0600
+@@ -43,7 +43,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
+ BLDLIBDIR="$top_builddir/hdf5/lib"
+ BLDDIR="."
+ HDFTEST_HOME="$top_srcdir/java/test"
+-JARFILE=jar@PACKAGE_TARNAME@-@PACKAGE_VERSION@.jar
++JARFILE=@PACKAGE_TARNAME@.jar
+ TESTJARFILE=jar@PACKAGE_TARNAME@test.jar
+ test -d $BLDLIBDIR || mkdir -p $BLDLIBDIR
+ 
+diff -up hdf5-1.10.5/java/test/Makefile.am.build hdf5-1.10.5/java/test/Makefile.am
+--- hdf5-1.10.5/java/test/Makefile.am.build	2019-02-16 15:41:11.000000000 -0700
++++ hdf5-1.10.5/java/test/Makefile.am	2019-04-07 15:29:56.309854683 -0600
+@@ -27,7 +27,7 @@ classes:
+ 	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
+ 
+ pkgpath = test
+-hdfjarfile = jar$(PACKAGE_TARNAME)-$(PACKAGE_VERSION).jar
++hdfjarfile = $(PACKAGE_TARNAME).jar
+ CLASSPATH_ENV=CLASSPATH=.:$(JAVAROOT):$(top_builddir)/java/src/$(hdfjarfile):$(top_srcdir)/java/lib/junit.jar:$(top_srcdir)/java/lib/hamcrest-core.jar:$(top_srcdir)/java/lib/slf4j-api-1.7.25.jar:$(top_srcdir)/java/lib/ext/slf4j-simple-1.7.25.jar:$$CLASSPATH
+ 
+ jarfile = jar$(PACKAGE_TARNAME)test.jar

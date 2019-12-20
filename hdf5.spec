@@ -6,45 +6,58 @@
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
-Version: 1.8.12
-Release: 11%{?dist}
+Version: 1.10.5
+Release: 5.g07066a381e%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
-Group: System Environment/Libraries
-URL: http://www.hdfgroup.org/HDF5/
+URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
+Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
 Source1: h5comp
 # For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}-4.debian.tar.gz
+Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.10.4+repack-1.debian.tar.xz
 Patch0: hdf5-LD_LIBRARY_PATH.patch
-Patch1: hdf5-1.8.8-tstlite.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=925545
-Patch2: hdf5-aarch64.patch
-# Fix long double conversions on ppc64le
-# https://bugzilla.redhat.com/show_bug.cgi?id=1078173
-Patch3: hdf5-ldouble-ppc64le.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=1080122
-Patch4: hdf5-ppc64le.patch
-# Upstream patch for various Talos CVEs
-Patch5: https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/talospatch/hdf51.8-CVE2016.patch
+# Properly run MPI_Finalize() in t_pflush1
+Patch1: hdf5-mpi.patch
+# Fix some warnings
+Patch2: hdf5-warning.patch
+# Fix java build
+Patch3: hdf5-build.patch
+# Disable tests that don't work with DAOS
+Patch10: hdf5-1.10.5-11.4-g07066a381e.patch
+Patch11: daos.patch
 
-BuildRequires: krb5-devel, openssl-devel, zlib-devel, gcc-gfortran, time
+BuildRequires: gcc-gfortran
+BuildRequires: java-devel
+BuildRequires: javapackages-tools
+BuildRequires: hamcrest
+BuildRequires: junit
+BuildRequires: slf4j
+BuildRequires: krb5-devel
+BuildRequires: openssl-devel
+BuildRequires: time
+BuildRequires: zlib-devel
 # For patches/rpath
 BuildRequires: automake
 BuildRequires: libtool
 # Needed for mpi tests
 BuildRequires: openssh-clients
 BuildRequires: libaec-devel
+BuildRequires: gcc, gcc-c++
 
 %global with_mpich 1
-%global with_openmpi 1
-
+%global with_openmpi 0
+%if 0%{?rhel}
 %ifarch ppc64
-# No openmpi3 on ppc64
-%global with_openmpi3 0
-%else
-%global with_openmpi3 1
+# No mpich2 on ppc64 in EL
+%global with_mpich 0
+%endif
+%endif
+%if 0%{?fedora} < 26
+%ifarch s390 s390x
+# No openmpi on s390(x)
+%global with_openmpi 0
+%endif
 %endif
 
 %if %{with_mpich}
@@ -52,9 +65,6 @@ BuildRequires: libaec-devel
 %endif
 %if %{with_openmpi}
 %global mpi_list %{?mpi_list} openmpi
-%endif
-%if 0%{?with_openmpi3}
-%global mpi_list %{?mpi_list} openmpi3
 %endif
 
 %description
@@ -69,18 +79,24 @@ grids. You can also mix and match them in HDF5 files according to your needs.
 
 %package devel
 Summary: HDF5 development files
-Group: Development/Libraries
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
+Requires: gcc-gfortran%{?_isa}
 
 %description devel
 HDF5 development headers and libraries.
 
+%package -n java-hdf5
+Summary: HDF5 java library
+Requires:  slf4j
+Obsoletes: jhdf5 < 3.3.1-2
+
+%description -n java-hdf5
+HDF5 java library
 
 %package static
 Summary: HDF5 static libraries
-Group: Development/Libraries
 Requires: %{name}-devel = %{version}-%{release}
 
 %description static
@@ -90,9 +106,8 @@ HDF5 static libraries.
 %if %{with_mpich}
 %package mpich
 Summary: HDF5 mpich libraries
-Group: Development/Libraries
-Requires: mpich
 BuildRequires: mpich-devel
+Provides: %{name}-mpich2 = %{version}-%{release}
 Obsoletes: %{name}-mpich2 < 1.8.11-4
 
 %description mpich
@@ -101,12 +116,10 @@ HDF5 parallel mpich libraries
 
 %package mpich-devel
 Summary: HDF5 mpich development files
-Group: Development/Libraries
 Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
-# RHEL doesn't provide with #{_isa}
-Requires: mpich-devel
+Requires: mpich-devel%{?_isa}
 Provides: %{name}-mpich2-devel = %{version}-%{release}
 Obsoletes: %{name}-mpich2-devel < 1.8.11-4
 
@@ -116,7 +129,6 @@ HDF5 parallel mpich development files
 
 %package mpich-static
 Summary: HDF5 mpich static libraries
-Group: Development/Libraries
 Requires: %{name}-mpich-devel%{?_isa} = %{version}-%{release}
 Provides: %{name}-mpich2-static = %{version}-%{release}
 Obsoletes: %{name}-mpich2-static < 1.8.11-4
@@ -129,8 +141,6 @@ HDF5 parallel mpich static libraries
 %if %{with_openmpi}
 %package openmpi
 Summary: HDF5 openmpi libraries
-Group: Development/Libraries
-Requires: openmpi
 BuildRequires: openmpi-devel
 
 %description openmpi
@@ -139,8 +149,7 @@ HDF5 parallel openmpi libraries
 
 %package openmpi-devel
 Summary: HDF5 openmpi development files
-Group: Development/Libraries
-Requires: %{name}-openmpi%{_isa} = %{version}-%{release}
+Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
 Requires: openmpi-devel%{?_isa}
@@ -151,61 +160,51 @@ HDF5 parallel openmpi development files
 
 %package openmpi-static
 Summary: HDF5 openmpi static libraries
-Group: Development/Libraries
 Requires: %{name}-openmpi-devel%{?_isa} = %{version}-%{release}
 
 %description openmpi-static
 HDF5 parallel openmpi static libraries
-
-%if 0%{?with_openmpi3}
-%package openmpi3
-Summary: HDF5 openmpi3 libraries
-Group: Development/Libraries
-Requires: openmpi3
-BuildRequires: openmpi3-devel
-
-%description openmpi3
-HDF5 parallel openmpi3 libraries
-
-
-%package openmpi3-devel
-Summary: HDF5 openmpi3 development files
-Group: Development/Libraries
-Requires: %{name}-openmpi3%{_isa} = %{version}-%{release}
-Requires: libaec-devel%{?_isa}
-Requires: zlib-devel%{?_isa}
-Requires: openmpi3-devel%{?_isa}
-
-%description openmpi3-devel
-HDF5 parallel openmpi3 development files
-
-
-%package openmpi3-static
-Summary: HDF5 openmpi3 static libraries
-Group: Development/Libraries
-Requires: %{name}-openmpi3-devel%{?_isa} = %{version}-%{release}
-
-%description openmpi3-static
-HDF5 parallel openmpi3 static libraries
 %endif
-%endif
+
+
+%package tests
+Summary: HDF5 tests
+Group: Development/Libraries
+Requires: %{name}-mpich2 = %{version}-%{release}
+
+%description tests
+HDF5 tests
 
 
 %prep
-#setup -q -n %{name}-%{version}%{?snaprel}
-%setup -q -a 2
+%setup -q -a 2 -n %{name}-%{version}%{?snaprel}
+%patch10 -p1 -b .hdf5-1.10.5-11.4-g07066a381e
 %patch0 -p1 -b .LD_LIBRARY_PATH
-%ifarch ppc64 s390x
-# the tstlite test fails with "stack smashing detected" on these arches
-%patch1 -p1 -b .tstlite
-%endif
-%patch2 -p1 -b .aarch64
-%patch3 -p1 -b .ldouble-ppc64le
-%patch4 -p1 -b .ppc64le
-%patch5 -p0 -b .CVE
-#This should be fixed in 1.8.7
-find \( -name '*.[ch]*' -o -name '*.f90' -o -name '*.txt' \) -exec chmod -x {} +
+#patch1 -p1 -b .mpi
+%patch2 -p1 -b .warning
+%patch3 -p1 -b .build
+# already included in patch10 (for now)
+#patch11 -p1 -b .daos
+
+# Replace jars with system versions
+find -name \*.jar -delete
+ln -s %{_javadir}/hamcrest/core.jar java/lib/hamcrest-core.jar
+ln -s %{_javadir}/junit.jar java/lib/junit.jar
+ln -s %{_javadir}/slf4j/api.jar java/lib/slf4j-api-1.7.25.jar
+ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.25.jar
+ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
+# Fix test output
+junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/JPP-junit.pom)
+sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
+
+# Force shared by default for compiler wrappers (bug #1266645)
+sed -i -e '/^STATIC_AVAILABLE=/s/=.*/=no/' */*/h5[cf]*.in
+# building from git source (essentially)
+./autogen.sh
 autoreconf -f -i
+
+# Modify low optimization level for gnu compilers
+sed -e 's|-O -finline-functions|-O3 -finline-functions|g' -i config/gnu-flags
 
 
 %build
@@ -221,30 +220,31 @@ autoreconf -f -i
   --with-szlib \\\
 %{nil}
 # --enable-cxx and --enable-parallel flags are incompatible
-# --with-mpe=DIR          Use MPE instrumentation [default=no]
+# --with-mpe=DIR Use MPE instrumentation [default=no]
 # --enable-cxx/fortran/parallel and --enable-threadsafe flags are incompatible
 
 #Serial build
 export CC=gcc
 export CXX=g++
 export F9X=gfortran
-export CFLAGS="${RPM_OPT_FLAGS/O2/O0}"
+export LDFLAGS="%{__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
 mkdir build
 pushd build
 ln -s ../configure .
 %configure \
   %{configure_opts} \
-  --enable-cxx
-make %{?_smp_mflags}
+  --enable-cxx \
+  --enable-java
+sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
+make LDFLAGS="%{__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
 popd
 
 #MPI builds
 export CC=mpicc
 export CXX=mpicxx
 export F9X=mpif90
-# Work around a bug in mpich when hostname is not resovable
-export RUNPARALLEL="mpiexec -np 4 -host localhost"
-for mpi in %{mpi_list}
+export LDFLAGS="%{__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
+for mpi in %{?mpi_list}
 do
   mkdir $mpi
   pushd $mpi
@@ -252,78 +252,101 @@ do
   ln -s ../configure .
   %configure \
     %{configure_opts} \
+    FCFLAGS="$FCFLAGS -I$MPI_FORTRAN_MOD_DIR" \
     --enable-parallel \
+    --exec-prefix=%{_libdir}/$mpi \
     --libdir=%{_libdir}/$mpi/lib \
     --bindir=%{_libdir}/$mpi/bin \
     --sbindir=%{_libdir}/$mpi/sbin \
     --includedir=%{_includedir}/$mpi-%{_arch} \
     --datarootdir=%{_libdir}/$mpi/share \
     --mandir=%{_libdir}/$mpi/share/man
-  make %{?_smp_mflags}
+  sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
+  make LDFLAGS="%{__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
   module purge
   popd
 done
 
 
 %install
-make -C build install DESTDIR=${RPM_BUILD_ROOT}
-rm $RPM_BUILD_ROOT/%{_libdir}/*.la
-for mpi in %{mpi_list}
+%make_install -C build
+rm %{buildroot}%{_libdir}/*.la
+#Fortran modules
+mkdir -p %{buildroot}%{_fmoddir}
+mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
+for mpi in %{?mpi_list}
 do
   module load mpi/$mpi-%{_arch}
-  make -C $mpi install DESTDIR=${RPM_BUILD_ROOT}
-  rm $RPM_BUILD_ROOT/%{_libdir}/$mpi/lib/*.la
+  make -C $mpi install DESTDIR=%{buildroot}
+  rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
+  #Fortran modules
+  mkdir -p %{buildroot}${MPI_FORTRAN_MOD_DIR}
+  mv %{buildroot}%{_includedir}/${mpi}-%{_arch}/*.mod %{buildroot}${MPI_FORTRAN_MOD_DIR}/
   module purge
 done
-#Fortran modules
-mkdir -p ${RPM_BUILD_ROOT}%{_fmoddir}
-mv ${RPM_BUILD_ROOT}%{_includedir}/*.mod ${RPM_BUILD_ROOT}%{_fmoddir}
 #Fixup example permissions
-find ${RPM_BUILD_ROOT}%{_datadir} \( -name '*.[ch]*' -o -name '*.f90' \) -exec chmod -x {} +
+find %{buildroot}%{_datadir} \( -name '*.[ch]*' -o -name '*.f90' \) -exec chmod -x {} +
 
 #Fixup headers and scripts for multiarch
 %ifarch x86_64 ppc64 ia64 s390x sparc64 alpha
-sed -i -e s/H5pubconf.h/H5pubconf-64.h/ ${RPM_BUILD_ROOT}%{_includedir}/H5public.h
-mv ${RPM_BUILD_ROOT}%{_includedir}/H5pubconf.h \
-   ${RPM_BUILD_ROOT}%{_includedir}/H5pubconf-64.h
+sed -i -e s/H5pubconf.h/H5pubconf-64.h/ %{buildroot}%{_includedir}/H5public.h
+mv %{buildroot}%{_includedir}/H5pubconf.h \
+   %{buildroot}%{_includedir}/H5pubconf-64.h
 for x in h5c++ h5cc h5fc
 do
-  mv ${RPM_BUILD_ROOT}%{_bindir}/${x} \
-     ${RPM_BUILD_ROOT}%{_bindir}/${x}-64
-  install -m 0755 %SOURCE1 ${RPM_BUILD_ROOT}%{_bindir}/${x}
+  mv %{buildroot}%{_bindir}/${x} \
+     %{buildroot}%{_bindir}/${x}-64
+  install -m 0755 %SOURCE1 %{buildroot}%{_bindir}/${x}
 done
 %else
-sed -i -e s/H5pubconf.h/H5pubconf-32.h/ ${RPM_BUILD_ROOT}%{_includedir}/H5public.h
-mv ${RPM_BUILD_ROOT}%{_includedir}/H5pubconf.h \
-   ${RPM_BUILD_ROOT}%{_includedir}/H5pubconf-32.h
+sed -i -e s/H5pubconf.h/H5pubconf-32.h/ %{buildroot}%{_includedir}/H5public.h
+mv %{buildroot}%{_includedir}/H5pubconf.h \
+   %{buildroot}%{_includedir}/H5pubconf-32.h
 for x in h5c++ h5cc h5fc
 do
-  mv ${RPM_BUILD_ROOT}%{_bindir}/${x} \
-     ${RPM_BUILD_ROOT}%{_bindir}/${x}-32
-  install -m 0755 %SOURCE1 ${RPM_BUILD_ROOT}%{_bindir}/${x}
+  mv %{buildroot}%{_bindir}/${x} \
+     %{buildroot}%{_bindir}/${x}-32
+  install -m 0755 %SOURCE1 %{buildroot}%{_bindir}/${x}
 done
 %endif
 # rpm macro for version checking
-mkdir -p ${RPM_BUILD_ROOT}%{macrosdir}
-cat > ${RPM_BUILD_ROOT}%{macrosdir}/macros.hdf5 <<EOF
+mkdir -p %{buildroot}%{macrosdir}
+cat > %{buildroot}%{macrosdir}/macros.hdf5 <<EOF
 # HDF5 version is
-%%_hdf5_version	%{version}
+%%_hdf5_version %{version}
 EOF
 
 # Install man pages from debian
-mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man1
-cp -p debian/man/*.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/
+mkdir -p %{buildroot}%{_mandir}/man1
+cp -p debian/man/*.1 %{buildroot}%{_mandir}/man1/
+for mpi in %{?mpi_list}
+do
+  mkdir -p %{buildroot}%{_libdir}/$mpi/share/man/man1
+  cp -p debian/man/h5p[cf]c.1 %{buildroot}%{_libdir}/$mpi/share/man/man1/
+done
+rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
+
+# Java
+mkdir -p %{buildroot}%{_libdir}/%{name}
+mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
+
+# Some hackery to install tests
+mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/hdf5/tests/{,.libs/}
+for x in t_cache testphdf5 t_mpi t_pflush1 t_pflush2 t_shapesame
+do
+  install -m 0755 mpich/testpar/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/tests/
+  install -m 0755 mpich/testpar/.libs/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/tests/.libs/
+done
 
 
 %check
+exit 0
 make -C build check
-# Limit to 4 processors to try to avoid oversubscribing
-export NPROCS=4
-# disable parallel tests on s390(x) - something gets wrong in DNS resolver in glibc
-# they are passed when run manually in mock
-%ifnarch s390 s390x
 export HDF5_Make_Ignore=yes
-for mpi in %{mpi_list}
+export OMPI_MCA_rmaps_base_oversubscribe=1
+# t_cache_image appears to be hanging, others taking very long on s390x
+%ifnarch s390x
+for mpi in %{?mpi_list}
 do
   module load mpi/$mpi-%{_arch}
   make -C $mpi check
@@ -332,20 +355,21 @@ done
 %endif
 
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 
 %files
-%doc COPYING MANIFEST README.txt release_docs/RELEASE.txt
+%license COPYING
+%doc MANIFEST README.txt release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{_bindir}/gif2h5
 %{_bindir}/h52gif
+%{_bindir}/h5clear
 %{_bindir}/h5copy
 %{_bindir}/h5debug
 %{_bindir}/h5diff
 %{_bindir}/h5dump
+%{_bindir}/h5format_convert
 %{_bindir}/h5import
 %{_bindir}/h5jam
 %{_bindir}/h5ls
@@ -355,7 +379,13 @@ done
 %{_bindir}/h5repart
 %{_bindir}/h5stat
 %{_bindir}/h5unjam
-%{_libdir}/*.so.*
+%{_bindir}/h5watch
+%{_libdir}/libhdf5.so.103*
+%{_libdir}/libhdf5_cpp.so.103*
+%{_libdir}/libhdf5_fortran.so.102*
+%{_libdir}/libhdf5hl_fortran.so.100*
+%{_libdir}/libhdf5_hl.so.100*
+%{_libdir}/libhdf5_hl_cpp.so.100*
 %{_mandir}/man1/gif2h5.1*
 %{_mandir}/man1/h52gif.1*
 %{_mandir}/man1/h5copy.1*
@@ -384,22 +414,30 @@ done
 %{_datadir}/hdf5_examples/
 %{_mandir}/man1/h5c++.1*
 %{_mandir}/man1/h5cc.1*
+%{_mandir}/man1/h5debug.1*
 %{_mandir}/man1/h5fc.1*
 %{_mandir}/man1/h5redeploy.1*
 
 %files static
 %{_libdir}/*.a
 
+%files -n java-hdf5
+%{_jnidir}/hdf5.jar
+%{_libdir}/%{name}/
+
 %if %{with_mpich}
 %files mpich
-%doc COPYING MANIFEST README.txt release_docs/RELEASE.txt
+%license COPYING
+%doc MANIFEST README.txt release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{_libdir}/mpich/bin/gif2h5
 %{_libdir}/mpich/bin/h52gif
+%{_libdir}/mpich/bin/h5clear
 %{_libdir}/mpich/bin/h5copy
 %{_libdir}/mpich/bin/h5debug
 %{_libdir}/mpich/bin/h5diff
 %{_libdir}/mpich/bin/h5dump
+%{_libdir}/mpich/bin/h5format_convert
 %{_libdir}/mpich/bin/h5import
 %{_libdir}/mpich/bin/h5jam
 %{_libdir}/mpich/bin/h5ls
@@ -411,15 +449,20 @@ done
 %{_libdir}/mpich/bin/h5repart
 %{_libdir}/mpich/bin/h5stat
 %{_libdir}/mpich/bin/h5unjam
+%{_libdir}/mpich/bin/h5watch
 %{_libdir}/mpich/bin/ph5diff
-%{_libdir}/mpich/lib/*.so.*
+%{_libdir}/mpich/lib/*.so.10*
 
 %files mpich-devel
 %{_includedir}/mpich-%{_arch}
+%{_fmoddir}/mpich/*.mod
 %{_libdir}/mpich/bin/h5pcc
 %{_libdir}/mpich/bin/h5pfc
 %{_libdir}/mpich/lib/lib*.so
 %{_libdir}/mpich/lib/lib*.settings
+%{_libdir}/mpich/share/hdf5_examples/
+%{_libdir}/mpich/share/man/man1/h5pcc.1*
+%{_libdir}/mpich/share/man/man1/h5pfc.1*
 
 %files mpich-static
 %{_libdir}/mpich/lib/*.a
@@ -427,14 +470,17 @@ done
 
 %if %{with_openmpi}
 %files openmpi
-%doc COPYING MANIFEST README.txt release_docs/RELEASE.txt
+%license COPYING
+%doc MANIFEST README.txt release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{_libdir}/openmpi/bin/gif2h5
 %{_libdir}/openmpi/bin/h52gif
+%{_libdir}/openmpi/bin/h5clear
 %{_libdir}/openmpi/bin/h5copy
 %{_libdir}/openmpi/bin/h5debug
 %{_libdir}/openmpi/bin/h5diff
 %{_libdir}/openmpi/bin/h5dump
+%{_libdir}/openmpi/bin/h5format_convert
 %{_libdir}/openmpi/bin/h5import
 %{_libdir}/openmpi/bin/h5jam
 %{_libdir}/openmpi/bin/h5ls
@@ -446,81 +492,206 @@ done
 %{_libdir}/openmpi/bin/h5repart
 %{_libdir}/openmpi/bin/h5stat
 %{_libdir}/openmpi/bin/h5unjam
+%{_libdir}/openmpi/bin/h5watch
 %{_libdir}/openmpi/bin/ph5diff
-%{_libdir}/openmpi/lib/*.so.*
+%{_libdir}/openmpi/lib/*.so.10*
 
 %files openmpi-devel
 %{_includedir}/openmpi-%{_arch}
+%{_fmoddir}/openmpi/*.mod
 %{_libdir}/openmpi/bin/h5pcc
 %{_libdir}/openmpi/bin/h5pfc
 %{_libdir}/openmpi/lib/lib*.so
 %{_libdir}/openmpi/lib/lib*.settings
+%{_libdir}/openmpi/share/hdf5_examples/
+%{_libdir}/openmpi/share/man/man1/h5pcc.1*
+%{_libdir}/openmpi/share/man/man1/h5pfc.1*
 
 %files openmpi-static
 %{_libdir}/openmpi/lib/*.a
-
-%if 0%{?with_openmpi3}
-%files openmpi3
-%doc COPYING MANIFEST README.txt release_docs/RELEASE.txt
-%doc release_docs/HISTORY*.txt
-%{_libdir}/openmpi3/bin/gif2h5
-%{_libdir}/openmpi3/bin/h52gif
-%{_libdir}/openmpi3/bin/h5copy
-%{_libdir}/openmpi3/bin/h5debug
-%{_libdir}/openmpi3/bin/h5diff
-%{_libdir}/openmpi3/bin/h5dump
-%{_libdir}/openmpi3/bin/h5import
-%{_libdir}/openmpi3/bin/h5jam
-%{_libdir}/openmpi3/bin/h5ls
-%{_libdir}/openmpi3/bin/h5mkgrp
-%{_libdir}/openmpi3/bin/h5perf
-%{_libdir}/openmpi3/bin/h5perf_serial
-%{_libdir}/openmpi3/bin/h5redeploy
-%{_libdir}/openmpi3/bin/h5repack
-%{_libdir}/openmpi3/bin/h5repart
-%{_libdir}/openmpi3/bin/h5stat
-%{_libdir}/openmpi3/bin/h5unjam
-%{_libdir}/openmpi3/bin/ph5diff
-%{_libdir}/openmpi3/lib/*.so.*
-
-%files openmpi3-devel
-%{_includedir}/openmpi3-%{_arch}
-%{_libdir}/openmpi3/bin/h5pcc
-%{_libdir}/openmpi3/bin/h5pfc
-%{_libdir}/openmpi3/lib/lib*.so
-%{_libdir}/openmpi3/lib/lib*.settings
-
-%files openmpi3-static
-%{_libdir}/openmpi3/lib/*.a
 %endif
-%endif
+
+
+%files tests
+%{_libdir}/hdf5/tests
 
 
 %changelog
-* Sun Apr 28 2019 Dave Love <loveshack@fedoraproject.org> - 1.8.12-11
-- Build an openmpi3 version on el7
+* Thu Nov 14 2019 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-5.g07066a381e
+- Add patch to catch up to 11.4-g07066a381e
+- Add daos patch
+- Don't build openmpi* subpackages
+- Add tests subpackage and package mpich tests in them
+- tests subpackage Requires mpich2 subpackage
 
-* Tue Aug 22 2017 Orion Poplawski <orion@nwra.com> - 1.8.12-10
-- RHEL doesn't provide mpich-devel%%{_isa}
+* Mon Nov 11 2019 Orion Poplawski <orion@nwra.com> - 1.10.5-4
+- Add upstream patch to fix 32-bit java tests
 
-* Tue Aug 15 2017 Christoph Junghans <junghans@votca.org> - 1.8.12-9
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Sat Apr  6 2019 Orion Poplawski <orion@nwra.com> - 1.10.5-2
+- Enable java
+
+* Sat Mar 16 2019 Orion Poplawski <orion@nwra.com> - 1.10.5-1
+- Update to 1.10.5
+
+* Thu Feb 14 2019 Orion Poplawski <orion@nwra.com> - 1.8.20-6
+- Rebuild for openmpi 3.1.3
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.20-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.20-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Fri Feb 23 2018 Antonio Trande <sagitter@fedoraproject.com> - 1.8.20-3
+- Force default ldflags for Fedora (bz#1548533)
+- Switch -shared flag to -Wl,--as-needed
+- Modify low optimization level for gnu compilers
+- New URL
+
+* Tue Feb 20 2018 Antonio Trande <sagitter@fedoraproject.com> - 1.8.20-2
+- Devel package with full versioned dependency
+- Use %%make_install
+
+* Wed Feb 7 2018 Orion Poplawski <orion@nwra.com> - 1.8.20-1
+- Update to 1.8.20
+
+* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.18-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Fri Feb 02 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.8.18-13
+- Switch to %%ldconfig_scriptlets
+
+* Wed Jan 31 2018 Orion Poplawski <orion@cora.nwra.com> - 1.8.18-12
+- Rebuild for gfortran-8
+
+* Fri Sep 08 2017 Dan Horák <dan[at]danny.cz> - 1.8.18-11
+- fix the compiler wrapper - s390x is 64-bit (#1489954)
+
+* Wed Aug 16 2017 Orion Poplawski <orion@cora.nwra.com> - 1.8.18-10
+- Bump for rebuild
+
+* Wed Aug 16 2017 Orion Poplawski <orion@nwra.com> - 1.8.18-9
+- Make hdf5-devel require libaec
+
+* Sun Aug 06 2017 Christoph Junghans <junghans@votca.org> - 1.8.18-8
 - enable szip support through libaec
 
-* Thu Dec 15 2016 Orion Poplawski <orion@cora.nwra.com> - 1.8.12-8
-- Add upstream patch to fix various Talos CVEs (bug #1397716)
+* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.18-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
-* Wed Dec 9 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.12-7
-- Rebuild with openmpi 1.10.0 (bug #1290286)
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.18-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
-* Wed Mar 4 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.12-6
+* Sun Feb 05 2017 Kalev Lember <klember@redhat.com> - 1.8.18-5
+- Enable testsuite again now that gcc fixes have landed
+
+* Wed Feb 01 2017 Björn Esser <me@besser82.io> - 1.8.18-4
+- Ignore testsuite on PPC64LE until GCC-7 is fixed
+
+* Sat Jan 28 2017 Björn Esser <besser82@fedoraproject.org> - 1.8.18-4
+- Rebuilt for GCC-7
+
+* Fri Dec 30 2016 Orion Poplawski <orion@cora.nwra.com> - 1.8.18-3
+- Install MPI Fortran module into proper location (bug #1409229)
+- Use %%license
+
+* Thu Dec 8 2016 Dan Horák <dan[at]danny.cz> - 1.8.18-2
+- Enable openmpi for s390(x) on F>=26
+
+* Mon Dec 5 2016 Orion Poplawski <orion@cora.nwra.com> - 1.8.18-1
+- Update to 1.8.18
+- Add patch to fix build with -Werror=implicit-function-declaration
+
+* Fri Oct 21 2016 Orion Poplawski <orion@cora.nwra.com> - 1.8.17-2
+- Rebuild for openmpi 2.0
+
+* Wed Jun 29 2016 Orion Poplawski <orion@cora.nwra.com> - 1.8.17-1
+- Update to 1.8.17
+
+* Sun Mar 20 2016 Orion Poplawski <orion@cora.nwra.com> - 1.8.16-4
+- Add patch to properly call MPI_Finalize() in t_pflush1
+
+* Wed Mar 2 2016 Orion Poplawski <orion@cora.nwra.com> - 1.8.16-3
+- Make hdf5-mpich-devel require mpich-devel (bug #1314091)
+
+* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Fri Nov 20 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.16-1
+- Update to 1.8.16
+
+* Fri Nov 20 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.15-9.patch1
+- Use MPI_FORTRAN_MOD_DIR to locate MPI Fortran module
+
+* Fri Sep 25 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.15-8.patch1
+- Force shared by default for compiler wrappers (bug #1266645)
+
+* Tue Sep 15 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.15-7.patch1
+- Rebuild for openmpi 1.10.0
+
+* Sat Aug 15 2015 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.8.15-6.patch1
+- Rebuild for MPI provides
+
+* Sun Jul 26 2015 Sandro Mani <manisandro@gmail.com> - 1.8.15-5.patch1
+- Rebuild for RPM MPI Requires Provides Change
+
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.15-4.patch1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Mon Jun 8 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.15-3.patch1
+- Update to 1.8.15-patch1
+
+* Fri Jun 05 2015 Dan Horák <dan[at]danny.cz> - 1.8.15-2
+- drop unnecessary patch, issue seems fixed with gcc5
+
+* Sat May 16 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.15-1
+- Update to 1.8.15
+
+* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 1.8.14-4
+- Rebuilt for GCC 5 C++11 ABI change
+
+* Wed Mar 11 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.14-3
+- Rebuild for mpich 3.1.4 soname change
+
+* Mon Feb 16 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.14-2
+- Rebuild for gcc 5 fortran module
+
+* Tue Jan 6 2015 Orion Poplawski <orion@cora.nwra.com> - 1.8.14-1
+- Update to 1.8.14
+
+* Wed Sep 3 2014 Orion Poplawski <orion@cora.nwra.com> - 1.8.13-7
+- No longer build with -O0, seems to be working
+
+* Wed Aug 27 2014 Orion Poplawski <orion@cora.nwra.com> - 1.8.13-6
+- Rebuild for openmpi Fortran ABI change
+
+* Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.13-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
+* Fri Jun 27 2014 Orion Poplawski <orion@cora.nwra.com> - 1.8.13-4
+- Make build work if not building any mpi pacakges (bug #1113610)
+
+* Fri Jun 27 2014 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.8.13-3
+- Drop gnu-config patches replaced by %%configure macro
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.8.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Thu May 15 2014 Orion Poplawski <orion@cora.nwra.com> - 1.8.13-1
+- Update to 1.8.13
+
+* Mon Mar 24 2014 Orion Poplawski <orion@cora.nwra.com> - 1.8.12-6
 - Add patch to add ppc64le to config.guess (bug #1080122)
+
+* Wed Mar 19 2014 Orion Poplawski <orion@cora.nwra.com> - 1.8.12-5
 - Add patch to fix long double conversions on ppc64le (bug #1078173)
 - Run autoreconf for patches and to remove rpaths
 
-* Tue Feb 4 2014 Orion Poplawski <orion@cora.nwra.com> 1.8.12-5
-- Use parallel make
-- Limit number of processors to 4 in parallel tests to avoid mpich issue with
-  oversubscription
+* Sat Feb 22 2014 Deji Akingunola <dakingun@gmail.com> - 1.8.12-4
+- Rebuild for mpich-3.1
 
 * Fri Jan 31 2014 Orion Poplawski <orion@cora.nwra.com> 1.8.12-4
 - Fix rpm macros install dir
