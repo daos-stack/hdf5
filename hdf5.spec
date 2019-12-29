@@ -1,4 +1,6 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
+%global cart_major 4
+%global daos_major 0
 
 # Patch version?
 %global snaprel %{nil}
@@ -7,7 +9,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.10.5
-Release: 5.g07066a381e%{?dist}
+Release: 6.g07066a381e%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -44,6 +46,7 @@ BuildRequires: libtool
 BuildRequires: openssh-clients
 BuildRequires: libaec-devel
 BuildRequires: gcc, gcc-c++
+Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 
 %global with_mpich 1
 %global with_openmpi 0
@@ -91,6 +94,7 @@ HDF5 development headers and libraries.
 Summary: HDF5 java library
 Requires:  slf4j
 Obsoletes: jhdf5 < 3.3.1-2
+Provides:       %{name}-java-hdf5-cart-%{cart_major}-daos-%{daos_major}
 
 %description -n java-hdf5
 HDF5 java library
@@ -109,6 +113,7 @@ Summary: HDF5 mpich libraries
 BuildRequires: mpich-devel
 Provides: %{name}-mpich2 = %{version}-%{release}
 Obsoletes: %{name}-mpich2 < 1.8.11-4
+Provides: %{name}-mpich2-cart-%{cart_major}-daos-%{daos_major}
 
 %description mpich
 HDF5 parallel mpich libraries
@@ -142,6 +147,7 @@ HDF5 parallel mpich static libraries
 %package openmpi
 Summary: HDF5 openmpi libraries
 BuildRequires: openmpi-devel
+Provides: %{name}-openmpi-cart-%{cart_major}-daos-%{daos_major}
 
 %description openmpi
 HDF5 parallel openmpi libraries
@@ -171,6 +177,7 @@ HDF5 parallel openmpi static libraries
 Summary: HDF5 tests
 Group: Development/Libraries
 Requires: %{name}-mpich2 = %{version}-%{release}
+Provides: %{name}-tests-cart-%{cart_major}-daos-%{daos_major}
 
 %description tests
 HDF5 tests
@@ -517,6 +524,9 @@ done
 
 
 %changelog
+* Sun Dec 29 2019 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-6.g07066a381e
+- Add Provides: %{name}-cart-%{cart_major}-daos-%{daos_major}
+
 * Thu Nov 14 2019 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-5.g07066a381e
 - Add patch to catch up to 11.4-g07066a381e
 - Add daos patch
