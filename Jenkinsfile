@@ -40,5 +40,4 @@
 // I.e. for testing library changes
 //@Library(value="pipeline-lib@your_branch") _
 
-// Needs porting to Leap 15
-packageBuildingPipeline(['distros' : ['centos7']])
+packageBuildingPipeline(['distros' : ['centos7', 'leap15']])

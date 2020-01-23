@@ -1,4 +1,6 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
+%{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
+
 %global cart_major 4
 %global daos_major 0
 
@@ -9,7 +11,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.10.5
-Release: 6.g07066a381e%{?dist}
+Release: 7.g07066a381e%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -29,7 +31,11 @@ Patch3: hdf5-build.patch
 Patch10: hdf5-1.10.5-11.4-g07066a381e.patch
 Patch11: daos.patch
 
+%if (0%{?suse_version} >= 1500)
+BuildRequires:  gcc-fortran
+%else
 BuildRequires: gcc-gfortran
+%endif
 BuildRequires: java-devel
 BuildRequires: javapackages-tools
 BuildRequires: hamcrest
@@ -43,9 +49,19 @@ BuildRequires: zlib-devel
 BuildRequires: automake
 BuildRequires: libtool
 # Needed for mpi tests
+%if (0%{?suse_version} >= 1500)
+BuildRequires: openssh
+%else
 BuildRequires: openssh-clients
+%endif
 BuildRequires: libaec-devel
 BuildRequires: gcc, gcc-c++
+%if (0%{?suse_version} >= 1500)
+BuildRequires: ed
+BuildRequires: Modules
+%else
+BuildRequires: environment-modules
+%endif
 Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 
 %global with_mpich 1
@@ -192,6 +208,13 @@ HDF5 tests
 %patch3 -p1 -b .build
 # already included in patch10 (for now)
 #patch11 -p1 -b .daos
+# Leap 15.1 wants jars in /usr/lib64/java
+%if (0%{?suse_version} >= 1500)
+ed java/src/Makefile.am << EOF
+/^hdf5_javadir =/s/lib/lib64/
+wq
+EOF
+%endif
 
 # Replace jars with system versions
 find -name \*.jar -delete
@@ -234,7 +257,7 @@ sed -e 's|-O -finline-functions|-O3 -finline-functions|g' -i config/gnu-flags
 export CC=gcc
 export CXX=g++
 export F9X=gfortran
-export LDFLAGS="%{__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
+export LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
 mkdir build
 pushd build
 ln -s ../configure .
@@ -243,23 +266,29 @@ ln -s ../configure .
   --enable-cxx \
   --enable-java
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
-make LDFLAGS="%{__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
+make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
 popd
 
 #MPI builds
 export CC=mpicc
 export CXX=mpicxx
 export F9X=mpif90
-export LDFLAGS="%{__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
+export LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
 for mpi in %{?mpi_list}
 do
   mkdir $mpi
   pushd $mpi
+%if (0%{?suse_version} >= 1500)
+  module load gnu-mpich/3.3
+%else
   module load mpi/$mpi-%{_arch}
+%endif
   ln -s ../configure .
   %configure \
     %{configure_opts} \
+%if (0%{?rhel} >= 7)
     FCFLAGS="$FCFLAGS -I$MPI_FORTRAN_MOD_DIR" \
+%endif
     --enable-parallel \
     --exec-prefix=%{_libdir}/$mpi \
     --libdir=%{_libdir}/$mpi/lib \
@@ -269,7 +298,7 @@ do
     --datarootdir=%{_libdir}/$mpi/share \
     --mandir=%{_libdir}/$mpi/share/man
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
-  make LDFLAGS="%{__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
+  make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
   module purge
   popd
 done
@@ -283,12 +312,18 @@ mkdir -p %{buildroot}%{_fmoddir}
 mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
 for mpi in %{?mpi_list}
 do
+%if (0%{?suse_version} >= 1500)
+  module load gnu-mpich/3.3
+%else
   module load mpi/$mpi-%{_arch}
+%endif
   make -C $mpi install DESTDIR=%{buildroot}
   rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
   #Fortran modules
+%if (0%{?rhel} >= 7)
   mkdir -p %{buildroot}${MPI_FORTRAN_MOD_DIR}
   mv %{buildroot}%{_includedir}/${mpi}-%{_arch}/*.mod %{buildroot}${MPI_FORTRAN_MOD_DIR}/
+%endif
   module purge
 done
 #Fixup example permissions
@@ -355,7 +390,11 @@ export OMPI_MCA_rmaps_base_oversubscribe=1
 %ifnarch s390x
 for mpi in %{?mpi_list}
 do
+%if (0%{?suse_version} >= 1500)
+  module load gnu-mpich/3.3
+%else
   module load mpi/$mpi-%{_arch}
+%endif
   make -C $mpi check
   module purge
 done
@@ -462,7 +501,9 @@ done
 
 %files mpich-devel
 %{_includedir}/mpich-%{_arch}
+%if (0%{?rhel} >= 7)
 %{_fmoddir}/mpich/*.mod
+%endif
 %{_libdir}/mpich/bin/h5pcc
 %{_libdir}/mpich/bin/h5pfc
 %{_libdir}/mpich/lib/lib*.so
@@ -524,6 +565,9 @@ done
 
 
 %changelog
+* Wed Jan 22 2020 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-7.g07066a381e
+- Port to Leap 15.1
+
 * Sun Dec 29 2019 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-6.g07066a381e
 - Add Provides: %{name}-cart-%{cart_major}-daos-%{daos_major}
 
