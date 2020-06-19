@@ -101,7 +101,11 @@ Summary: HDF5 development files
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
+%if (0%{?suse_version} >= 1500)
+Requires: gcc-fortran%{?_isa}
+%else
 Requires: gcc-gfortran%{?_isa}
+%endif
 
 %description devel
 HDF5 development headers and libraries.
