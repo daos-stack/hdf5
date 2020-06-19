@@ -317,7 +317,7 @@ mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
 for mpi in %{?mpi_list}
 do
 %if (0%{?suse_version} >= 1500)
-  module load gnu-mpich/3.3
+  module load gnu-mpich
 %else
   module load mpi/$mpi-%{_arch}
 %endif
@@ -395,7 +395,7 @@ export OMPI_MCA_rmaps_base_oversubscribe=1
 for mpi in %{?mpi_list}
 do
 %if (0%{?suse_version} >= 1500)
-  module load gnu-mpich/3.3
+  module load gnu-mpich
 %else
   module load mpi/$mpi-%{_arch}
 %endif
