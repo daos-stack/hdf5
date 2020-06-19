@@ -24,7 +24,4 @@ test:
 	  $(NAME)-mpich \
 	  $(NAME)-mpich-devel \
 	  $(NAME)-mpich-static \
-	  $(NAME)-openmpi \
-	  $(NAME)-openmpi-devel \
-	  $(NAME)-openmpi-static \
 	  $(NAME)-tests

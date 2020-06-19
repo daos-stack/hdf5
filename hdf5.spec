@@ -283,7 +283,7 @@ do
   mkdir $mpi
   pushd $mpi
 %if (0%{?suse_version} >= 1500)
-  module load gnu-mpich/3.3
+  module load gnu-mpich
 %else
   module load mpi/$mpi-%{_arch}
 %endif
