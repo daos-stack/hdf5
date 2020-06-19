@@ -144,7 +144,11 @@ Summary: HDF5 mpich development files
 Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
+%if (0%{?suse_version} >= 1500)
+Requires: mpich-3.0-devel%{?_isa}
+%else
 Requires: mpich-devel%{?_isa}
+%endif
 Provides: %{name}-mpich2-devel = %{version}-%{release}
 Obsoletes: %{name}-mpich2-devel < 1.8.11-4
 
