@@ -131,9 +131,9 @@ HDF5 static libraries.
 %package mpich
 Summary: HDF5 mpich libraries
 %if (0%{?suse_version} >= 1500)
-Requires: mpich-3.0-devel%{?_isa}
+Requires: mpich-3.0-devel
 %else
-Requires: mpich-devel%{?_isa}
+Requires: mpich-devel
 %endif
 Provides: %{name}-mpich2 = %{version}-%{release}
 Obsoletes: %{name}-mpich2 < 1.8.11-4
@@ -577,7 +577,7 @@ done
 
 
 %changelog
-* Fri Jun 19 2020 Phil Henderson <pjillip.henderson@intel.com> - 1.10.5-8.g07066a381e
+* Fri Jun 19 2020 Phil Henderson <phillip.henderson@intel.com> - 1.10.5-8.g07066a381e
 - Fix Leap 15 build of %{name}-devel
 
 * Wed Jan 22 2020 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-7.g07066a381e
