@@ -130,11 +130,7 @@ HDF5 static libraries.
 %if %{with_mpich}
 %package mpich
 Summary: HDF5 mpich libraries
-%if (0%{?suse_version} >= 1500)
-Requires: mpich-3.0-devel
-%else
-Requires: mpich-devel
-%endif
+BuildRequires: mpich-devel
 Provides: %{name}-mpich2 = %{version}-%{release}
 Obsoletes: %{name}-mpich2 < 1.8.11-4
 Provides: %{name}-mpich2-cart-%{cart_major}-daos-%{daos_major}
