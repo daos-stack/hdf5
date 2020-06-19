@@ -11,7 +11,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.10.5
-Release: 7.g07066a381e%{?dist}
+Release: 8.g07066a381e%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -130,7 +130,11 @@ HDF5 static libraries.
 %if %{with_mpich}
 %package mpich
 Summary: HDF5 mpich libraries
-BuildRequires: mpich-devel
+%if (0%{?suse_version} >= 1500)
+Requires: mpich-3.0-devel%{?_isa}
+%else
+Requires: mpich-devel%{?_isa}
+%endif
 Provides: %{name}-mpich2 = %{version}-%{release}
 Obsoletes: %{name}-mpich2 < 1.8.11-4
 Provides: %{name}-mpich2-cart-%{cart_major}-daos-%{daos_major}
@@ -573,6 +577,9 @@ done
 
 
 %changelog
+* Fri Jun 19 2020 Phil Henderson <pjillip.henderson@intel.com> - 1.10.5-8.g07066a381e
+- Fix Leap 15 build of %{name}-devel
+
 * Wed Jan 22 2020 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-7.g07066a381e
 - Port to Leap 15.1
 
