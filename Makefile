@@ -18,4 +18,4 @@ test:
 	$(call install_repos,$(NAME)@$(BRANCH_NAME):$(BUILD_NUMBER))
 	yum -y install $(NAME) java-$(NAME) $(NAME)-devel $(NAME)-static $(NAME)-tests
 	yum -y install mpich-devel
-	yum -y $(NAME)-mpich $(NAME)-mpich-devel $(NAME)-mpich-static
+	yum -y install $(NAME)-mpich $(NAME)-mpich-devel $(NAME)-mpich-static
