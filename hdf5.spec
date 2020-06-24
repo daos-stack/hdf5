@@ -11,7 +11,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.10.5
-Release: 7.g07066a381e%{?dist}
+Release: 8.g07066a381e%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -101,7 +101,11 @@ Summary: HDF5 development files
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
+%if (0%{?suse_version} >= 1500)
+Requires: gcc-fortran%{?_isa}
+%else
 Requires: gcc-gfortran%{?_isa}
+%endif
 
 %description devel
 HDF5 development headers and libraries.
@@ -279,7 +283,7 @@ do
   mkdir $mpi
   pushd $mpi
 %if (0%{?suse_version} >= 1500)
-  module load gnu-mpich/3.3
+  module load gnu-mpich
 %else
   module load mpi/$mpi-%{_arch}
 %endif
@@ -313,7 +317,7 @@ mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
 for mpi in %{?mpi_list}
 do
 %if (0%{?suse_version} >= 1500)
-  module load gnu-mpich/3.3
+  module load gnu-mpich
 %else
   module load mpi/$mpi-%{_arch}
 %endif
@@ -391,7 +395,7 @@ export OMPI_MCA_rmaps_base_oversubscribe=1
 for mpi in %{?mpi_list}
 do
 %if (0%{?suse_version} >= 1500)
-  module load gnu-mpich/3.3
+  module load gnu-mpich
 %else
   module load mpi/$mpi-%{_arch}
 %endif
@@ -565,6 +569,9 @@ done
 
 
 %changelog
+* Fri Jun 19 2020 Phil Henderson <phillip.henderson@intel.com> - 1.10.5-8.g07066a381e
+- Fix Leap 15 build of %{name}-devel
+
 * Wed Jan 22 2020 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-7.g07066a381e
 - Port to Leap 15.1
 
