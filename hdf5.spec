@@ -65,7 +65,7 @@ BuildRequires: environment-modules
 Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 
 %global with_mpich 1
-%global with_openmpi 1
+%global with_openmpi3 1
 %if 0%{?rhel}
 %ifarch ppc64
 # No mpich2 on ppc64 in EL
@@ -75,15 +75,15 @@ Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 %if 0%{?fedora} < 26
 %ifarch s390 s390x
 # No openmpi on s390(x)
-%global with_openmpi 0
+%global with_openmpi3 0
 %endif
 %endif
 
 %if %{with_mpich}
 %global mpi_list mpich
 %endif
-%if %{with_openmpi}
-%global mpi_list %{?mpi_list} openmpi
+%if %{with_openmpi3}
+%global mpi_list %{?mpi_list} openmpi3
 %endif
 
 %description
@@ -163,33 +163,33 @@ HDF5 parallel mpich static libraries
 %endif
 
 
-%if %{with_openmpi}
-%package openmpi
-Summary: HDF5 openmpi libraries
-BuildRequires: openmpi-devel
-Provides: %{name}-openmpi-cart-%{cart_major}-daos-%{daos_major}
+%if %{with_openmpi3}
+%package openmpi3
+Summary: HDF5 openmpi3 libraries
+BuildRequires: openmpi3-devel
+Provides: %{name}-openmpi3-cart-%{cart_major}-daos-%{daos_major}
 
-%description openmpi
-HDF5 parallel openmpi libraries
+%description openmpi3
+HDF5 parallel openmpi3 libraries
 
 
-%package openmpi-devel
-Summary: HDF5 openmpi development files
-Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
+%package openmpi3-devel
+Summary: HDF5 openmpi3 development files
+Requires: %{name}-openmpi3%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
-Requires: openmpi-devel%{?_isa}
+Requires: openmpi3-devel%{?_isa}
 
-%description openmpi-devel
-HDF5 parallel openmpi development files
+%description openmpi3-devel
+HDF5 parallel openmpi3 development files
 
 
-%package openmpi-static
-Summary: HDF5 openmpi static libraries
-Requires: %{name}-openmpi-devel%{?_isa} = %{version}-%{release}
+%package openmpi3-static
+Summary: HDF5 openmpi3 static libraries
+Requires: %{name}-openmpi3-devel%{?_isa} = %{version}-%{release}
 
-%description openmpi-static
-HDF5 parallel openmpi static libraries
+%description openmpi3-static
+HDF5 parallel openmpi3 static libraries
 %endif
 
 
@@ -520,47 +520,47 @@ done
 %{_libdir}/mpich/lib/*.a
 %endif
 
-%if %{with_openmpi}
-%files openmpi
+%if %{with_openmpi3}
+%files openmpi3
 %license COPYING
 %doc MANIFEST README.txt release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
-%{_libdir}/openmpi/bin/gif2h5
-%{_libdir}/openmpi/bin/h52gif
-%{_libdir}/openmpi/bin/h5clear
-%{_libdir}/openmpi/bin/h5copy
-%{_libdir}/openmpi/bin/h5debug
-%{_libdir}/openmpi/bin/h5diff
-%{_libdir}/openmpi/bin/h5dump
-%{_libdir}/openmpi/bin/h5format_convert
-%{_libdir}/openmpi/bin/h5import
-%{_libdir}/openmpi/bin/h5jam
-%{_libdir}/openmpi/bin/h5ls
-%{_libdir}/openmpi/bin/h5mkgrp
-%{_libdir}/openmpi/bin/h5perf
-%{_libdir}/openmpi/bin/h5perf_serial
-%{_libdir}/openmpi/bin/h5redeploy
-%{_libdir}/openmpi/bin/h5repack
-%{_libdir}/openmpi/bin/h5repart
-%{_libdir}/openmpi/bin/h5stat
-%{_libdir}/openmpi/bin/h5unjam
-%{_libdir}/openmpi/bin/h5watch
-%{_libdir}/openmpi/bin/ph5diff
-%{_libdir}/openmpi/lib/*.so.10*
+%{_libdir}/openmpi3/bin/gif2h5
+%{_libdir}/openmpi3/bin/h52gif
+%{_libdir}/openmpi3/bin/h5clear
+%{_libdir}/openmpi3/bin/h5copy
+%{_libdir}/openmpi3/bin/h5debug
+%{_libdir}/openmpi3/bin/h5diff
+%{_libdir}/openmpi3/bin/h5dump
+%{_libdir}/openmpi3/bin/h5format_convert
+%{_libdir}/openmpi3/bin/h5import
+%{_libdir}/openmpi3/bin/h5jam
+%{_libdir}/openmpi3/bin/h5ls
+%{_libdir}/openmpi3/bin/h5mkgrp
+%{_libdir}/openmpi3/bin/h5perf
+%{_libdir}/openmpi3/bin/h5perf_serial
+%{_libdir}/openmpi3/bin/h5redeploy
+%{_libdir}/openmpi3/bin/h5repack
+%{_libdir}/openmpi3/bin/h5repart
+%{_libdir}/openmpi3/bin/h5stat
+%{_libdir}/openmpi3/bin/h5unjam
+%{_libdir}/openmpi3/bin/h5watch
+%{_libdir}/openmpi3/bin/ph5diff
+%{_libdir}/openmpi3/lib/*.so.10*
 
-%files openmpi-devel
-%{_includedir}/openmpi-%{_arch}
-%{_fmoddir}/openmpi/*.mod
-%{_libdir}/openmpi/bin/h5pcc
-%{_libdir}/openmpi/bin/h5pfc
-%{_libdir}/openmpi/lib/lib*.so
-%{_libdir}/openmpi/lib/lib*.settings
-%{_libdir}/openmpi/share/hdf5_examples/
-%{_libdir}/openmpi/share/man/man1/h5pcc.1*
-%{_libdir}/openmpi/share/man/man1/h5pfc.1*
+%files openmpi3-devel
+%{_includedir}/openmpi3-%{_arch}
+%{_fmoddir}/openmpi3/*.mod
+%{_libdir}/openmpi3/bin/h5pcc
+%{_libdir}/openmpi3/bin/h5pfc
+%{_libdir}/openmpi3/lib/lib*.so
+%{_libdir}/openmpi3/lib/lib*.settings
+%{_libdir}/openmpi3/share/hdf5_examples/
+%{_libdir}/openmpi3/share/man/man1/h5pcc.1*
+%{_libdir}/openmpi3/share/man/man1/h5pfc.1*
 
-%files openmpi-static
-%{_libdir}/openmpi/lib/*.a
+%files openmpi3-static
+%{_libdir}/openmpi3/lib/*.a
 %endif
 
 
@@ -569,6 +569,9 @@ done
 
 
 %changelog
+* Mon Jul 13 2020 Maureen Jean <maureen.jean@intel.com> - 1.10.5-9.g07066a381e
+- Add support for openmpi3
+
 * Fri Jun 19 2020 Phil Henderson <phillip.henderson@intel.com> - 1.10.5-8.g07066a381e
 - Fix Leap 15 build of %{name}-devel
 
