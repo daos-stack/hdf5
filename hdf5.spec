@@ -65,7 +65,7 @@ BuildRequires: environment-modules
 Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 
 %global with_mpich 1
-%global with_openmpi 0
+%global with_openmpi 1
 %if 0%{?rhel}
 %ifarch ppc64
 # No mpich2 on ppc64 in EL
