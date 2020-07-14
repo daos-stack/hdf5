@@ -549,7 +549,7 @@ done
 %files mpich-static
 %{_libdir}/mpich/lib/*.a
 
-%files tests
+%files mpich-tests
 %{_libdir}/hdf5/mpich/tests
 
 %endif
@@ -596,7 +596,7 @@ done
 %files openmpi-static
 %{_libdir}/openmpi/lib/*.a
 
-%files tests
+%files openmpi-tests
 %{_libdir}/hdf5/openmpi/tests
 
 %endif
