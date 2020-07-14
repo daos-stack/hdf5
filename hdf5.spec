@@ -283,8 +283,10 @@ do
   mkdir $mpi
   pushd $mpi
 %if (0%{?suse_version} >= 1500)
+  module avail
   module load gnu-mpich
 %else
+  module avail
   module load mpi/$mpi-%{_arch}
 %endif
   ln -s ../configure .
@@ -317,8 +319,10 @@ mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
 for mpi in %{?mpi_list}
 do
 %if (0%{?suse_version} >= 1500)
+  module avail
   module load gnu-mpich
 %else
+  module avail
   module load mpi/$mpi-%{_arch}
 %endif
   make -C $mpi install DESTDIR=%{buildroot}
@@ -395,8 +399,10 @@ export OMPI_MCA_rmaps_base_oversubscribe=1
 for mpi in %{?mpi_list}
 do
 %if (0%{?suse_version} >= 1500)
+  module avail
   module load gnu-mpich
 %else
+  module avail
   module load mpi/$mpi-%{_arch}
 %endif
   make -C $mpi check
