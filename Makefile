@@ -1,6 +1,6 @@
 NAME          := hdf5
 SRC_EXT       := bz2
-TEST_PACKAGES := $(NAME) java-$(NAME) $(NAME)-devel $(NAME)-static $(NAME)-tests
+TEST_PACKAGES := $(NAME) java-$(NAME) $(NAME)-devel $(NAME)-static $(NAME)-mpich-tests $(NAME)-openmpi-tests
 
 include packaging/Makefile_packaging.mk
 
