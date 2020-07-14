@@ -300,7 +300,7 @@ do
 %if (0%{?suse_version} >= 1500)
   module load gnu-$mpi
 %else
-  if $(mpi) == "openmpi"; then
+  if [[ "$mpi" == "openmpi" ]]; then
     module load mpi/${mpi}3-%{_arch}
   else
     module load mpi/${mpi}-%{_arch}
@@ -338,7 +338,7 @@ do
 %if (0%{?suse_version} >= 1500)
   module load gnu-$mpi
 %else
-  if $(mpi) == "openmpi"; then
+  if [[ "$mpi" == "openmpi" ]]; then
     module load mpi/${mpi}3-%{_arch}
   else
     module load mpi/${mpi}-%{_arch}
@@ -423,7 +423,7 @@ do
 %if (0%{?suse_version} >= 1500)
   module load gnu-$mpi
 %else
-  if $(mpi) == "openmpi"; then
+  if [[ "$mpi" == "openmpi" ]]; then
     module load mpi/${mpi}3-%{_arch}
   else
     module load mpi/${mpi}-%{_arch}
