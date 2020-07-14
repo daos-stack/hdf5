@@ -584,7 +584,9 @@ done
 
 %files openmpi-devel
 %{_includedir}/openmpi-%{_arch}
+%if (0%{?rhel} >= 7)
 %{_fmoddir}/openmpi3/*.mod
+%endif
 %{_libdir}/openmpi/bin/h5pcc
 %{_libdir}/openmpi/bin/h5pfc
 %{_libdir}/openmpi/lib/lib*.so
