@@ -300,11 +300,11 @@ do
 %if (0%{?suse_version} >= 1500)
   module load gnu-$mpi
 %else
-  if $(mpi) == "openmpi"
+  if $(mpi) == "openmpi"; then
     module load mpi/${mpi}3-%{_arch}
   else
     module load mpi/${mpi}-%{_arch}
-  endif
+  fi
 %endif
   ln -s ../configure .
   %configure \
@@ -338,11 +338,11 @@ do
 %if (0%{?suse_version} >= 1500)
   module load gnu-$mpi
 %else
-  if $(mpi) == "openmpi"
+  if $(mpi) == "openmpi"; then
     module load mpi/${mpi}3-%{_arch}
   else
     module load mpi/${mpi}-%{_arch}
-  endif
+  fi
 %endif
   make -C $mpi install DESTDIR=%{buildroot}
   rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
@@ -423,11 +423,11 @@ do
 %if (0%{?suse_version} >= 1500)
   module load gnu-$mpi
 %else
-  if $(mpi) == "openmpi"
+  if $(mpi) == "openmpi"; then
     module load mpi/${mpi}3-%{_arch}
   else
     module load mpi/${mpi}-%{_arch}
-  endif
+  fi
 %endif
   make -C $mpi check
   module purge
