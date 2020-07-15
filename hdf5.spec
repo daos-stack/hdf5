@@ -167,6 +167,7 @@ Summary: HDF5 tests with mpich
 Group: Development/Libraries
 Requires: %{name}-mpich2 = %{version}-%{release}
 Provides: %{name}-mpich2-tests-cart-%{cart_major}-daos-%{daos_major}
+Obsoletes: %{name}-tests < %{version}-%{release}
 
 %description mpich-tests
 HDF5 tests with mpich
