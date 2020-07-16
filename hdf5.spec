@@ -406,14 +406,8 @@ do
   mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/{,.libs/}
   for x in t_cache testphdf5 t_mpi t_pflush1 t_pflush2 t_shapesame
   do
-    if [ "$mpi" = "mpich" ]; then
-      # Maintain backward compatibily for existing HDF5 tests 
-      install -m 0755 $mpi/testpar/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/tests/
-      install -m 0755 $mpi/testpar/.libs/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/tests/.libs/
-    else
-      install -m 0755 $mpi/testpar/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/
-      install -m 0755 $mpi/testpar/.libs/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/.libs/
-    fi
+    install -m 0755 $mpi/testpar/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/
+    install -m 0755 $mpi/testpar/.libs/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/.libs/
   done
 done
 
@@ -557,7 +551,7 @@ done
 %{_libdir}/mpich/lib/*.a
 
 %files mpich-tests
-%{_libdir}/hdf5/tests
+%{_libdir}/hdf5/mpich/tests
 
 %endif
 
