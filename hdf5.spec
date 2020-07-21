@@ -80,17 +80,18 @@ Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 %endif
 %endif
 
-%global load_module() (
+
 %if (0%{?suse_version} >= 1500)
-  if [ "$1" == "openmpi3"]; then
+%global load_module() (
+  if [ "${1}" == "openmpi3"]; then
     module load gnu-openmpi
   else
-    module load gnu-$1
+    module load gnu-${1}
   fi
-%else
-  module load mpi/${1}-%{_arch}
-%endif
 )
+%else
+%global load_module() (module load mpi/${1}-%{_arch})
+%endif
 
 %if %{with_mpich}
 %global mpi_list mpich
