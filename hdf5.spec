@@ -80,13 +80,6 @@ Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 %endif
 %endif
 
-
-%if (0%{?suse_version} >= 1500)
-%global load_module() (if [ "%{1}" == "openmpi3" ]; then module load gnu-openmpi; else module load gnu-%{1}; fi)
-%else
-%global load_module() (module load mpi/%{1}-%{_arch})
-%endif
-
 %if %{with_mpich}
 %global mpi_list mpich
 %endif
@@ -96,8 +89,6 @@ Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 %if %{with_openmpi3}
 %global mpi_list %{?mpi_list} openmpi3
 %endif
-
-
 
 %description
 HDF5 is a general purpose library and file format for storing scientific data.
@@ -308,7 +299,16 @@ for mpi in %{?mpi_list}
 do
   mkdir $mpi
   pushd $mpi
-  %load_module $mpi
+%if (0%{?suse_version} >= 1500)
+  if [ "$mpi" == "openmpi3" ]; then
+    module load gnu-openmpi
+  else
+    module load gnu-$mpi
+  fi
+%else
+  module load mpi/$mpi-%{_arch})
+%endif
+
   ln -s ../configure .
   %configure \
     %{configure_opts} \
@@ -338,7 +338,15 @@ mkdir -p %{buildroot}%{_fmoddir}
 mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
 for mpi in %{?mpi_list}
 do
-  %load_module $mpi
+%if (0%{?suse_version} >= 1500)
+  if [ "$mpi" == "openmpi3" ]; then
+    module load gnu-openmpi
+  else
+    module load gnu-$mpi
+  fi
+%else
+  module load mpi/$mpi-%{_arch})
+%endif
   make -C $mpi install DESTDIR=%{buildroot}
   rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
   #Fortran modules
@@ -415,7 +423,15 @@ export OMPI_MCA_rmaps_base_oversubscribe=1
 %ifnarch s390x
 for mpi in %{?mpi_list}
 do
-  %load_module $mpi
+%if (0%{?suse_version} >= 1500)
+  if [ "$mpi" == "openmpi3" ]; then
+    module load gnu-openmpi
+  else
+    module load gnu-$mpi
+  fi
+%else
+  module load mpi/$mpi-%{_arch})
+%endif
   make -C $mpi check
   module purge
 done
