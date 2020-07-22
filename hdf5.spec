@@ -480,7 +480,7 @@ done
 %{_libdir}/*.a
 
 %files -n java-hdf5
-%{_libdir}/hdf5.jar
+%{_libdir}/*hdf5*.jar
 %{_libdir}/%{name}/
 
 %if %{with_mpich}
@@ -569,7 +569,6 @@ done
 %{_libdir}/openmpi3/bin/h5pfc
 %{_libdir}/openmpi3/lib/lib*.so
 %{_libdir}/openmpi3/lib/lib*.settings
-%{_libdir}/openmpi3/share/hdf5_examples/
 %{_libdir}/openmpi3/share/man/man1/h5pcc.1*
 %{_libdir}/openmpi3/share/man/man1/h5pfc.1*
 
