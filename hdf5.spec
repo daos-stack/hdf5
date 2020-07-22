@@ -19,7 +19,7 @@ URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
 Source1: h5comp
 # For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1_exp2.debian.tar.xz
+Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
 Patch0: hdf5-LD_LIBRARY_PATH.patch
 # Fix some warnings
 Patch2: hdf5-warning.patch
