@@ -305,7 +305,7 @@ for mpi in %{?mpi_list}
 do
   mkdir $mpi
   pushd $mpi
-  %{load_module} $mpi
+  %load_module $mpi
 
   ln -s ../configure .
   %configure \
@@ -336,7 +336,7 @@ mkdir -p %{buildroot}%{_fmoddir}
 mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
 for mpi in %{?mpi_list}
 do
-  %{load_module} $mpi
+  %load_module $mpi
   make -C $mpi install DESTDIR=%{buildroot}
   rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
   #Fortran modules
@@ -413,7 +413,7 @@ export OMPI_MCA_rmaps_base_oversubscribe=1
 %ifnarch s390x
 for mpi in %{?mpi_list}
 do
-  %{load_module} $mpi
+  %load_module $mpi
   make -C $mpi check
   module purge
 done
