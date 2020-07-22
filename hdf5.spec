@@ -306,7 +306,7 @@ do
     module load gnu-$mpi
   fi
 %else
-  module load mpi/$mpi-%{_arch})
+  module load mpi/$mpi-%{_arch}
 %endif
 
   ln -s ../configure .
@@ -345,7 +345,7 @@ do
     module load gnu-$mpi
   fi
 %else
-  module load mpi/$mpi-%{_arch})
+  module load mpi/$mpi-%{_arch}
 %endif
   make -C $mpi install DESTDIR=%{buildroot}
   rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
@@ -430,7 +430,7 @@ do
     module load gnu-$mpi
   fi
 %else
-  module load mpi/$mpi-%{_arch})
+  module load mpi/$mpi-%{_arch}
 %endif
   make -C $mpi check
   module purge
