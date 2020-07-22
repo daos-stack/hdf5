@@ -28,7 +28,6 @@ Patch2: hdf5-warning.patch
 # Fix java build
 Patch3: hdf5-build.patch
 # Disable tests that don't work with DAOS
-Patch10: hdf5-1.10.5-11.4-g07066a381e.patch
 Patch11: daos.patch
 
 %if (0%{?suse_version} >= 1500)
@@ -205,7 +204,6 @@ HDF5 tests
 
 %prep
 %setup -q -a 2 -n %{name}-%{version}%{?snaprel}
-%patch10 -p1 -b .hdf5-1.10.5-11.4-g07066a381e
 %patch0 -p1 -b .LD_LIBRARY_PATH
 #patch1 -p1 -b .mpi
 %patch2 -p1 -b .warning
