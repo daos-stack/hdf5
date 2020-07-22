@@ -383,8 +383,10 @@ done
 rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
 
 # Java
+%if (0%{?rhel} >= 7)
 mkdir -p %{buildroot}%{_libdir}/%{name}
 mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
+%endif
 
 # Some hackery to install tests
 for mpi in %{?mpi_list}
