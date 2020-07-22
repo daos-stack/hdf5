@@ -80,6 +80,12 @@ Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 %endif
 %endif
 
+if (0%{?suse_version} >= 1500)
+%global load_module() (if [ "%{1}" == "openmpi3" ]; then module load gnu-openmpi; else module load gnu-%{1}; fi)
+%else
+%global load_module() (module load mpi/%{1}-%{_arch})
+%endif
+
 %if %{with_mpich}
 %global mpi_list mpich
 %endif
@@ -299,15 +305,7 @@ for mpi in %{?mpi_list}
 do
   mkdir $mpi
   pushd $mpi
-%if (0%{?suse_version} >= 1500)
-  if [ "$mpi" == "openmpi3" ]; then
-    module load gnu-openmpi
-  else
-    module load gnu-$mpi
-  fi
-%else
-  module load mpi/$mpi-%{_arch}
-%endif
+  %{load_module} $mpi
 
   ln -s ../configure .
   %configure \
@@ -338,15 +336,7 @@ mkdir -p %{buildroot}%{_fmoddir}
 mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
 for mpi in %{?mpi_list}
 do
-%if (0%{?suse_version} >= 1500)
-  if [ "$mpi" == "openmpi3" ]; then
-    module load gnu-openmpi
-  else
-    module load gnu-$mpi
-  fi
-%else
-  module load mpi/$mpi-%{_arch}
-%endif
+  %{load_module} $mpi
   make -C $mpi install DESTDIR=%{buildroot}
   rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
   #Fortran modules
@@ -423,15 +413,7 @@ export OMPI_MCA_rmaps_base_oversubscribe=1
 %ifnarch s390x
 for mpi in %{?mpi_list}
 do
-%if (0%{?suse_version} >= 1500)
-  if [ "$mpi" == "openmpi3" ]; then
-    module load gnu-openmpi
-  else
-    module load gnu-$mpi
-  fi
-%else
-  module load mpi/$mpi-%{_arch}
-%endif
+  %{load_module} $mpi
   make -C $mpi check
   module purge
 done
