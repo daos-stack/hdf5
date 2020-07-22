@@ -386,6 +386,12 @@ rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
 mkdir -p %{buildroot}%{_libdir}/%{name}
 mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
 
+# install the hdf5.jar files; SLES is not doing the install
+%if (0%{?suse_version} >= 1500)
+mkdir -p %{buildroot}%{_libdir}
+install -m 0644 %{_topdir}/BUILD/hdf5-%{version}/build/java/src/hdf5.jar ${RPM_BUILD_ROOT}%{_libdir}/
+%endif
+
 # Some hackery to install tests
 for mpi in %{?mpi_list}
 do
