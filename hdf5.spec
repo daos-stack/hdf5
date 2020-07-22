@@ -81,9 +81,9 @@ Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 %endif
 
 %if (0%{?suse_version} >= 1500)
-%global load_module() (if [ "%{1}" == "openmpi3" ]; then module load gnu-openmpi; else module load gnu-%{1}; fi)
+%global module_name() (if [ "%{1}" == "openmpi3" ]; then gnu-openmpi; else gnu-%{1}; fi)
 %else
-%global load_module() (module load mpi/%{1}-%{_arch})
+%global module_name() (mpi/%{1}-%{_arch})
 %endif
 
 %if %{with_mpich}
@@ -305,7 +305,7 @@ for mpi in %{?mpi_list}
 do
   mkdir $mpi
   pushd $mpi
-  %load_module $mpi
+  module load %module_name $mpi
 
   ln -s ../configure .
   %configure \
@@ -336,7 +336,7 @@ mkdir -p %{buildroot}%{_fmoddir}
 mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
 for mpi in %{?mpi_list}
 do
-  %load_module $mpi
+  module load %module_name $mpi
   make -C $mpi install DESTDIR=%{buildroot}
   rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
   #Fortran modules
@@ -413,7 +413,7 @@ export OMPI_MCA_rmaps_base_oversubscribe=1
 %ifnarch s390x
 for mpi in %{?mpi_list}
 do
-  %load_module $mpi
+  module load %module_name $mpi
   make -C $mpi check
   module purge
 done
