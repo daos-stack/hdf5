@@ -1,6 +1,16 @@
-diff -up hdf5-1.10.4/testpar/t_cache.c.warning hdf5-1.10.4/testpar/t_cache.c
---- hdf5-1.10.4/testpar/t_cache.c.warning	2018-09-10 08:43:41.000000000 -0600
-+++ hdf5-1.10.4/testpar/t_cache.c	2018-11-24 08:08:37.333832898 -0700
+From 55f7415d779b19b1d0b3d8db57fa5260441d2eb0 Mon Sep 17 00:00:00 2001
+From: Maureen Jean <mjean@boro-70.boro.hpdd.intel.com>
+Date: Fri, 17 Jul 2020 21:10:32 +0000
+Subject: [PATCH] hdf5-warning
+
+---
+ testpar/t_cache.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/testpar/t_cache.c b/testpar/t_cache.c
+index 09d2ecc..ec0e5aa 100644
+--- a/testpar/t_cache.c
++++ b/testpar/t_cache.c
 @@ -79,8 +79,8 @@ long local_pins           = 0;
  
  
@@ -23,15 +33,6 @@ diff -up hdf5-1.10.4/testpar/t_cache.c.warning hdf5-1.10.4/testpar/t_cache.c
      int            index;
      struct H5AC_aux_t * aux_ptr;
  };
-@@ -2197,7 +2197,7 @@ serve_entry_reads_request(struct mssg_t
-             reply.base_addr = target_addr;
-             reply.len       = 0;
-             reply.ver       = 0;
--        reply.count     = (long)(data[target_index].reads);
-+            reply.count     = data[target_index].reads;
-             reply.magic     = MSSG_MAGIC;
-         }
-     }
 @@ -2446,12 +2446,12 @@ static herr_t
  datum_image_len(const void *thing, size_t *image_len)
  {
@@ -47,25 +48,25 @@ diff -up hdf5-1.10.4/testpar/t_cache.c.warning hdf5-1.10.4/testpar/t_cache.c
  
      idx = addr_to_datum_index(entry_ptr->base_addr);
  
-@@ -4615,7 +4615,7 @@ verify_entry_reads(haddr_t addr,
+@@ -4609,7 +4609,7 @@ verify_entry_reads(haddr_t addr,
                     int expected_entry_reads)
  {
      hbool_t success = TRUE;
--    int reported_entry_reads;
+-    int reported_entry_reads = 0;
 +    unsigned reported_entry_reads = 0;
      struct mssg_t mssg;
  
      if ( success ) {
-@@ -4722,7 +4722,7 @@ verify_entry_writes(haddr_t addr,
+@@ -4716,7 +4716,7 @@ verify_entry_writes(haddr_t addr,
                      int expected_entry_writes)
  {
      hbool_t success = TRUE;
--    int reported_entry_writes;
+-    int reported_entry_writes = 0;
 +    unsigned reported_entry_writes = 0;
      struct mssg_t mssg;
  
      if ( success ) {
-@@ -4827,7 +4827,7 @@ static hbool_t
+@@ -4821,7 +4821,7 @@ static hbool_t
  verify_total_reads(int expected_total_reads)
  {
      hbool_t success = TRUE; /* will set to FALSE if appropriate. */
@@ -74,3 +75,6 @@ diff -up hdf5-1.10.4/testpar/t_cache.c.warning hdf5-1.10.4/testpar/t_cache.c
      struct mssg_t mssg;
  
      if ( success ) {
+-- 
+1.8.3.1
+

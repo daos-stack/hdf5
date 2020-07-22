@@ -10,25 +10,22 @@
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
-Version: 1.10.5
-Release: 8.g07066a381e%{?dist}
+Version: 1.12.0
+Release: 1.g4aa4036562%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
+Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
 Source1: h5comp
 # For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.10.4+repack-1.debian.tar.xz
+Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1_exp2.debian.tar.xz
 Patch0: hdf5-LD_LIBRARY_PATH.patch
-# Properly run MPI_Finalize() in t_pflush1
-Patch1: hdf5-mpi.patch
 # Fix some warnings
 Patch2: hdf5-warning.patch
 # Fix java build
 Patch3: hdf5-build.patch
 # Disable tests that don't work with DAOS
-Patch10: hdf5-1.10.5-11.4-g07066a381e.patch
 Patch11: daos.patch
 
 %if (0%{?suse_version} >= 1500)
@@ -62,10 +59,10 @@ BuildRequires: Modules
 %else
 BuildRequires: environment-modules
 %endif
-Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
+Provides: %{name}-cart-%{cart_major}-daos-%{daos_major}
 
 %global with_mpich 1
-%global with_openmpi 0
+%global with_openmpi 1
 %if 0%{?rhel}
 %ifarch ppc64
 # No mpich2 on ppc64 in EL
@@ -160,14 +157,26 @@ Obsoletes: %{name}-mpich2-static < 1.8.11-4
 
 %description mpich-static
 HDF5 parallel mpich static libraries
+
+
+%package mpich-tests
+Summary: HDF5 tests with mpich
+Group: Development/Libraries
+Requires: %{name}-mpich2 = %{version}-%{release}
+Provides: %{name}-mpich2-tests-cart-%{cart_major}-daos-%{daos_major}
+
+%description mpich-tests
+HDF5 tests with mpich
+
 %endif
 
 
 %if %{with_openmpi}
 %package openmpi
 Summary: HDF5 openmpi libraries
-BuildRequires: openmpi-devel
-Provides: %{name}-openmpi-cart-%{cart_major}-daos-%{daos_major}
+BuildRequires: openmpi3-devel
+Provides: %{name}-openmpi3 = %{version}-%{release}
+Provides: %{name}-openmpi3-cart-%{cart_major}-daos-%{daos_major}
 
 %description openmpi
 HDF5 parallel openmpi libraries
@@ -178,7 +187,8 @@ Summary: HDF5 openmpi development files
 Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
-Requires: openmpi-devel%{?_isa}
+Requires: openmpi3-devel%{?_isa}
+Provides: %{name}-openmpi3-devel = %{version}-%{release}
 
 %description openmpi-devel
 HDF5 parallel openmpi development files
@@ -187,31 +197,30 @@ HDF5 parallel openmpi development files
 %package openmpi-static
 Summary: HDF5 openmpi static libraries
 Requires: %{name}-openmpi-devel%{?_isa} = %{version}-%{release}
+Provides: %{name}-openmpi3-static = %{version}-%{release}
 
 %description openmpi-static
 HDF5 parallel openmpi static libraries
-%endif
 
 
-%package tests
-Summary: HDF5 tests
+%package openmpi-tests
+Summary: HDF5 tests with openmpi
 Group: Development/Libraries
-Requires: %{name}-mpich2 = %{version}-%{release}
-Provides: %{name}-tests-cart-%{cart_major}-daos-%{daos_major}
+Requires: %{name}-openmpi = %{version}-%{release}
+Provides: %{name}-openmpi3-tests-cart-%{cart_major}-daos-%{daos_major}
 
-%description tests
-HDF5 tests
+%description openmpi-tests
+HDF5 tests with openmpi
+
+%endif
 
 
 %prep
 %setup -q -a 2 -n %{name}-%{version}%{?snaprel}
-%patch10 -p1 -b .hdf5-1.10.5-11.4-g07066a381e
 %patch0 -p1 -b .LD_LIBRARY_PATH
-#patch1 -p1 -b .mpi
 %patch2 -p1 -b .warning
 %patch3 -p1 -b .build
-# already included in patch10 (for now)
-#patch11 -p1 -b .daos
+%patch11 -p1 -b .daos
 # Leap 15.1 wants jars in /usr/lib64/java
 %if (0%{?suse_version} >= 1500)
 ed java/src/Makefile.am << EOF
@@ -268,7 +277,9 @@ ln -s ../configure .
 %configure \
   %{configure_opts} \
   --enable-cxx \
-  --enable-java
+  --enable-java \
+  --without-examplesdir
+
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
 popd
@@ -283,9 +294,13 @@ do
   mkdir $mpi
   pushd $mpi
 %if (0%{?suse_version} >= 1500)
-  module load gnu-mpich
+  module load gnu-$mpi
 %else
-  module load mpi/$mpi-%{_arch}
+  if [ "$mpi" = "openmpi" ]; then
+    module load mpi/${mpi}3-%{_arch}
+  else
+    module load mpi/${mpi}-%{_arch}
+  fi
 %endif
   ln -s ../configure .
   %configure \
@@ -299,7 +314,7 @@ do
     --bindir=%{_libdir}/$mpi/bin \
     --sbindir=%{_libdir}/$mpi/sbin \
     --includedir=%{_includedir}/$mpi-%{_arch} \
-    --datarootdir=%{_libdir}/$mpi/share \
+    --without-examplesdir \
     --mandir=%{_libdir}/$mpi/share/man
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
   make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
@@ -317,9 +332,13 @@ mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
 for mpi in %{?mpi_list}
 do
 %if (0%{?suse_version} >= 1500)
-  module load gnu-mpich
+  module load gnu-$mpi
 %else
-  module load mpi/$mpi-%{_arch}
+  if [ "$mpi" = "openmpi" ]; then
+    module load mpi/${mpi}3-%{_arch}
+  else
+    module load mpi/${mpi}-%{_arch}
+  fi
 %endif
   make -C $mpi install DESTDIR=%{buildroot}
   rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
@@ -330,8 +349,6 @@ do
 %endif
   module purge
 done
-#Fixup example permissions
-find %{buildroot}%{_datadir} \( -name '*.[ch]*' -o -name '*.f90' \) -exec chmod -x {} +
 
 #Fixup headers and scripts for multiarch
 %ifarch x86_64 ppc64 ia64 s390x sparc64 alpha
@@ -377,11 +394,14 @@ mkdir -p %{buildroot}%{_libdir}/%{name}
 mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
 
 # Some hackery to install tests
-mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/hdf5/tests/{,.libs/}
-for x in t_cache testphdf5 t_mpi t_pflush1 t_pflush2 t_shapesame
+for mpi in %{?mpi_list}
 do
-  install -m 0755 mpich/testpar/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/tests/
-  install -m 0755 mpich/testpar/.libs/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/tests/.libs/
+  mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/{,.libs/}
+  for x in t_cache testphdf5 t_mpi t_pflush1 t_pflush2 t_shapesame
+  do
+    install -m 0755 $mpi/testpar/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/
+    install -m 0755 $mpi/testpar/.libs/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/.libs/
+  done
 done
 
 
@@ -395,9 +415,13 @@ export OMPI_MCA_rmaps_base_oversubscribe=1
 for mpi in %{?mpi_list}
 do
 %if (0%{?suse_version} >= 1500)
-  module load gnu-mpich
+  module load gnu-$mpi
 %else
-  module load mpi/$mpi-%{_arch}
+  if [ "$mpi" = "openmpi" ]; then
+    module load mpi/${mpi}3-%{_arch}
+  else
+    module load mpi/${mpi}-%{_arch}
+  fi
 %endif
   make -C $mpi check
   module purge
@@ -430,12 +454,12 @@ done
 %{_bindir}/h5stat
 %{_bindir}/h5unjam
 %{_bindir}/h5watch
-%{_libdir}/libhdf5.so.103*
-%{_libdir}/libhdf5_cpp.so.103*
-%{_libdir}/libhdf5_fortran.so.102*
-%{_libdir}/libhdf5hl_fortran.so.100*
-%{_libdir}/libhdf5_hl.so.100*
-%{_libdir}/libhdf5_hl_cpp.so.100*
+%{_libdir}/libhdf5.so.*
+%{_libdir}/libhdf5_cpp.so.*
+%{_libdir}/libhdf5_fortran.so.*
+%{_libdir}/libhdf5hl_fortran.so.*
+%{_libdir}/libhdf5_hl.so.*
+%{_libdir}/libhdf5_hl_cpp.so.*
 %{_mandir}/man1/gif2h5.1*
 %{_mandir}/man1/h52gif.1*
 %{_mandir}/man1/h5copy.1*
@@ -461,7 +485,6 @@ done
 %{_libdir}/*.so
 %{_libdir}/*.settings
 %{_fmoddir}/*.mod
-%{_datadir}/hdf5_examples/
 %{_mandir}/man1/h5c++.1*
 %{_mandir}/man1/h5cc.1*
 %{_mandir}/man1/h5debug.1*
@@ -472,7 +495,7 @@ done
 %{_libdir}/*.a
 
 %files -n java-hdf5
-%{_jnidir}/hdf5.jar
+%{_libdir}/hdf5.jar
 %{_libdir}/%{name}/
 
 %if %{with_mpich}
@@ -501,7 +524,7 @@ done
 %{_libdir}/mpich/bin/h5unjam
 %{_libdir}/mpich/bin/h5watch
 %{_libdir}/mpich/bin/ph5diff
-%{_libdir}/mpich/lib/*.so.10*
+%{_libdir}/mpich/lib/*.so.*
 
 %files mpich-devel
 %{_includedir}/mpich-%{_arch}
@@ -512,12 +535,15 @@ done
 %{_libdir}/mpich/bin/h5pfc
 %{_libdir}/mpich/lib/lib*.so
 %{_libdir}/mpich/lib/lib*.settings
-%{_libdir}/mpich/share/hdf5_examples/
 %{_libdir}/mpich/share/man/man1/h5pcc.1*
 %{_libdir}/mpich/share/man/man1/h5pfc.1*
 
 %files mpich-static
 %{_libdir}/mpich/lib/*.a
+
+%files mpich-tests
+%{_libdir}/hdf5/mpich/tests
+
 %endif
 
 %if %{with_openmpi}
@@ -546,29 +572,34 @@ done
 %{_libdir}/openmpi/bin/h5unjam
 %{_libdir}/openmpi/bin/h5watch
 %{_libdir}/openmpi/bin/ph5diff
-%{_libdir}/openmpi/lib/*.so.10*
+%{_libdir}/openmpi/lib/*.so.*
 
 %files openmpi-devel
 %{_includedir}/openmpi-%{_arch}
-%{_fmoddir}/openmpi/*.mod
+%if (0%{?rhel} >= 7)
+%{_fmoddir}/openmpi3/*.mod
+%endif
 %{_libdir}/openmpi/bin/h5pcc
 %{_libdir}/openmpi/bin/h5pfc
 %{_libdir}/openmpi/lib/lib*.so
 %{_libdir}/openmpi/lib/lib*.settings
-%{_libdir}/openmpi/share/hdf5_examples/
 %{_libdir}/openmpi/share/man/man1/h5pcc.1*
 %{_libdir}/openmpi/share/man/man1/h5pfc.1*
 
 %files openmpi-static
 %{_libdir}/openmpi/lib/*.a
+
+%files openmpi-tests
+%{_libdir}/hdf5/openmpi/tests
+
 %endif
 
 
-%files tests
-%{_libdir}/hdf5/tests
-
 
 %changelog
+* Wed Jul 22 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1.g07066a381e
+- Update HDF5 to version 1.12.0
+
 * Fri Jun 19 2020 Phil Henderson <phillip.henderson@intel.com> - 1.10.5-8.g07066a381e
 - Fix Leap 15 build of %{name}-devel
 

@@ -1,60 +1,63 @@
-From 07066a381e72282564c593d4cef04d6899f75128 Mon Sep 17 00:00:00 2001
-From: Mohamad Chaarawi <mohamad.chaarawi@intel.com>
-Date: Mon, 19 Aug 2019 17:17:49 +0000
-Subject: [PATCH] comment out unsupported tests.
+From 5cc79a0e878c96dc38a1b0ae48fabeae346a7dec Mon Sep 17 00:00:00 2001
+From: Maureen Jean <mjean@boro-69.boro.hpdd.intel.com>
+Date: Wed, 15 Jul 2020 20:43:28 +0000
+Subject: [PATCH] daos testphdf5
 
-Signed-off-by: Mohamad Chaarawi <mohamad.chaarawi@intel.com>
 ---
- testpar/testphdf5.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ testpar/testphdf5.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/testpar/testphdf5.c b/testpar/testphdf5.c
-index 69b66aefc..ab9914ff9 100644
+index b89c790..9b0285c 100644
 --- a/testpar/testphdf5.c
 +++ b/testpar/testphdf5.c
 @@ -379,6 +379,8 @@ int main(int argc, char **argv)
-       "extendible dataset independent write #2", PARATESTFILE);
+             "extendible dataset independent write #2", PARATESTFILE);
      AddTest("selnone", none_selection_chunk, NULL,
              "chunked dataset with none-selection", PARATESTFILE);
 +/* MSC - serial means not MPI-IO, not in DAOS tier */
 +#ifdef DAOS_UNSUPPORTED
      AddTest("calloc", test_chunk_alloc, NULL,
-       "parallel extend Chunked allocation on serial file", PARATESTFILE);
+             "parallel extend Chunked allocation on serial file", PARATESTFILE);
      AddTest("fltread", test_filter_read, NULL,
 @@ -388,6 +390,7 @@ int main(int argc, char **argv)
      AddTest("cmpdsetr", compress_readAll, NULL,
-       "compressed dataset collective read", PARATESTFILE);
+             "compressed dataset collective read", PARATESTFILE);
  #endif /* H5_HAVE_FILTER_DEFLATE */
-+#endif
++#endif /* DAOS_UNSUPPORTED */
  
-     ndsets_params.name = PARATESTFILE;
-     ndsets_params.count = ndatasets;
+     AddTest("zerodsetr", zero_dim_dset, NULL,
+             "zero dim dset", PARATESTFILE);
 @@ -419,8 +422,11 @@ int main(int argc, char **argv)
  #else
-     printf("big dataset test will be skipped on Windows (JIRA HDDFV-8064)\n");
+     HDprintf("big dataset test will be skipped on Windows (JIRA HDDFV-8064)\n");
  #endif
 +/** MSC - default fill value of 0 does not work with DAOS */
 +#ifdef DAOS_UNSUPPORTED
      AddTest("fill", dataset_fillvalue, NULL,
-       "dataset fill value", PARATESTFILE);
-+#endif
+             "dataset fill value", PARATESTFILE);
++#endif /* DAOS_UNSUPPORTED */
  
      AddTest("cchunk1",
-   coll_chunk1,NULL, "simple collective chunk io",PARATESTFILE);
-@@ -532,6 +538,8 @@ int main(int argc, char **argv)
+             coll_chunk1,NULL, "simple collective chunk io",PARATESTFILE);
+@@ -532,6 +538,9 @@ int main(int argc, char **argv)
      AddTest((mpi_size < 2)? "-fiodc" : "fiodc", file_image_daisy_chain_test, NULL,
              "file image ops daisy chain", NULL);
  
 +/* MSC - not atomicity support in DAOS ADIO. */
 +#ifdef DAOS_UNSUPPORTED
++
      if((mpi_size < 2)&& MAINPROCESS ) {
- 	printf("Atomicity tests need at least 2 processes to participate\n");
- 	printf("8 is more recommended.. Atomicity tests will be skipped \n");
-@@ -543,6 +551,7 @@ int main(int argc, char **argv)
+         HDprintf("Atomicity tests need at least 2 processes to participate\n");
+         HDprintf("8 is more recommended.. Atomicity tests will be skipped \n");
+@@ -543,6 +552,7 @@ int main(int argc, char **argv)
          AddTest("atomicity", dataset_atomicity, NULL,
                  "dataset atomic updates", PARATESTFILE);
      }
-+#endif
++#endif /* DAOS_UNSUPPORTED */
  
      AddTest("denseattr", test_dense_attr, NULL,
- 	    "Store Dense Attributes", NULL);
+             "Store Dense Attributes", PARATESTFILE);
+-- 
+1.8.3.1
+
