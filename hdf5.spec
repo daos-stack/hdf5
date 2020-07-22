@@ -81,9 +81,9 @@ Provides:       %{name}-cart-%{cart_major}-daos-%{daos_major}
 %endif
 
 %if (0%{?suse_version} >= 1500)
-%global module_name() (if [ "%{1}" == "openmpi3" ]; then gnu-openmpi; else gnu-%{1}; fi)
+%global module_name() (if [ "%{1}" == "openmpi3" ]; then echo gnu-openmpi; else echo gnu-%{1}; fi)
 %else
-%global module_name() (mpi/%{1}-%{_arch})
+%global module_name() (echo mpi/%{1}-%{_arch})
 %endif
 
 %if %{with_mpich}
