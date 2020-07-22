@@ -480,7 +480,9 @@ done
 %{_libdir}/*.a
 
 %files -n java-hdf5
-%{_libdir}/*hdf5*.jar
+%if (0%{?rhel} >= 7)
+%{_libdir}/hdf5.jar
+%endif
 %{_libdir}/%{name}/
 
 %if %{with_mpich}
