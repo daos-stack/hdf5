@@ -6,20 +6,23 @@
 
 # Patch version?
 %global snaprel %{nil}
+# HDF5 versions
+%global major 1.12
+%global minor 0
 
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
-Version: 1.12.0
-Release: 1.g4aa4036562%{?dist}
+Version: %{major}.%{minor}
+Release: 1%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
+Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-%{major}/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
 Source1: h5comp
 # For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
+Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
 Patch0: hdf5-LD_LIBRARY_PATH.patch
 # Fix some warnings
 Patch2: hdf5-warning.patch
