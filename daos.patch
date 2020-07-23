@@ -1,33 +1,77 @@
-From 4aa40365623cf35643b262781f92578220c42bbb Mon Sep 17 00:00:00 2001
-From: Larry Knox <lrknox@hdfgroup.org>
-Date: Mon, 2 Mar 2020 17:03:12 -0600
-Subject: [PATCH] Commit 1.12.0 release changes to README and RELEASE.txt.
+From e376be0de291c95681bd4cb45d22c3f88e9959e7 Mon Sep 17 00:00:00 2001
+From: Maureen Jean <mjean@boro-69.boro.hpdd.intel.com>
+Date: Thu, 23 Jul 2020 23:45:34 +0000
+Subject: [PATCH] daos
 
 ---
- README.txt               | 2 +-
- release_docs/RELEASE.txt | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ testpar/testphdf5.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/README.txt b/README.txt
-index bee4f5f..dd8a8cc 100644
---- a/README.txt
-+++ b/README.txt
-@@ -1,4 +1,4 @@
--HDF5 version 1.12.0 currently under development
-+HDF5 version 1.12.0 released on 2020-02-28
+diff --git a/testpar/testphdf5.c b/testpar/testphdf5.c
+index b89c790..51a7758 100644
+--- a/testpar/testphdf5.c
++++ b/testpar/testphdf5.c
+@@ -379,6 +379,8 @@ int main(int argc, char **argv)
+             "extendible dataset independent write #2", PARATESTFILE);
+     AddTest("selnone", none_selection_chunk, NULL,
+             "chunked dataset with none-selection", PARATESTFILE);
++/* MSC - serial means not MPI-IO, not in DAOS tier */
++#ifdef DAOS_UNSUPPORTED
+     AddTest("calloc", test_chunk_alloc, NULL,
+             "parallel extend Chunked allocation on serial file", PARATESTFILE);
+     AddTest("fltread", test_filter_read, NULL,
+@@ -388,6 +390,7 @@ int main(int argc, char **argv)
+     AddTest("cmpdsetr", compress_readAll, NULL,
+             "compressed dataset collective read", PARATESTFILE);
+ #endif /* H5_HAVE_FILTER_DEFLATE */
++#endif /* DAOS_UNSUPPORTED */
  
- ------------------------------------------------------------------------------
- Please refer to the release_docs/INSTALL file for installation instructions.
-diff --git a/release_docs/RELEASE.txt b/release_docs/RELEASE.txt
-index dc84a85..8f52cbe 100644
---- a/release_docs/RELEASE.txt
-+++ b/release_docs/RELEASE.txt
-@@ -1,4 +1,4 @@
--HDF5 version 1.12.0 currently under development
-+HDF5 version 1.12.0 released on 2020-02-28
- ================================================================================
+     AddTest("zerodsetr", zero_dim_dset, NULL,
+             "zero dim dset", PARATESTFILE);
+@@ -419,8 +422,11 @@ int main(int argc, char **argv)
+ #else
+     HDprintf("big dataset test will be skipped on Windows (JIRA HDDFV-8064)\n");
+ #endif
++/** MSC - default fill value of 0 does not work with DAOS */
++#ifdef DAOS_UNSUPPORTED
+     AddTest("fill", dataset_fillvalue, NULL,
+             "dataset fill value", PARATESTFILE);
++#endif /* DAOS_UNSUPPORTED */
  
+     AddTest("cchunk1",
+             coll_chunk1,NULL, "simple collective chunk io",PARATESTFILE);
+@@ -518,9 +524,13 @@ int main(int argc, char **argv)
+             "test actual io mode proprerty",
+             PARATESTFILE);
  
++/* MSC - creates and EFL file using POSIX API */
++#ifdef DAOS_UNSUPPORTED
++
+     AddTest("nocolcause", no_collective_cause_tests, NULL,
+             "test cause for broken collective io",
+             PARATESTFILE);
++#endif
+ 
+     AddTest("edpl", test_plist_ed, NULL,
+             "encode/decode Property Lists", NULL);
+@@ -532,6 +542,9 @@ int main(int argc, char **argv)
+     AddTest((mpi_size < 2)? "-fiodc" : "fiodc", file_image_daisy_chain_test, NULL,
+             "file image ops daisy chain", NULL);
+ 
++/* MSC - not atomicity support in DAOS ADIO. */
++#ifdef DAOS_UNSUPPORTED
++
+     if((mpi_size < 2)&& MAINPROCESS ) {
+         HDprintf("Atomicity tests need at least 2 processes to participate\n");
+         HDprintf("8 is more recommended.. Atomicity tests will be skipped \n");
+@@ -543,6 +556,7 @@ int main(int argc, char **argv)
+         AddTest("atomicity", dataset_atomicity, NULL,
+                 "dataset atomic updates", PARATESTFILE);
+     }
++#endif /* DAOS_UNSUPPORTED */
+ 
+     AddTest("denseattr", test_dense_attr, NULL,
+             "Store Dense Attributes", PARATESTFILE);
 -- 
 1.8.3.1
 
