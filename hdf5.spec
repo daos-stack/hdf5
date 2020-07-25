@@ -235,7 +235,7 @@ HDF5 tests with openmpi3
 # Leap 15.1 wants jars in /usr/lib64/java
 %if (0%{?suse_version} >= 1500)
 ed java/src/Makefile.am << EOF
-/^hdf5_javadir =/s/libdir\)/libdir\)\/java/
+/^hdf5_javadir =/s/lib/lib64/
 wq
 EOF
 %endif
