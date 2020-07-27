@@ -141,8 +141,9 @@ HDF5 static libraries.
 Summary: HDF5 mpich libraries
 BuildRequires: mpich-devel
 Provides: %{name}-mpich2 = %{version}-%{release}
-Obsoletes: %{name}-mpich2 < 1.8.11-4
+Obsoletes: %{name}-mpich2 < %{version}-%{release}
 Provides: %{name}-mpich2-daos-%{daos_major}
+Obsoletes: %{name} < %{version}-%{release}
 
 %description mpich
 HDF5 parallel mpich libraries
@@ -155,7 +156,7 @@ Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
 Requires: mpich-devel%{?_isa}
 Provides: %{name}-mpich2-devel = %{version}-%{release}
-Obsoletes: %{name}-mpich2-devel < 1.8.11-4
+Obsoletes: %{name}-mpich2-devel < %{version}-%{release}
 
 %description mpich-devel
 HDF5 parallel mpich development files
@@ -165,7 +166,7 @@ HDF5 parallel mpich development files
 Summary: HDF5 mpich static libraries
 Requires: %{name}-mpich-devel%{?_isa} = %{version}-%{release}
 Provides: %{name}-mpich2-static = %{version}-%{release}
-Obsoletes: %{name}-mpich2-static < 1.8.11-4
+Obsoletes: %{name}-mpich2-static < %{version}-%{release}
 
 %description mpich-static
 HDF5 parallel mpich static libraries
@@ -176,6 +177,7 @@ Summary: HDF5 tests with mpich
 Group: Development/Libraries
 Requires: %{name}-mpich2 = %{version}-%{release}
 Provides: %{name}-mpich2-tests-daos-%{daos_major}
+Obsoletes: %{name}-tests < %{version}-%{release}
 
 %description mpich-tests
 HDF5 tests with mpich
@@ -289,7 +291,6 @@ ln -s ../configure .
   %{configure_opts} \
   --enable-cxx \
   --enable-java \
-  --without-examplesdir
 
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
@@ -317,7 +318,7 @@ do
     --bindir=%{_libdir}/$mpi/bin \
     --sbindir=%{_libdir}/$mpi/sbin \
     --includedir=%{_includedir}/$mpi-%{_arch} \
-    --without-examplesdir \
+    --datarootdir=%{_libdir}/$mpi/share \
     --mandir=%{_libdir}/$mpi/share/man
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
   make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
@@ -583,7 +584,7 @@ done
 %endif
 
 %changelog
-* Wed Jul 22 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1.g07066a381e
+* Wed Jul 22 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1
 - Update HDF5 to version 1.12.0
 
 * Mon Jul 13 2020 Maureen Jean <maureen.jean@intel.com> - 1.10.5-9.g07066a381e
