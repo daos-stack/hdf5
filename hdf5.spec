@@ -29,6 +29,8 @@ Patch2: hdf5-warning.patch
 Patch3: hdf5-build.patch
 # Disable tests that don't work with DAOS
 Patch11: daos.patch
+# Example file move to DESTDIR
+Patch12: examples.patch
 
 %if (0%{?suse_version} >= 1500)
 BuildRequires:  gcc-fortran
@@ -230,6 +232,7 @@ HDF5 tests with openmpi3
 %patch2 -p1 -b .warning
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos
+%patch12 -p1 -b .examples
 # Leap 15.1 wants jars in /usr/lib64/java
 %if (0%{?suse_version} >= 1500)
 ed java/src/Makefile.am << EOF
@@ -286,8 +289,7 @@ ln -s ../configure .
 %configure \
   %{configure_opts} \
   --enable-cxx \
-  --enable-java \
-  --without-examplesdir
+  --enable-java
 
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
@@ -315,7 +317,7 @@ do
     --bindir=%{_libdir}/$mpi/bin \
     --sbindir=%{_libdir}/$mpi/sbin \
     --includedir=%{_includedir}/$mpi-%{_arch} \
-    --without-examplesdir \
+    --datarootdir=%{_libdir}/$mpi/share \
     --mandir=%{_libdir}/$mpi/share/man
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
   make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
@@ -470,6 +472,7 @@ done
 %{_libdir}/*.so
 %{_libdir}/*.settings
 %{_fmoddir}/*.mod
+%{_datadir}/hdf5_examples/
 %{_mandir}/man1/h5c++.1*
 %{_mandir}/man1/h5cc.1*
 %{_mandir}/man1/h5debug.1*
@@ -520,6 +523,7 @@ done
 %{_libdir}/mpich/bin/h5pfc
 %{_libdir}/mpich/lib/lib*.so
 %{_libdir}/mpich/lib/lib*.settings
+%{_libdir}/mpich/share/hdf5_examples/
 %{_libdir}/mpich/share/man/man1/h5pcc.1*
 %{_libdir}/mpich/share/man/man1/h5pfc.1*
 
@@ -569,6 +573,7 @@ done
 %{_libdir}/openmpi3/bin/h5pfc
 %{_libdir}/openmpi3/lib/lib*.so
 %{_libdir}/openmpi3/lib/lib*.settings
+%{_libdir}/openmpi3/share/hdf5_examples/
 %{_libdir}/openmpi3/share/man/man1/h5pcc.1*
 %{_libdir}/openmpi3/share/man/man1/h5pfc.1*
 
@@ -584,7 +589,6 @@ done
 * Wed Jul 22 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1
 - Update HDF5 to version 1.12.0
 - Obsolete the previous version of hdf5 package with this build
-- No longer packaging example files
 
 * Mon Jul 13 2020 Maureen Jean <maureen.jean@intel.com> - 1.10.5-9.g07066a381e
 - Add support for openmpi3
