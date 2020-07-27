@@ -141,7 +141,6 @@ HDF5 static libraries.
 Summary: HDF5 mpich libraries
 BuildRequires: mpich-devel
 Provides: %{name}-mpich2 = %{version}-%{release}
-Obsoletes: %{name}-mpich2 < %{version}-%{release}
 Provides: %{name}-mpich2-daos-%{daos_major}
 Obsoletes: %{name} < %{version}-%{release}
 
@@ -156,7 +155,6 @@ Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
 Requires: mpich-devel%{?_isa}
 Provides: %{name}-mpich2-devel = %{version}-%{release}
-Obsoletes: %{name}-mpich2-devel < %{version}-%{release}
 
 %description mpich-devel
 HDF5 parallel mpich development files
@@ -166,7 +164,6 @@ HDF5 parallel mpich development files
 Summary: HDF5 mpich static libraries
 Requires: %{name}-mpich-devel%{?_isa} = %{version}-%{release}
 Provides: %{name}-mpich2-static = %{version}-%{release}
-Obsoletes: %{name}-mpich2-static < %{version}-%{release}
 
 %description mpich-static
 HDF5 parallel mpich static libraries
@@ -177,7 +174,6 @@ Summary: HDF5 tests with mpich
 Group: Development/Libraries
 Requires: %{name}-mpich2 = %{version}-%{release}
 Provides: %{name}-mpich2-tests-daos-%{daos_major}
-Obsoletes: %{name}-tests < %{version}-%{release}
 
 %description mpich-tests
 HDF5 tests with mpich
@@ -587,6 +583,8 @@ done
 %changelog
 * Wed Jul 22 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1
 - Update HDF5 to version 1.12.0
+- Obsolete the previous version of hdf5 package with this build
+- No longer packaging example files
 
 * Mon Jul 13 2020 Maureen Jean <maureen.jean@intel.com> - 1.10.5-9.g07066a381e
 - Add support for openmpi3
