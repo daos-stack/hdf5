@@ -291,6 +291,7 @@ ln -s ../configure .
   %{configure_opts} \
   --enable-cxx \
   --enable-java \
+  --without-examplesdir
 
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
@@ -318,7 +319,7 @@ do
     --bindir=%{_libdir}/$mpi/bin \
     --sbindir=%{_libdir}/$mpi/sbin \
     --includedir=%{_includedir}/$mpi-%{_arch} \
-    --datarootdir=%{_libdir}/$mpi/share \
+    --without-examplesdir \
     --mandir=%{_libdir}/$mpi/share/man
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
   make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
