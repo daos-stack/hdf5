@@ -11,7 +11,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: 1.10.5
-Release: 9.g07066a381e%{?dist}
+Release: 10.g07066a381e%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -589,6 +589,9 @@ done
 %endif
 
 %changelog
+* Mon Jul 27 2020 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-10.g07066a381e
+- Skip nocolcause test
+
 * Mon Jul 13 2020 Maureen Jean <maureen.jean@intel.com> - 1.10.5-9.g07066a381e
 - Add support for openmpi3
 
