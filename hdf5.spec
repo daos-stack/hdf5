@@ -586,7 +586,7 @@ done
 %endif
 
 %changelog
-* Wed Jul 22 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1
+* Tue Jul 28 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1
 - Update HDF5 to version 1.12.0
 
 * Mon Jul 27 2020 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-10.g07066a381e
