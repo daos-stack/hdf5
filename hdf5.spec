@@ -63,7 +63,7 @@ BuildRequires: Modules
 %else
 BuildRequires: environment-modules
 %endif
-Provides: %{name}-daos-%{daos_major}
+Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 
 %global with_mpich 1
 %global with_openmpi 0
@@ -125,7 +125,7 @@ HDF5 development headers and libraries.
 Summary: HDF5 java library
 Requires:  slf4j
 Obsoletes: jhdf5 < 3.3.1-2
-Provides: %{name}-java-hdf5-daos-%{daos_major}
+Provides: %{name}-java-hdf5-daos-%{daos_major} = %{version}-%{release}
 
 %description -n java-hdf5
 HDF5 java library
@@ -143,8 +143,8 @@ HDF5 static libraries.
 Summary: HDF5 mpich libraries
 BuildRequires: mpich-devel
 Provides: %{name}-mpich2 = %{version}-%{release}
-Provides: %{name}-mpich2-daos-%{daos_major}
-Obsoletes: %{name} < %{version}-%{release}
+Obsoletes: %{name}-mpich2 < 1.8.11-4
+Provides: %{name}-mpich2-daos-%{daos_major} = %{version}-%{release}
 
 %description mpich
 HDF5 parallel mpich libraries
@@ -175,7 +175,7 @@ HDF5 parallel mpich static libraries
 Summary: HDF5 tests with mpich
 Group: Development/Libraries
 Requires: %{name}-mpich2 = %{version}-%{release}
-Provides: %{name}-mpich2-tests-daos-%{daos_major}
+Provides: %{name}-mpich2-tests-daos-%{daos_major} = %{version}-%{release}
 
 %description mpich-tests
 HDF5 tests with mpich
@@ -188,7 +188,7 @@ HDF5 tests with mpich
 Summary: HDF5 openmpi3 libraries
 BuildRequires: openmpi3-devel
 Provides: %{name}-openmpi3 = %{version}-%{release}
-Provides: %{name}-openmpi3-daos-%{daos_major}
+Provides: %{name}-openmpi3-daos-%{daos_major} = %{version}-%{release}
 
 %description openmpi3
 HDF5 parallel openmpi3 libraries
@@ -219,7 +219,7 @@ HDF5 parallel openmpi3 static libraries
 Summary: HDF5 tests with openmpi3
 Group: Development/Libraries
 Requires: %{name}-openmpi3 = %{version}-%{release}
-Provides: %{name}-openmpi3-tests-daos-%{daos_major}
+Provides: %{name}-openmpi3-tests-daos-%{daos_major} = %{version}-%{release}
 
 %description openmpi3-tests
 HDF5 tests with openmpi3
@@ -588,7 +588,11 @@ done
 %changelog
 * Wed Jul 22 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1
 - Update HDF5 to version 1.12.0
-- Obsolete the previous version of hdf5 package with this build
+
+* Mon Jul 27 2020 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-10.g07066a381e
+- Skip nocolcause test
+- Add version and release to virtual provides
+- Drop cart from virtual provides
 
 * Mon Jul 13 2020 Maureen Jean <maureen.jean@intel.com> - 1.10.5-9.g07066a381e
 - Add support for openmpi3
