@@ -592,7 +592,7 @@ done
 * Mon Jul 27 2020 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-10.g07066a381e
 - Skip nocolcause test
 - Add version and release to virtual provides
-- Drop cart from virtual proviedes
+- Drop cart from virtual provides
 
 * Mon Jul 13 2020 Maureen Jean <maureen.jean@intel.com> - 1.10.5-9.g07066a381e
 - Add support for openmpi3
