@@ -1,35 +1,36 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
-%global cart_major 4
 %global daos_major 0
 
 # Patch version?
 %global snaprel %{nil}
+# HDF5 versions
+%global major 1.12
+%global minor 0
 
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
-Version: 1.10.5
-Release: 10.g07066a381e%{?dist}
+Version: %{major}.%{minor}
+Release: 1%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
+Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-%{major}/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
 Source1: h5comp
 # For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.10.4+repack-1.debian.tar.xz
+Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
 Patch0: hdf5-LD_LIBRARY_PATH.patch
-# Properly run MPI_Finalize() in t_pflush1
-Patch1: hdf5-mpi.patch
 # Fix some warnings
 Patch2: hdf5-warning.patch
 # Fix java build
 Patch3: hdf5-build.patch
 # Disable tests that don't work with DAOS
-Patch10: hdf5-1.10.5-11.4-g07066a381e.patch
 Patch11: daos.patch
+# Example file move to DESTDIR
+Patch12: examples.patch
 
 %if (0%{?suse_version} >= 1500)
 BuildRequires:  gcc-fortran
@@ -156,7 +157,6 @@ Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
 Requires: mpich-devel%{?_isa}
 Provides: %{name}-mpich2-devel = %{version}-%{release}
-Obsoletes: %{name}-mpich2-devel < 1.8.11-4
 
 %description mpich-devel
 HDF5 parallel mpich development files
@@ -166,7 +166,6 @@ HDF5 parallel mpich development files
 Summary: HDF5 mpich static libraries
 Requires: %{name}-mpich-devel%{?_isa} = %{version}-%{release}
 Provides: %{name}-mpich2-static = %{version}-%{release}
-Obsoletes: %{name}-mpich2-static < 1.8.11-4
 
 %description mpich-static
 HDF5 parallel mpich static libraries
@@ -182,6 +181,7 @@ Provides: %{name}-mpich2-tests-daos-%{daos_major} = %{version}-%{release}
 HDF5 tests with mpich
 
 %endif
+
 
 %if %{with_openmpi3}
 %package openmpi3
@@ -228,13 +228,11 @@ HDF5 tests with openmpi3
 
 %prep
 %setup -q -a 2 -n %{name}-%{version}%{?snaprel}
-%patch10 -p1 -b .hdf5-1.10.5-11.4-g07066a381e
 %patch0 -p1 -b .LD_LIBRARY_PATH
-#patch1 -p1 -b .mpi
 %patch2 -p1 -b .warning
 %patch3 -p1 -b .build
-# already included in patch10 (for now)
-#patch11 -p1 -b .daos
+%patch11 -p1 -b .daos
+%patch12 -p1 -b .examples
 # Leap 15.1 wants jars in /usr/lib64/java
 %if (0%{?suse_version} >= 1500)
 ed java/src/Makefile.am << EOF
@@ -292,6 +290,7 @@ ln -s ../configure .
   %{configure_opts} \
   --enable-cxx \
   --enable-java
+
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
 popd
@@ -345,8 +344,6 @@ do
 %endif
   module purge
 done
-#Fixup example permissions
-find %{buildroot}%{_datadir} \( -name '*.[ch]*' -o -name '*.f90' \) -exec chmod -x {} +
 
 #Fixup headers and scripts for multiarch
 %ifarch x86_64 ppc64 ia64 s390x sparc64 alpha
@@ -444,12 +441,12 @@ done
 %{_bindir}/h5stat
 %{_bindir}/h5unjam
 %{_bindir}/h5watch
-%{_libdir}/libhdf5.so.103*
-%{_libdir}/libhdf5_cpp.so.103*
-%{_libdir}/libhdf5_fortran.so.102*
-%{_libdir}/libhdf5hl_fortran.so.100*
-%{_libdir}/libhdf5_hl.so.100*
-%{_libdir}/libhdf5_hl_cpp.so.100*
+%{_libdir}/libhdf5.so.*
+%{_libdir}/libhdf5_cpp.so.*
+%{_libdir}/libhdf5_fortran.so.*
+%{_libdir}/libhdf5hl_fortran.so.*
+%{_libdir}/libhdf5_hl.so.*
+%{_libdir}/libhdf5_hl_cpp.so.*
 %{_mandir}/man1/gif2h5.1*
 %{_mandir}/man1/h52gif.1*
 %{_mandir}/man1/h5copy.1*
@@ -487,7 +484,7 @@ done
 
 %files -n java-hdf5
 %{_jnidir}/hdf5.jar
-%{_libdir}/%{name}/
+%{_libdir}/%{name}/libhdf5_java.so
 
 %if %{with_mpich}
 %files mpich
@@ -589,6 +586,9 @@ done
 %endif
 
 %changelog
+* Tue Jul 28 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1
+- Update HDF5 to version 1.12.0
+
 * Mon Jul 27 2020 Brian J. Murrell <brian.murrell@intel.com> - 1.10.5-10.g07066a381e
 - Skip nocolcause test
 - Add version and release to virtual provides
