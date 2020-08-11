@@ -13,7 +13,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -312,6 +312,7 @@ do
     FCFLAGS="$FCFLAGS -I$MPI_FORTRAN_MOD_DIR" \
 %endif
     --enable-parallel \
+    --enable-map-api \
     --exec-prefix=%{_libdir}/$mpi \
     --libdir=%{_libdir}/$mpi/lib \
     --bindir=%{_libdir}/$mpi/bin \
@@ -586,6 +587,9 @@ done
 %endif
 
 %changelog
+* Tue Jul 28 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-2
+- Add enable-map-api for daos-vol build support
+
 * Tue Jul 28 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-1
 - Update HDF5 to version 1.12.0
 
