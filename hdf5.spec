@@ -13,7 +13,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -82,7 +82,7 @@ Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 %endif
 
 %if (0%{?suse_version} >= 1500)
-%global module_load() if [ "%{1}" == "openmpi3" ]; then module load gnu-openmpi; else module load gnu-%{1}; fi
+%global module_load() if [ "%{1}" == "openmpi3" ]; then MODULEPATH=/usr/share/modules module load gnu-openmpi; else MODULEPATH=/usr/share/modules module load gnu-%{1}; fi
 %else
 %global module_load() module load mpi/%{1}-%{_arch}
 %endif
@@ -587,6 +587,9 @@ done
 %endif
 
 %changelog
+* Fri Aug 14 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-3
+- Enable build with SLES15.2
+
 * Tue Jul 28 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-2
 - Add enable-map-api for daos-vol build support
 
