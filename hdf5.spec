@@ -101,6 +101,7 @@ Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 %global mpidir %{_libdir}/mpi/gcc
 %else
 %global mpidir %{_libdir}
+%endif
 
 %description
 HDF5 is a general purpose library and file format for storing scientific data.
