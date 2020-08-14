@@ -98,9 +98,11 @@ Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 %endif
 
 %if (0%{?suse_version} >= 1500)
-%global mpidir %{_libdir}/mpi/gcc
+%global mpi_libdir %{_libdir}/mpi/gcc
+%global mpi_incldir  %{_includedir}/mpi/gcc
 %else
-%global mpidir %{_libdir}
+%global mpi_libdir %{_libdir}
+%global mpi_incldir  %{_includedir}
 %endif
 
 %description
@@ -319,13 +321,13 @@ do
 %endif
     --enable-parallel \
     --enable-map-api \
-    --exec-prefix=%{_libdir}/$mpi \
-    --libdir=%{_libdir}/$mpi/lib \
-    --bindir=%{_libdir}/$mpi/bin \
-    --sbindir=%{_libdir}/$mpi/sbin \
-    --includedir=%{_includedir}/$mpi-%{_arch} \
-    --datarootdir=%{_libdir}/$mpi/share \
-    --mandir=%{_libdir}/$mpi/share/man
+    --exec-prefix=%{mpi_libdir}/$mpi \
+    --libdir=%{mpi_libdir}/$mpi/lib \
+    --bindir=%{mpi_libdir}/$mpi/bin \
+    --sbindir=%{mpi_libdir}/$mpi/sbin \
+    --includedir=%{mpi_incldir}/$mpi-%{_arch} \
+    --datarootdir=%{mpi_libdir}/$mpi/share \
+    --mandir=%{mpi_libdir}/$mpi/share/man
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
   make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
   module purge
@@ -343,7 +345,7 @@ for mpi in %{?mpi_list}
 do
   %module_load $mpi
   make -C $mpi install DESTDIR=%{buildroot}
-  rm %{buildroot}/%{_libdir}/$mpi/lib/*.la
+  rm %{buildroot}/%{mpi_libdir}/$mpi/lib/*.la
   #Fortran modules
 %if (0%{?rhel} >= 7)
   mkdir -p %{buildroot}${MPI_FORTRAN_MOD_DIR}
@@ -386,8 +388,8 @@ mkdir -p %{buildroot}%{_mandir}/man1
 cp -p debian/man/*.1 %{buildroot}%{_mandir}/man1/
 for mpi in %{?mpi_list}
 do
-  mkdir -p %{buildroot}%{_libdir}/$mpi/share/man/man1
-  cp -p debian/man/h5p[cf]c.1 %{buildroot}%{_libdir}/$mpi/share/man/man1/
+  mkdir -p %{buildroot}%{mpi_libdir}/$mpi/share/man/man1
+  cp -p debian/man/h5p[cf]c.1 %{buildroot}%{mpi_libdir}/$mpi/share/man/man1/
 done
 rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
 
@@ -498,44 +500,44 @@ done
 %license COPYING
 %doc MANIFEST README.txt release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
-%{mpidir}/mpich/bin/gif2h5
-%{mpidir}/mpich/bin/h52gif
-%{mpidir}/mpich/bin/h5clear
-%{mpidir}/mpich/bin/h5copy
-%{mpidir}/mpich/bin/h5debug
-%{mpidir}/mpich/bin/h5diff
-%{mpidir}/mpich/bin/h5dump
-%{mpidir}/mpich/bin/h5format_convert
-%{mpidir}/mpich/bin/h5import
-%{mpidir}/mpich/bin/h5jam
-%{mpidir}/mpich/bin/h5ls
-%{mpidir}/mpich/bin/h5mkgrp
-%{mpidir}/mpich/bin/h5redeploy
-%{mpidir}/mpich/bin/h5repack
-%{mpidir}/mpich/bin/h5perf
-%{mpidir}/mpich/bin/h5perf_serial
-%{mpidir}/mpich/bin/h5repart
-%{mpidir}/mpich/bin/h5stat
-%{mpidir}/mpich/bin/h5unjam
-%{mpidir}/mpich/bin/h5watch
-%{mpidir}/mpich/bin/ph5diff
-%{mpidir}/mpich/lib/*.so.*
+%{mpi_libdir}/mpich/bin/gif2h5
+%{mpi_libdir}/mpich/bin/h52gif
+%{mpi_libdir}/mpich/bin/h5clear
+%{mpi_libdir}/mpich/bin/h5copy
+%{mpi_libdir}/mpich/bin/h5debug
+%{mpi_libdir}/mpich/bin/h5diff
+%{mpi_libdir}/mpich/bin/h5dump
+%{mpi_libdir}/mpich/bin/h5format_convert
+%{mpi_libdir}/mpich/bin/h5import
+%{mpi_libdir}/mpich/bin/h5jam
+%{mpi_libdir}/mpich/bin/h5ls
+%{mpi_libdir}/mpich/bin/h5mkgrp
+%{mpi_libdir}/mpich/bin/h5redeploy
+%{mpi_libdir}/mpich/bin/h5repack
+%{mpi_libdir}/mpich/bin/h5perf
+%{mpi_libdir}/mpich/bin/h5perf_serial
+%{mpi_libdir}/mpich/bin/h5repart
+%{mpi_libdir}/mpich/bin/h5stat
+%{mpi_libdir}/mpich/bin/h5unjam
+%{mpi_libdir}/mpich/bin/h5watch
+%{mpi_libdir}/mpich/bin/ph5diff
+%{mpi_libdir}/mpich/lib/*.so.*
 
 %files mpich-devel
-%{_includedir}/mpich-%{_arch}
+%{mpi_incldir}/mpich-%{_arch}
 %if (0%{?rhel} >= 7)
 %{_fmoddir}/mpich/*.mod
 %endif
-%{mpidir}/mpich/bin/h5pcc
-%{mpidir}/mpich/bin/h5pfc
-%{mpidir}/mpich/lib/lib*.so
-%{mpidir}/mpich/lib/lib*.settings
-%{mpidir}/mpich/share/hdf5_examples/
-%{mpidir}/mpich/share/man/man1/h5pcc.1*
-%{mpidir}/mpich/share/man/man1/h5pfc.1*
+%{mpi_libdir}/mpich/bin/h5pcc
+%{mpi_libdir}/mpich/bin/h5pfc
+%{mpi_libdir}/mpich/lib/lib*.so
+%{mpi_libdir}/mpich/lib/lib*.settings
+%{mpi_libdir}/mpich/share/hdf5_examples/
+%{mpi_libdir}/mpich/share/man/man1/h5pcc.1*
+%{mpi_libdir}/mpich/share/man/man1/h5pfc.1*
 
 %files mpich-static
-%{mpidir}/mpich/lib/*.a
+%{mpi_libdir}/mpich/lib/*.a
 
 %files mpich-tests
 %{_libdir}/hdf5/mpich/tests
@@ -548,44 +550,44 @@ done
 %license COPYING
 %doc MANIFEST README.txt release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
-%{mpidir}/openmpi3/bin/gif2h5
-%{mpidir}/openmpi3/bin/h52gif
-%{mpidir}/openmpi3/bin/h5clear
-%{mpidir}/openmpi3/bin/h5copy
-%{mpidir}/openmpi3/bin/h5debug
-%{mpidir}/openmpi3/bin/h5diff
-%{mpidir}/openmpi3/bin/h5dump
-%{mpidir}/openmpi3/bin/h5format_convert
-%{mpidir}/openmpi3/bin/h5import
-%{mpidir}/openmpi3/bin/h5jam
-%{mpidir}/openmpi3/bin/h5ls
-%{mpidir}/openmpi3/bin/h5mkgrp
-%{mpidir}/openmpi3/bin/h5perf
-%{mpidir}/openmpi3/bin/h5perf_serial
-%{mpidir}/openmpi3/bin/h5redeploy
-%{mpidir}/openmpi3/bin/h5repack
-%{mpidir}/openmpi3/bin/h5repart
-%{mpidir}/openmpi3/bin/h5stat
-%{mpidir}/openmpi3/bin/h5unjam
-%{mpidir}/openmpi3/bin/h5watch
-%{mpidir}/openmpi3/bin/ph5diff
-%{mpidir}/openmpi3/lib/*.so.*
+%{mpi_libdir}/openmpi3/bin/gif2h5
+%{mpi_libdir}/openmpi3/bin/h52gif
+%{mpi_libdir}/openmpi3/bin/h5clear
+%{mpi_libdir}/openmpi3/bin/h5copy
+%{mpi_libdir}/openmpi3/bin/h5debug
+%{mpi_libdir}/openmpi3/bin/h5diff
+%{mpi_libdir}/openmpi3/bin/h5dump
+%{mpi_libdir}/openmpi3/bin/h5format_convert
+%{mpi_libdir}/openmpi3/bin/h5import
+%{mpi_libdir}/openmpi3/bin/h5jam
+%{mpi_libdir}/openmpi3/bin/h5ls
+%{mpi_libdir}/openmpi3/bin/h5mkgrp
+%{mpi_libdir}/openmpi3/bin/h5perf
+%{mpi_libdir}/openmpi3/bin/h5perf_serial
+%{mpi_libdir}/openmpi3/bin/h5redeploy
+%{mpi_libdir}/openmpi3/bin/h5repack
+%{mpi_libdir}/openmpi3/bin/h5repart
+%{mpi_libdir}/openmpi3/bin/h5stat
+%{mpi_libdir}/openmpi3/bin/h5unjam
+%{mpi_libdir}/openmpi3/bin/h5watch
+%{mpi_libdir}/openmpi3/bin/ph5diff
+%{mpi_libdir}/openmpi3/lib/*.so.*
 
 %files openmpi3-devel
-%{_includedir}/openmpi3-%{_arch}
+%{mpi_incldir}/openmpi3-%{_arch}
 %if (0%{?rhel} >= 7)
 %{_fmoddir}/openmpi3/*.mod
 %endif
-%{mpidir}/openmpi3/bin/h5pcc
-%{mpidir}/openmpi3/bin/h5pfc
-%{mpidir}/openmpi3/lib/lib*.so
-%{mpidir}/openmpi3/lib/lib*.settings
-%{mpidir}/openmpi3/share/hdf5_examples/
-%{mpidir}/openmpi3/share/man/man1/h5pcc.1*
-%{mpidir}/openmpi3/share/man/man1/h5pfc.1*
+%{mpi_libdir}/openmpi3/bin/h5pcc
+%{mpi_libdir}/openmpi3/bin/h5pfc
+%{mpi_libdir}/openmpi3/lib/lib*.so
+%{mpi_libdir}/openmpi3/lib/lib*.settings
+%{mpi_libdir}/openmpi3/share/hdf5_examples/
+%{mpi_libdir}/openmpi3/share/man/man1/h5pcc.1*
+%{mpi_libdir}/openmpi3/share/man/man1/h5pfc.1*
 
 %files openmpi3-static
-%{mpidir}/openmpi3/lib/*.a
+%{mpi_libdir}/openmpi3/lib/*.a
 
 %files openmpi3-tests
 %{_libdir}/hdf5/openmpi3/tests
