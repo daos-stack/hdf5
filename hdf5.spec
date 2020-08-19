@@ -105,7 +105,8 @@ Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 %global mpi_libdir %{_libdir}
 %global mpi_incldir  %{_includedir}
 %else
-%{error: only rhel and suse supported}
+%{error: rpm does not support this os}
+%quit
 %endif
 %endif
 
