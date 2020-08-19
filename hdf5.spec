@@ -104,9 +104,6 @@ Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 %if (0%{?rhel} >= 7)
 %global mpi_libdir %{_libdir}
 %global mpi_incldir  %{_includedir}
-%else
-%{error: rpm does not support this os}
-%quit
 %endif
 %endif
 
