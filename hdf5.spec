@@ -105,7 +105,7 @@ Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 %global mpi_libdir %{_libdir}
 %global mpi_incldir  %{_includedir}
 %else
-%{error: The path for MPI tools is unknown for your distro}
+%{error:The path for MPI tools is unknown for your distro}
 %endif
 %endif
 
