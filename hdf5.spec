@@ -40,7 +40,7 @@ BuildRequires: gcc-gfortran
 BuildRequires: java-devel
 BuildRequires: javapackages-tools
 BuildRequires: hamcrest
-BuildRequires: junit
+BuildRequires: junit <= 4.11-6.30
 BuildRequires: slf4j
 BuildRequires: krb5-devel
 BuildRequires: openssl-devel
@@ -258,9 +258,7 @@ ln -s %{_javadir}/junit.jar java/lib/junit.jar
 ln -s %{_javadir}/slf4j/api.jar java/lib/slf4j-api-1.7.25.jar
 ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.25.jar
 ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
-# debug
-find /usr -name JPP-junit.pom
-rpm -qil junit-4.12-lp152.1.3
+
 # Fix test output
 junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/JPP-junit.pom)
 sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
