@@ -361,7 +361,7 @@ docker_chrootbuild:
 	           -it $(BUILD_OS)-chrootbuild bash -c "make chrootbuild"
 
 rpmlint: $(SPEC)
-	rpmlint -i $<
+	rpmlint $<
 
 packaging_check:
 	if grep -e --repo $(CALLING_MAKEFILE); then                                    \
