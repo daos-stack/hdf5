@@ -40,7 +40,7 @@ BuildRequires: gcc-gfortran
 BuildRequires: java-devel
 BuildRequires: javapackages-tools
 BuildRequires: hamcrest
-BuildRequires: junit <= 4.11-6.30
+BuildRequires: junit
 BuildRequires: slf4j
 BuildRequires: krb5-devel
 BuildRequires: openssl-devel
@@ -260,7 +260,11 @@ ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.25.jar
 ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
 
 # Fix test output
+%if (0%{?suse_version} >= 1500)
+junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/junit.pom)
+%else
 junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/JPP-junit.pom)
+%endif
 sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
 
 # Force shared by default for compiler wrappers (bug #1266645)
