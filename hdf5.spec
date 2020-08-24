@@ -13,7 +13,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -612,6 +612,9 @@ done
 %endif
 
 %changelog
+* Mon Aug 24 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-4
+- Fix SLES15 mpi include paths
+
 * Fri Aug 14 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-3
 - Enable build with SLES15.2
 
