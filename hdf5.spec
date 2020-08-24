@@ -260,10 +260,11 @@ ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
 
 # Fix test output
 %if (0%{?suse_version} >= 1500)
-junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/junit.pom)
+junit_ver_file=junit
 %else
-junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/JPP-junit.pom)
+junit_ver_file=JPP-junit
 %endif
+junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/$junit_ver_file.pom)
 sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
 
 # Force shared by default for compiler wrappers (bug #1266645)
@@ -331,7 +332,11 @@ do
     --libdir=%{mpi_libdir}/$mpi/lib \
     --bindir=%{mpi_libdir}/$mpi/bin \
     --sbindir=%{mpi_libdir}/$mpi/sbin \
+%if (0%{?suse_version} >= 1500)
+    --includedir=%{mpi_libdir}/$mpi/include \
+%else
     --includedir=%{mpi_incldir}/$mpi-%{_arch} \
+%endif
     --datarootdir=%{mpi_libdir}/$mpi/share \
     --mandir=%{mpi_libdir}/$mpi/share/man
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
@@ -530,8 +535,11 @@ done
 %{mpi_libdir}/mpich/lib/*.so.*
 
 %files mpich-devel
-%{mpi_incldir}/mpich-%{_arch}
+%if (0%{?suse_version} >= 1500)
+%{mpi_libdir}/mpich/include
+%endif
 %if (0%{?rhel} >= 7)
+%{mpi_incldir}/mpich-%{_arch}
 %{_fmoddir}/mpich/*.mod
 %endif
 %{mpi_libdir}/mpich/bin/h5pcc
@@ -580,8 +588,11 @@ done
 %{mpi_libdir}/openmpi3/lib/*.so.*
 
 %files openmpi3-devel
-%{mpi_incldir}/openmpi3-%{_arch}
+%if (0%{?suse_version} >= 1500)
+%{mpi_libdir}/openmpi3/include
+%endif
 %if (0%{?rhel} >= 7)
+%{mpi_incldir}/openmpi3-%{_arch}
 %{_fmoddir}/openmpi3/*.mod
 %endif
 %{mpi_libdir}/openmpi3/bin/h5pcc
