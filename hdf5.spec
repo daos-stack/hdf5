@@ -329,13 +329,14 @@ do
     --enable-parallel \
     --enable-map-api \
     --exec-prefix=%{mpi_libdir}/$mpi \
-    --libdir=%{mpi_libdir}/$mpi/lib \
     --bindir=%{mpi_libdir}/$mpi/bin \
     --sbindir=%{mpi_libdir}/$mpi/sbin \
 %if (0%{?suse_version} >= 1500)
     --includedir=%{mpi_libdir}/$mpi/include \
+    --libdir=%{mpi_libdir}/$mpi/lib64 \
 %else
     --includedir=%{mpi_incldir}/$mpi-%{_arch} \
+    --libdir=%{mpi_libdir}/$mpi/lib \
 %endif
     --datarootdir=%{mpi_libdir}/$mpi/share \
     --mandir=%{mpi_libdir}/$mpi/share/man
@@ -532,26 +533,37 @@ done
 %{mpi_libdir}/mpich/bin/h5unjam
 %{mpi_libdir}/mpich/bin/h5watch
 %{mpi_libdir}/mpich/bin/ph5diff
+%if (0%{?suse_version} >= 1500)
+%{mpi_libdir}/mpich/lib64/*.so.*
+%else
 %{mpi_libdir}/mpich/lib/*.so.*
+%endif
+
 
 %files mpich-devel
 %if (0%{?suse_version} >= 1500)
 %{mpi_libdir}/mpich/include
+%{mpi_libdir}/mpich/lib64/lib*.so
+%{mpi_libdir}/mpich/lib64/lib*.settings
 %endif
 %if (0%{?rhel} >= 7)
 %{mpi_incldir}/mpich-%{_arch}
 %{_fmoddir}/mpich/*.mod
+%{mpi_libdir}/mpich/lib/lib*.so
+%{mpi_libdir}/mpich/lib/lib*.settings
 %endif
 %{mpi_libdir}/mpich/bin/h5pcc
 %{mpi_libdir}/mpich/bin/h5pfc
-%{mpi_libdir}/mpich/lib/lib*.so
-%{mpi_libdir}/mpich/lib/lib*.settings
 %{mpi_libdir}/mpich/share/hdf5_examples/
 %{mpi_libdir}/mpich/share/man/man1/h5pcc.1*
 %{mpi_libdir}/mpich/share/man/man1/h5pfc.1*
 
 %files mpich-static
+%if (0%{?suse_version} >= 1500)
+%{mpi_libdir}/mpich/lib64/*.a
+%else
 %{mpi_libdir}/mpich/lib/*.a
+%endif
 
 %files mpich-tests
 %{_libdir}/hdf5/mpich/tests
@@ -585,26 +597,37 @@ done
 %{mpi_libdir}/openmpi3/bin/h5unjam
 %{mpi_libdir}/openmpi3/bin/h5watch
 %{mpi_libdir}/openmpi3/bin/ph5diff
+%if (0%{?suse_version} >= 1500)
+%{mpi_libdir}/openmpi3/lib64/*.so.*
+%else
 %{mpi_libdir}/openmpi3/lib/*.so.*
+%endif
 
 %files openmpi3-devel
 %if (0%{?suse_version} >= 1500)
 %{mpi_libdir}/openmpi3/include
+%{mpi_libdir}/openmpi3/lib64/lib*.so
+%{mpi_libdir}/openmpi3/lib64/lib*.settings
 %endif
 %if (0%{?rhel} >= 7)
 %{mpi_incldir}/openmpi3-%{_arch}
 %{_fmoddir}/openmpi3/*.mod
+%{mpi_libdir}/openmpi3/lib/lib*.so
+%{mpi_libdir}/openmpi3/lib/lib*.settings
 %endif
 %{mpi_libdir}/openmpi3/bin/h5pcc
 %{mpi_libdir}/openmpi3/bin/h5pfc
-%{mpi_libdir}/openmpi3/lib/lib*.so
-%{mpi_libdir}/openmpi3/lib/lib*.settings
 %{mpi_libdir}/openmpi3/share/hdf5_examples/
 %{mpi_libdir}/openmpi3/share/man/man1/h5pcc.1*
 %{mpi_libdir}/openmpi3/share/man/man1/h5pfc.1*
 
 %files openmpi3-static
+%if (0%{?suse_version} >= 1500)
+%{mpi_libdir}/openmpi3/lib64/*.a
+%else
 %{mpi_libdir}/openmpi3/lib/*.a
+%endif
+
 
 %files openmpi3-tests
 %{_libdir}/hdf5/openmpi3/tests
@@ -613,7 +636,7 @@ done
 
 %changelog
 * Mon Aug 24 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-4
-- Fix SLES15 mpi include paths
+- Fix SLES15 mpi include and lib paths
 
 * Fri Aug 14 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-3
 - Enable build with SLES15.2
