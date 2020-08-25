@@ -586,7 +586,7 @@ done
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.so.*
 
 %files openmpi3-devel
-%{mpi_include_dir}/openmpi3%{mpi_include_ext}
+%{mpi_includedir}/openmpi3%{mpi_include_ext}
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/lib*.so
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/lib*.settings
 %if (0%{?rhel} >= 7)
