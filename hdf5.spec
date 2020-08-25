@@ -98,12 +98,15 @@ Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 %endif
 
 %if (0%{?suse_version} >= 1500)
-
 %global mpi_libdir %{_libdir}/mpi/gcc
-%global mpi_incldir  %{_includedir}/mpi/gcc
+%global mpi_lib_ext lib64
+%global mpi_includedir %{_libdir}/mpi/gcc
+%global mpi_include_ext /include
 %else
 %global mpi_libdir %{_libdir}
-%global mpi_incldir  %{_includedir}
+%global mpi_lib_ext lib
+%global mpi_includedir  %{_includedir}
+%global mpi_include_ext -%{_arch}
 %endif
 
 
@@ -332,13 +335,8 @@ do
     --exec-prefix=%{mpi_libdir}/$mpi \
     --bindir=%{mpi_libdir}/$mpi/bin \
     --sbindir=%{mpi_libdir}/$mpi/sbin \
-%if (0%{?suse_version} >= 1500)
-    --includedir=%{mpi_libdir}/$mpi/include \
-    --libdir=%{mpi_libdir}/$mpi/lib64 \
-%else
-    --includedir=%{mpi_incldir}/$mpi-%{_arch} \
-    --libdir=%{mpi_libdir}/$mpi/lib \
-%endif
+    --includedir=%{mpi_includedir}/$mpi%{mpi_include_ext} \
+    --libdir=%{mpi_libdir}/$mpi/%{mpi_lib_ext} \
     --datarootdir=%{mpi_libdir}/$mpi/share \
     --mandir=%{mpi_libdir}/$mpi/share/man
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
@@ -358,11 +356,7 @@ for mpi in %{?mpi_list}
 do
   %module_load $mpi
   make -C $mpi install DESTDIR=%{buildroot}
-%if (0%{?suse_version} >= 1500)
-  rm %{buildroot}/%{mpi_libdir}/$mpi/lib64/*.la
-%else
-  rm %{buildroot}/%{mpi_libdir}/$mpi/lib/*.la
-%endif
+  rm %{buildroot}/%{mpi_libdir}/$mpi/%{mpi_lib_ext}/*.la
 
   #Fortran modules
 %if (0%{?rhel} >= 7)
@@ -539,24 +533,14 @@ done
 %{mpi_libdir}/mpich/bin/h5unjam
 %{mpi_libdir}/mpich/bin/h5watch
 %{mpi_libdir}/mpich/bin/ph5diff
-%if (0%{?suse_version} >= 1500)
-%{mpi_libdir}/mpich/lib64/*.so.*
-%else
-%{mpi_libdir}/mpich/lib/*.so.*
-%endif
-
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/*.so.*
 
 %files mpich-devel
-%if (0%{?suse_version} >= 1500)
-%{mpi_libdir}/mpich/include
-%{mpi_libdir}/mpich/lib64/lib*.so
-%{mpi_libdir}/mpich/lib64/lib*.settings
-%endif
+%{mpi_includedir}/mpich%{mpi_include_ext}
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/lib*.so
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/lib*.settings
 %if (0%{?rhel} >= 7)
-%{mpi_incldir}/mpich-%{_arch}
 %{_fmoddir}/mpich/*.mod
-%{mpi_libdir}/mpich/lib/lib*.so
-%{mpi_libdir}/mpich/lib/lib*.settings
 %endif
 %{mpi_libdir}/mpich/bin/h5pcc
 %{mpi_libdir}/mpich/bin/h5pfc
@@ -565,11 +549,7 @@ done
 %{mpi_libdir}/mpich/share/man/man1/h5pfc.1*
 
 %files mpich-static
-%if (0%{?suse_version} >= 1500)
-%{mpi_libdir}/mpich/lib64/*.a
-%else
-%{mpi_libdir}/mpich/lib/*.a
-%endif
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/*.a
 
 %files mpich-tests
 %{_libdir}/hdf5/mpich/tests
@@ -603,23 +583,14 @@ done
 %{mpi_libdir}/openmpi3/bin/h5unjam
 %{mpi_libdir}/openmpi3/bin/h5watch
 %{mpi_libdir}/openmpi3/bin/ph5diff
-%if (0%{?suse_version} >= 1500)
-%{mpi_libdir}/openmpi3/lib64/*.so.*
-%else
-%{mpi_libdir}/openmpi3/lib/*.so.*
-%endif
+%{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.so.*
 
 %files openmpi3-devel
-%if (0%{?suse_version} >= 1500)
-%{mpi_libdir}/openmpi3/include
-%{mpi_libdir}/openmpi3/lib64/lib*.so
-%{mpi_libdir}/openmpi3/lib64/lib*.settings
-%endif
+%{mpi_include_dir}/openmpi3%{mpi_include_ext}
+%{mpi_libdir}/openmpi3/%{mpi_lib_ext}/lib*.so
+%{mpi_libdir}/openmpi3/%{mpi_lib_ext}/lib*.settings
 %if (0%{?rhel} >= 7)
-%{mpi_incldir}/openmpi3-%{_arch}
 %{_fmoddir}/openmpi3/*.mod
-%{mpi_libdir}/openmpi3/lib/lib*.so
-%{mpi_libdir}/openmpi3/lib/lib*.settings
 %endif
 %{mpi_libdir}/openmpi3/bin/h5pcc
 %{mpi_libdir}/openmpi3/bin/h5pfc
@@ -628,12 +599,7 @@ done
 %{mpi_libdir}/openmpi3/share/man/man1/h5pfc.1*
 
 %files openmpi3-static
-%if (0%{?suse_version} >= 1500)
-%{mpi_libdir}/openmpi3/lib64/*.a
-%else
-%{mpi_libdir}/openmpi3/lib/*.a
-%endif
-
+%{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.a
 
 %files openmpi3-tests
 %{_libdir}/hdf5/openmpi3/tests
