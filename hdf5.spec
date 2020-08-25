@@ -98,6 +98,7 @@ Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 %endif
 
 %if (0%{?suse_version} >= 1500)
+
 %global mpi_libdir %{_libdir}/mpi/gcc
 %global mpi_incldir  %{_includedir}/mpi/gcc
 %else
@@ -357,7 +358,12 @@ for mpi in %{?mpi_list}
 do
   %module_load $mpi
   make -C $mpi install DESTDIR=%{buildroot}
+%if (0%{?suse_version} >= 1500)
+  rm %{buildroot}/%{mpi_libdir}/$mpi/lib64/*.la
+%else
   rm %{buildroot}/%{mpi_libdir}/$mpi/lib/*.la
+%endif
+
   #Fortran modules
 %if (0%{?rhel} >= 7)
   mkdir -p %{buildroot}${MPI_FORTRAN_MOD_DIR}
