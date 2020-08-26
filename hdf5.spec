@@ -13,7 +13,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -99,10 +99,14 @@ Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 
 %if (0%{?suse_version} >= 1500)
 %global mpi_libdir %{_libdir}/mpi/gcc
-%global mpi_incldir  %{_includedir}/mpi/gcc
+%global mpi_lib_ext lib64
+%global mpi_includedir %{_libdir}/mpi/gcc
+%global mpi_include_ext /include
 %else
 %global mpi_libdir %{_libdir}
-%global mpi_incldir  %{_includedir}
+%global mpi_lib_ext lib
+%global mpi_includedir  %{_includedir}
+%global mpi_include_ext -%{_arch}
 %endif
 
 
@@ -260,10 +264,11 @@ ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
 
 # Fix test output
 %if (0%{?suse_version} >= 1500)
-junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/junit.pom)
+junit_ver_file=junit
 %else
-junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/JPP-junit.pom)
+junit_ver_file=JPP-junit
 %endif
+junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/$junit_ver_file.pom)
 sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
 
 # Force shared by default for compiler wrappers (bug #1266645)
@@ -328,10 +333,10 @@ do
     --enable-parallel \
     --enable-map-api \
     --exec-prefix=%{mpi_libdir}/$mpi \
-    --libdir=%{mpi_libdir}/$mpi/lib \
     --bindir=%{mpi_libdir}/$mpi/bin \
     --sbindir=%{mpi_libdir}/$mpi/sbin \
-    --includedir=%{mpi_incldir}/$mpi-%{_arch} \
+    --includedir=%{mpi_includedir}/$mpi%{mpi_include_ext} \
+    --libdir=%{mpi_libdir}/$mpi/%{mpi_lib_ext} \
     --datarootdir=%{mpi_libdir}/$mpi/share \
     --mandir=%{mpi_libdir}/$mpi/share/man
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
@@ -351,7 +356,8 @@ for mpi in %{?mpi_list}
 do
   %module_load $mpi
   make -C $mpi install DESTDIR=%{buildroot}
-  rm %{buildroot}/%{mpi_libdir}/$mpi/lib/*.la
+  rm %{buildroot}/%{mpi_libdir}/$mpi/%{mpi_lib_ext}/*.la
+
   #Fortran modules
 %if (0%{?rhel} >= 7)
   mkdir -p %{buildroot}${MPI_FORTRAN_MOD_DIR}
@@ -527,23 +533,23 @@ done
 %{mpi_libdir}/mpich/bin/h5unjam
 %{mpi_libdir}/mpich/bin/h5watch
 %{mpi_libdir}/mpich/bin/ph5diff
-%{mpi_libdir}/mpich/lib/*.so.*
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/*.so.*
 
 %files mpich-devel
-%{mpi_incldir}/mpich-%{_arch}
+%{mpi_includedir}/mpich%{mpi_include_ext}
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/lib*.so
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/lib*.settings
 %if (0%{?rhel} >= 7)
 %{_fmoddir}/mpich/*.mod
 %endif
 %{mpi_libdir}/mpich/bin/h5pcc
 %{mpi_libdir}/mpich/bin/h5pfc
-%{mpi_libdir}/mpich/lib/lib*.so
-%{mpi_libdir}/mpich/lib/lib*.settings
 %{mpi_libdir}/mpich/share/hdf5_examples/
 %{mpi_libdir}/mpich/share/man/man1/h5pcc.1*
 %{mpi_libdir}/mpich/share/man/man1/h5pfc.1*
 
 %files mpich-static
-%{mpi_libdir}/mpich/lib/*.a
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/*.a
 
 %files mpich-tests
 %{_libdir}/hdf5/mpich/tests
@@ -577,23 +583,23 @@ done
 %{mpi_libdir}/openmpi3/bin/h5unjam
 %{mpi_libdir}/openmpi3/bin/h5watch
 %{mpi_libdir}/openmpi3/bin/ph5diff
-%{mpi_libdir}/openmpi3/lib/*.so.*
+%{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.so.*
 
 %files openmpi3-devel
-%{mpi_incldir}/openmpi3-%{_arch}
+%{mpi_includedir}/openmpi3%{mpi_include_ext}
+%{mpi_libdir}/openmpi3/%{mpi_lib_ext}/lib*.so
+%{mpi_libdir}/openmpi3/%{mpi_lib_ext}/lib*.settings
 %if (0%{?rhel} >= 7)
 %{_fmoddir}/openmpi3/*.mod
 %endif
 %{mpi_libdir}/openmpi3/bin/h5pcc
 %{mpi_libdir}/openmpi3/bin/h5pfc
-%{mpi_libdir}/openmpi3/lib/lib*.so
-%{mpi_libdir}/openmpi3/lib/lib*.settings
 %{mpi_libdir}/openmpi3/share/hdf5_examples/
 %{mpi_libdir}/openmpi3/share/man/man1/h5pcc.1*
 %{mpi_libdir}/openmpi3/share/man/man1/h5pfc.1*
 
 %files openmpi3-static
-%{mpi_libdir}/openmpi3/lib/*.a
+%{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.a
 
 %files openmpi3-tests
 %{_libdir}/hdf5/openmpi3/tests
@@ -601,6 +607,9 @@ done
 %endif
 
 %changelog
+* Mon Aug 24 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-4
+- Fix SLES15 mpi include and lib paths
+
 * Fri Aug 14 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-3
 - Enable build with SLES15.2
 
