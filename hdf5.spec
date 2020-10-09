@@ -1,7 +1,7 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
-%global daos_major 0
+%global daos_major 1
 
 # Patch version?
 %global snaprel %{nil}
@@ -13,7 +13,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -607,6 +607,9 @@ done
 %endif
 
 %changelog
+* Thu Oct 08 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5
+- Rebuild for libdaos 1.2.0
+
 * Mon Aug 24 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-4
 - Fix SLES15 mpi include and lib paths
 
