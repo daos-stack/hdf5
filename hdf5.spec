@@ -1,24 +1,24 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
-%global daos_major 0
+%global daos_major 1
 
 # Patch version?
 %global snaprel %{nil}
 # HDF5 versions
 %global major 1.12
-%global minor 0
+%global minor 1
 
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 4%{?dist}
+Release: 1%{?relval}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-%{major}/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
+Source0: %{source_commit}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
@@ -607,6 +607,9 @@ done
 %endif
 
 %changelog
+* Thu  5 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.1-0.g5b5a1a8102
+- Update to develop branch 5b5a1a81029eb7bdc975beff5f18c9c440f5de56
+
 * Mon Aug 24 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-4
 - Fix SLES15 mpi include and lib paths
 
