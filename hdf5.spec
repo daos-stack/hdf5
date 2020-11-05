@@ -2,23 +2,24 @@
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
 %global daos_major 1
-
+%global git_commit 5b5a1a81029eb7bdc975beff5f18c9c440f5de56 
 # Patch version?
 %global snaprel %{nil}
 # HDF5 versions
 %global major 1.12
 %global minor 0
 
+
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 5%{?dist}
+Release: 5%{git_commit}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: %{source_commit}.tar.gz
+Source0: https://github.com/HDFGroup/hdf5/archive/%{git_commit}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
