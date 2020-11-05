@@ -6,7 +6,7 @@ DEBIAN_SOURCE := hdf5_1.12.0+repack-1~exp2.debian.tar.xz
 HDF5COMP      := hdf5comp
 GIT_SHORT     := $(shell git rev-parse --short $(SOURCE_COMMIT))
 BUILD_DEFINES := --define "%relval .g$(GIT_SHORT)" --define "%source_commit $(SOURCE_COMMIT)" \
-                 --define "%debian_source $(DEBIAN_SOURCE)" --define "%hdf5comp $(HDF5COMP)
+                 --define "%debian_source $(DEBIAN_SOURCE)" --define "%hdf5comp $(HDF5COMP)"
 RPM_BUILD_OPTIONS := $(BUILD_DEFINES)
 include packaging/Makefile_packaging.mk
 
