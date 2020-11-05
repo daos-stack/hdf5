@@ -154,8 +154,8 @@ index 598b3d2..75c2cbe 100644
 --- a/java/test/junit.sh.in
 +++ b/java/test/junit.sh.in
 @@ -46,7 +46,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
- BLDLIBDIR="$prefix/lib"
  BLDDIR="."
+ BLDLIBDIR="$BLDDIR/testlibs"
  HDFTEST_HOME="$top_srcdir/java/test"
 -JARFILE=jar@PACKAGE_TARNAME@-@PACKAGE_VERSION@.jar
 +JARFILE=@PACKAGE_TARNAME@.jar

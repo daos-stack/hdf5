@@ -1,80 +1,74 @@
-From 55f7415d779b19b1d0b3d8db57fa5260441d2eb0 Mon Sep 17 00:00:00 2001
-From: Maureen Jean <mjean@boro-70.boro.hpdd.intel.com>
-Date: Fri, 17 Jul 2020 21:10:32 +0000
+From e74d6ae412fd2246784bc517727ce4b36a75e6e7 Mon Sep 17 00:00:00 2001
+From: Maureen Jean <mjean@boro-69.boro.hpdd.intel.com>
+Date: Thu, 5 Nov 2020 21:22:00 +0000
 Subject: [PATCH] hdf5-warning
 
 ---
- testpar/t_cache.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ testpar/t_cache.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/testpar/t_cache.c b/testpar/t_cache.c
-index 09d2ecc..ec0e5aa 100644
+index e0e03f2..ffa8ba1 100644
 --- a/testpar/t_cache.c
 +++ b/testpar/t_cache.c
-@@ -79,8 +79,8 @@ long local_pins           = 0;
- 
+@@ -75,8 +75,8 @@ long global_dirty_pins    = 0;
+ long local_pins           = 0;
  
  /* the following fields are used by the server process only */
--int total_reads           = 0;
--int total_writes           = 0;
-+unsigned total_reads           = 0;
-+unsigned total_writes           = 0;
- 
+-int total_reads  = 0;
+-int total_writes = 0;
++unsigned total_reads  = 0;
++unsigned total_writes = 0;
  
  /*****************************************************************************
-@@ -175,8 +175,8 @@ struct datum
-     hbool_t        local_pinned;
-     hbool_t        cleared;
-     hbool_t             flushed;
--    int            reads;
--    int            writes;
-+    unsigned       reads;
-+    unsigned       writes;
-     int            index;
-     struct H5AC_aux_t * aux_ptr;
+  * struct datum
+@@ -169,8 +169,8 @@ struct datum {
+     hbool_t            local_pinned;
+     hbool_t            cleared;
+     hbool_t            flushed;
+-    int                reads;
+-    int                writes;
++    unsigned           reads;
++    unsigned           writes;
+     int                index;
+     struct H5AC_aux_t *aux_ptr;
  };
-@@ -2446,12 +2446,12 @@ static herr_t
- datum_image_len(const void *thing, size_t *image_len)
+@@ -2149,7 +2149,7 @@ datum_get_initial_load_size(void *udata_ptr, size_t *image_len_ptr)
  {
-     int idx;
--    struct datum * entry_ptr;
-+    const struct datum * entry_ptr;
+     haddr_t       addr = *(haddr_t *)udata_ptr;
+     int           idx;
+-    struct datum *entry_ptr;
++    const struct datum *entry_ptr;
  
-     HDassert( thing );
-     HDassert( image_len );
- 
--    entry_ptr = (struct datum *)thing;
-+    entry_ptr = (const struct datum *)thing;
- 
-     idx = addr_to_datum_index(entry_ptr->base_addr);
- 
-@@ -4609,7 +4609,7 @@ verify_entry_reads(haddr_t addr,
-                    int expected_entry_reads)
+     HDassert(udata_ptr);
+     HDassert(image_len_ptr);
+@@ -4239,7 +4239,7 @@ static hbool_t
+ verify_entry_reads(haddr_t addr, int expected_entry_reads)
  {
-     hbool_t success = TRUE;
--    int reported_entry_reads = 0;
-+    unsigned reported_entry_reads = 0;
+     hbool_t       success              = TRUE;
+-    int           reported_entry_reads = 0;
++    unsigned      reported_entry_reads = 0;
      struct mssg_t mssg;
  
-     if ( success ) {
-@@ -4716,7 +4716,7 @@ verify_entry_writes(haddr_t addr,
-                     int expected_entry_writes)
+     if (success) {
+@@ -4336,7 +4336,7 @@ static hbool_t
+ verify_entry_writes(haddr_t addr, int expected_entry_writes)
  {
-     hbool_t success = TRUE;
--    int reported_entry_writes = 0;
-+    unsigned reported_entry_writes = 0;
+     hbool_t       success               = TRUE;
+-    int           reported_entry_writes = 0;
++    unsigned      reported_entry_writes = 0;
      struct mssg_t mssg;
  
-     if ( success ) {
-@@ -4821,7 +4821,7 @@ static hbool_t
+     if (success) {
+@@ -4432,7 +4432,7 @@ static hbool_t
  verify_total_reads(int expected_total_reads)
  {
-     hbool_t success = TRUE; /* will set to FALSE if appropriate. */
--    long reported_total_reads;
-+    unsigned reported_total_reads;
+     hbool_t       success = TRUE; /* will set to FALSE if appropriate. */
+-    long          reported_total_reads;
++    unsigned      reported_total_reads;
      struct mssg_t mssg;
  
-     if ( success ) {
+     if (success) {
 -- 
 1.8.3.1
 
