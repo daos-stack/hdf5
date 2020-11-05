@@ -607,7 +607,7 @@ done
 %endif
 
 %changelog
-* Thu  5 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.1-0.g5b5a1a8102
+* Thu Nov  5 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.1-0.g5b5a1a8102
 - Update to develop branch 5b5a1a81029eb7bdc975beff5f18c9c440f5de56
 
 * Mon Aug 24 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-4
