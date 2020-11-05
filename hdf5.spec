@@ -240,7 +240,7 @@ HDF5 tests with openmpi3
 %endif
 
 %prep
-%setup -q -a 2 -n %{name}-%{version}%{?snaprel}
+%setup -q -a 2 -n %{name}-%{git_commit}
 %patch0 -p1 -b .LD_LIBRARY_PATH
 %patch2 -p1 -b .warning
 %patch3 -p1 -b .build
