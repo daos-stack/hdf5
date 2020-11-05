@@ -2,13 +2,12 @@
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
 %global daos_major 1
-%global git_commit 5b5a1a81029eb7bdc975beff5f18c9c440f5de56 
+%global git_commit 5b5a1a81029eb7bdc975beff5f18c9c440f5de56
 # Patch version?
 %global snaprel %{nil}
 # HDF5 versions
 %global major 1.12
 %global minor 0
-
 
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
