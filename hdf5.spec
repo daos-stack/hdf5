@@ -1,9 +1,9 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
-%global daos_major 1
+%global daos_major 0
 %global hdf5_commit 5b5a1a81029eb7bdc975beff5f18c9c440f5de56
-%define hdf5_sha %(git rev-parse --short %{?hdf5_commit})
+%define hdf5_sha .g5b5a1a8
 # Patch version?
 %global snaprel %{nil}
 # HDF5 versions
