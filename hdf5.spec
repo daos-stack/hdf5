@@ -3,7 +3,7 @@
 
 %global daos_major 1
 %global hdf5_commit 5b5a1a81029eb7bdc975beff5f18c9c440f5de56
-%define hdf5_sha %(git rev-parse --short %{hdf5_commit})
+%define hdf5_sha %(git rev-parse --short %{?hdf5_commit})
 # Patch version?
 %global snaprel %{nil}
 # HDF5 versions
