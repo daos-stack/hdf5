@@ -1,7 +1,10 @@
 NAME          := hdf5
 SRC_EXT       := gz
+GIT_COMMIT    := 5b5a1a81029eb7bdc975beff5f18c9c440f5de56
 TEST_PACKAGES := $(NAME) java-$(NAME) $(NAME)-devel $(NAME)-static $(NAME)-mpich-tests $(NAME)-openmpi3-tests
-DL_VERSION    := 5b5a1a81029eb7bdc975beff5f18c9c440f5de56
+GIT_SHORT     := $(shell git rev-parse --short $(GIT_COMMIT))
+BUILD_DEFINES := --define "%relval .g$(GIT_SHORT)"
+RPM_BUILD_OPTIONS := $(BUILD_DEFINES)
 
 include packaging/Makefile_packaging.mk
 
