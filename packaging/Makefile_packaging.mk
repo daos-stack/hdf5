@@ -127,7 +127,7 @@ all: $(TARGETS)
 _topdir/SOURCES/%: % | _topdir/SOURCES/
 	rm -f $@
 	ln $< $@
-	echo "We are here!"
+	@echo "We are here!"
 	ls -al $< $@
 
 # At least one spec file, SLURM (sles), has a different version for the
@@ -237,7 +237,7 @@ endif
 # the "rpm" for "%" to effectively turn this into a multiple matching
 # target pattern rule
 $(subst rpm,%,$(RPMS)): $(SPEC) $(SOURCES)
-	rpmbuild -bb $(COMMON_RPM_ARGS) $(RPM_BUILD_OPTIONS) $(SPEC)
+	rpmbuild -bb $(COMMONR_PM_ARGS) $(RPM_BUILD_OPTIONS) $(SPEC)
 
 $(subst deb,%,$(DEBS)): $(DEB_BUILD).tar.$(SRC_EXT) \
 	  deb_detar $(DEB_TOP)/.deb_files $(DEB_TOP)/.patched
