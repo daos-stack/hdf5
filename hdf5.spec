@@ -240,7 +240,7 @@ HDF5 tests with openmpi3
 
 %prep
 %setup -q -a 2 -n %{name}-%{version}%{?snaprel}
-%patch0 -p1 -b .5b5a1a8102-1.12.0.patch
+%patch0 -p1 -b .5b5a1a8102-1.12.0
 %patch1 -p1 -b .LD_LIBRARY_PATH
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos

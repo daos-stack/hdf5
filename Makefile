@@ -15,6 +15,3 @@ hdf5_1.12.0+repack-1~exp2.debian.tar.xz:
 
 hdf5comp:
 	curl -f -L -O https://src.fedoraproject.org/rpms/hdf5/raw/master/f/$@
-
-%.patch:
-	curl -f -L -O https://src.fedoraproject.org/rpms/hdf5/raw/master/f/$@
