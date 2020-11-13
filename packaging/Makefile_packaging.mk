@@ -378,6 +378,9 @@ test:
 	$(call install_repos,$(REPO_NAME)@$(BRANCH_NAME):$(BUILD_NUMBER))
 	yum -y install $(TEST_PACKAGES)
 
+show_spec:
+	@echo $(SPEC)
+
 show_version:
 	@echo $(VERSION)
 
