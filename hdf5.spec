@@ -2,8 +2,7 @@
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
 %global daos_major 0
-%global hdf5_commit 5b5a1a81029eb7bdc975beff5f18c9c440f5de56
-%define hdf5_sha .g5b5a1a8
+
 # Patch version?
 %global snaprel %{nil}
 # HDF5 versions
@@ -14,7 +13,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 5%{hdf5_sha}%{?dist}
+Release: 5%{?relval}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
