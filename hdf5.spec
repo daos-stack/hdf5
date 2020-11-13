@@ -238,7 +238,7 @@ HDF5 tests with openmpi3
 %endif
 
 %prep
-%setup -q -a 2 -n %{name}-%{name}%{version}
+%setup -q -a 2 -n %{name}-%{hdf5_commit}
 %patch0 -p1 -b .LD_LIBRARY_PATH
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos
