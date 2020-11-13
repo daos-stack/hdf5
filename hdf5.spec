@@ -2,6 +2,9 @@
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
 %global daos_major 0
+%global hdf5_commit fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
+%define hdf5_sha .gfa40c6c59a
+
 # Patch version?
 %global snaprel %{nil}
 # HDF5 versions
@@ -12,12 +15,12 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 5%{?relval}%{?dist}
+Release: 5%{hdf5_sha}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: https://github.com/HDFGroup/hdf5/archive/%{?hdf5_commit}.tar.gz
+Source0: https://github.com/HDFGroup/hdf5/archive/%{hdf5_commit}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
@@ -237,7 +240,7 @@ HDF5 tests with openmpi3
 %endif
 
 %prep
-%setup -q -a 2 -n %{name}-%{?hdf5_commit}
+%setup -q -a 2 -n %{name}-%{hdf5_commit}
 %patch0 -p1 -b .LD_LIBRARY_PATH
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos
