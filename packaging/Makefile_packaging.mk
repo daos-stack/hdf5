@@ -235,7 +235,7 @@ endif
 # the "rpm" for "%" to effectively turn this into a multiple matching
 # target pattern rule
 $(subst rpm,%,$(RPMS)): $(SPEC) $(SOURCES)
-	rpmbuild -bb $(COMMONR_PM_ARGS) $(RPM_BUILD_OPTIONS) $(SPEC)
+	rpmbuild -bb $(COMMON_RPM_ARGS) $(RPM_BUILD_OPTIONS) $(SPEC)
 
 $(subst deb,%,$(DEBS)): $(DEB_BUILD).tar.$(SRC_EXT) \
 	  deb_detar $(DEB_TOP)/.deb_files $(DEB_TOP)/.patched
