@@ -127,8 +127,6 @@ all: $(TARGETS)
 _topdir/SOURCES/%: % | _topdir/SOURCES/
 	rm -f $@
 	ln $< $@
-	@echo "We are here!"
-	ls -al $< $@
 
 # At least one spec file, SLURM (sles), has a different version for the
 # download file than the version in the spec file.
