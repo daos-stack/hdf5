@@ -381,6 +381,9 @@ test:
 show_spec:
 	@echo $(SPEC)
 
+show_build_defines:
+	@echo $(BUILD_DEFINES)
+
 show_version:
 	@echo $(VERSION)
 
