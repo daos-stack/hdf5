@@ -614,8 +614,8 @@ done
 %endif
 
 %changelog
-* Thu Nov  5 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5.g5b5a1a8102
-- Update to develop branch 5b5a1a81029eb7bdc975beff5f18c9c440f5de56
+* Tue Nov 17 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5.gfa40c6c59a
+- Update to develop branch fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
 
 * Mon Aug 24 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-4
 - Fix SLES15 mpi include and lib paths
