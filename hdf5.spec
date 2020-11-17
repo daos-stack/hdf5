@@ -24,7 +24,8 @@ Source0: https://github.com/HDFGroup/hdf5/archive/%{hdf5_commit}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
-Patch0: hdf5-LD_LIBRARY_PATH.patch
+Pathch0: hdf5-shared-lib.patch
+Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Fix java build
 Patch3: hdf5-build.patch
 # Disable tests that don't work with DAOS
@@ -241,7 +242,8 @@ HDF5 tests with openmpi3
 
 %prep
 %setup -q -a 2 -n %{name}-%{hdf5_commit}
-%patch0 -p1 -b .LD_LIBRARY_PATH
+%patch0 -p1 -b .hdf5-shared-lib
+%patch1 -p1 -b .LD_LIBRARY_PATH
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
