@@ -24,7 +24,7 @@ Source0: https://github.com/HDFGroup/hdf5/archive/%{hdf5_commit}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
-Pathch0: hdf5-shared-lib.patch
+Patch0: hdf5-shared-lib.patch
 Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Fix java build
 Patch3: hdf5-build.patch
