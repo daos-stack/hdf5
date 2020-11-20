@@ -2,6 +2,8 @@
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
 %global daos_major 0
+%global hdf5_commit fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
+%define hdf5_sha .gfa40c6c59a
 
 # Patch version?
 %global snaprel %{nil}
@@ -13,18 +15,17 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 4%{?dist}
+Release: 5%{hdf5_sha}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-%{major}/hdf5-%{version}%{?snaprel}/src/hdf5-%{version}%{?snaprel}.tar.bz2
+Source0: https://github.com/HDFGroup/hdf5/archive/%{hdf5_commit}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
-Patch0: hdf5-LD_LIBRARY_PATH.patch
-# Fix some warnings
-Patch2: hdf5-warning.patch
+Patch0: hdf5-shared-lib.patch
+Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Fix java build
 Patch3: hdf5-build.patch
 # Disable tests that don't work with DAOS
@@ -240,9 +241,9 @@ HDF5 tests with openmpi3
 %endif
 
 %prep
-%setup -q -a 2 -n %{name}-%{version}%{?snaprel}
-%patch0 -p1 -b .LD_LIBRARY_PATH
-%patch2 -p1 -b .warning
+%setup -q -a 2 -n %{name}-%{hdf5_commit}
+%patch0 -p1 -b .hdf5-shared-lib
+%patch1 -p1 -b .LD_LIBRARY_PATH
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
@@ -462,6 +463,8 @@ done
 %{_bindir}/h5stat
 %{_bindir}/h5unjam
 %{_bindir}/h5watch
+%{_bindir}/mirror_server
+%{_bindir}/mirror_server_stop
 %{_libdir}/libhdf5.so.*
 %{_libdir}/libhdf5_cpp.so.*
 %{_libdir}/libhdf5_fortran.so.*
@@ -533,6 +536,8 @@ done
 %{mpi_libdir}/mpich/bin/h5unjam
 %{mpi_libdir}/mpich/bin/h5watch
 %{mpi_libdir}/mpich/bin/ph5diff
+%{mpi_libdir}/mpich/bin/mirror_server
+%{mpi_libdir}/mpich/bin/mirror_server_stop
 %{mpi_libdir}/mpich/%{mpi_lib_ext}/*.so.*
 
 %files mpich-devel
@@ -583,6 +588,8 @@ done
 %{mpi_libdir}/openmpi3/bin/h5unjam
 %{mpi_libdir}/openmpi3/bin/h5watch
 %{mpi_libdir}/openmpi3/bin/ph5diff
+%{mpi_libdir}/openmpi3/bin/mirror_server
+%{mpi_libdir}/openmpi3/bin/mirror_server_stop
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.so.*
 
 %files openmpi3-devel
@@ -607,6 +614,9 @@ done
 %endif
 
 %changelog
+* Tue Nov 17 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5.gfa40c6c59a
+- Update to develop branch fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
+
 * Mon Aug 24 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-4
 - Fix SLES15 mpi include and lib paths
 

@@ -1,102 +1,103 @@
-From d709f031964a1c5459e79ee4151da35f106514ec Mon Sep 17 00:00:00 2001
+From 651e3fdff67c7760f5321cd10d7786665d696d99 Mon Sep 17 00:00:00 2001
 From: Maureen Jean <mjean@boro-69.boro.hpdd.intel.com>
-Date: Mon, 27 Jul 2020 22:40:40 +0000
+Date: Thu, 5 Nov 2020 22:44:58 +0000
 Subject: [PATCH] examples
 
 ---
- c++/examples/Makefile.am        | 4 ++--
+ c++/examples/Makefile.am        | 5 ++---
  examples/Makefile.am            | 4 ++--
  fortran/examples/Makefile.am    | 4 ++--
  hl/c++/examples/Makefile.am     | 4 ++--
  hl/examples/Makefile.am         | 4 ++--
  hl/fortran/examples/Makefile.am | 4 ++--
- 6 files changed, 12 insertions(+), 12 deletions(-)
+ 6 files changed, 12 insertions(+), 13 deletions(-)
 
 diff --git a/c++/examples/Makefile.am b/c++/examples/Makefile.am
-index 0648504..51ab8e3 100644
+index cbec8f8..a6a15a2 100644
 --- a/c++/examples/Makefile.am
 +++ b/c++/examples/Makefile.am
-@@ -49,8 +49,8 @@ CXX_API=yes
+@@ -49,9 +49,8 @@ CXX_API=yes
  
  # Where to install examples
  # Note: no '/' after DESTDIR.  Explanation in commence.am
--EXAMPLEDIR=$(examplesdir)/c++
--EXAMPLETOPDIR=$(examplesdir)
+-EXAMPLEDIR=${DESTDIR}$(examplesdir)/c++
+-EXAMPLETOPDIR=${DESTDIR}$(examplesdir)
+-
 +EXAMPLEDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples/c++
 +EXAMPLETOPDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples
- 
  # How to build programs using h5c++
  $(EXTRA_PROG): $(H5CPP)
+ 	$(H5CPP) $(H5CCFLAGS) $(CPPFLAGS) -o $@ $(srcdir)/$@.cpp
 diff --git a/examples/Makefile.am b/examples/Makefile.am
-index 5b428cd..131842c 100644
+index 944a9d8..ff611c1 100644
 --- a/examples/Makefile.am
 +++ b/examples/Makefile.am
 @@ -86,8 +86,8 @@ CHECK_CLEANFILES+=$(EXTLINK_DIRS)
  
  # Example directory
  # Note: no '/' after DESTDIR.  Explanation in commence.am
--EXAMPLEDIR=$(examplesdir)/c
--EXAMPLETOPDIR=$(examplesdir)
+-EXAMPLEDIR=${DESTDIR}$(examplesdir)/c
+-EXAMPLETOPDIR=${DESTDIR}$(examplesdir)
 +EXAMPLEDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples/c
 +EXAMPLETOPDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples
  
  # List dependencies for each program.  Normally, automake would take
  # care of this for us, but if we tell automake about the programs it
 diff --git a/fortran/examples/Makefile.am b/fortran/examples/Makefile.am
-index fb510bc..6bf2edb 100644
+index 474126d..6bf2edb 100644
 --- a/fortran/examples/Makefile.am
 +++ b/fortran/examples/Makefile.am
 @@ -74,8 +74,8 @@ endif
  
  # Tell automake how to install examples
  # Note: no '/' after DESTDIR.  Explanation in commence.am
--EXAMPLEDIR=$(examplesdir)/fortran
--EXAMPLETOPDIR=$(examplesdir)
+-EXAMPLEDIR=${DESTDIR}$(examplesdir)/fortran
+-EXAMPLETOPDIR=${DESTDIR}$(examplesdir)
 +EXAMPLEDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples/fortran
 +EXAMPLETOPDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples
  
  # List dependencies for each example.  Normally, automake would take
  # care of this for us, but if we tell automake about the programs it
 diff --git a/hl/c++/examples/Makefile.am b/hl/c++/examples/Makefile.am
-index 592e8da..ce719f5 100644
+index 7234bfc..ce719f5 100644
 --- a/hl/c++/examples/Makefile.am
 +++ b/hl/c++/examples/Makefile.am
 @@ -33,8 +33,8 @@ CXX_API=yes
  
  # Where to install examples
  # Note: no '/' after DESTDIR.  Explanation in commence.am
--EXAMPLEDIR=$(examplesdir)/hl/c++
--EXAMPLETOPDIR=$(examplesdir)/hl
+-EXAMPLEDIR=${DESTDIR}$(examplesdir)/hl/c++
+-EXAMPLETOPDIR=${DESTDIR}$(examplesdir)/hl
 +EXAMPLEDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples/hl/c++
 +EXAMPLETOPDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples/hl
  
  # How to build programs using h5c++
  $(EXTRA_PROG): $(H5CPP)
 diff --git a/hl/examples/Makefile.am b/hl/examples/Makefile.am
-index cc2d671..29e1a48 100644
+index c9d90dd..29e1a48 100644
 --- a/hl/examples/Makefile.am
 +++ b/hl/examples/Makefile.am
 @@ -25,8 +25,8 @@ endif
  
  # Example directory
  # Note: no '/' after DESTDIR.  Explanation in commence.am
--EXAMPLEDIR=$(examplesdir)/hl/c
--EXAMPLETOPDIR=$(examplesdir)/hl
+-EXAMPLEDIR=${DESTDIR}$(examplesdir)/hl/c
+-EXAMPLETOPDIR=${DESTDIR}$(examplesdir)/hl
 +EXAMPLEDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples/hl/c
 +EXAMPLETOPDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples/hl
  INSTALL_SCRIPT_FILES = run-hlc-ex.sh
  INSTALL_TOP_SCRIPT_FILES = run-hl-ex.sh
  
 diff --git a/hl/fortran/examples/Makefile.am b/hl/fortran/examples/Makefile.am
-index b81cc6f..d383f9a 100644
+index 32f279c..d383f9a 100644
 --- a/hl/fortran/examples/Makefile.am
 +++ b/hl/fortran/examples/Makefile.am
 @@ -51,8 +51,8 @@ endif
  
  # Tell automake how to install examples
  # Note: no '/' after DESTDIR.  Explanation in commence.am
--EXAMPLEDIR=$(examplesdir)/hl/fortran
--EXAMPLETOPDIR=$(examplesdir)/hl
+-EXAMPLEDIR=${DESTDIR}$(examplesdir)/hl/fortran
+-EXAMPLETOPDIR=${DESTDIR}$(examplesdir)/hl
 +EXAMPLEDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples/hl/fortran
 +EXAMPLETOPDIR=${DESTDIR}$(exec_prefix)/share/hdf5_examples/hl
  

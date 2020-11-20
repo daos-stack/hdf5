@@ -1,0 +1,64 @@
+From 72fa580cc1b70ec89a29fe577c488f3545c48a4f Mon Sep 17 00:00:00 2001
+From: Maureen Jean <mjean@boro-46.boro.hpdd.intel.com>
+Date: Tue, 17 Nov 2020 18:56:56 +0000
+Subject: [PATCH] hdf5_shared_lib.patch
+
+---
+ config/lt_vers.am | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/config/lt_vers.am b/config/lt_vers.am
+index fcc2a40..0925d3f 100644
+--- a/config/lt_vers.am
++++ b/config/lt_vers.am
+@@ -16,7 +16,7 @@
+ # See libtool versioning documentation online.
+ # After making changes, run bin/reconfigure to update other configure related
+ # files like Makefile.in.
+-LT_VERS_INTERFACE = 1000
++LT_VERS_INTERFACE = 201
+ LT_VERS_AGE = 0
+ LT_VERS_REVISION = 0
+ 
+@@ -39,31 +39,31 @@ LT_VERS_REVISION = 0
+ ## the effects of the H5_V1_x_COMPAT flag.
+ ##
+ ## Version numbers for wrapper shared library files.
+-LT_CXX_VERS_INTERFACE = 1000
++LT_CXX_VERS_INTERFACE = 201 
+ LT_CXX_VERS_REVISION = 0
+ LT_CXX_VERS_AGE = 0
+ 
+-LT_F_VERS_INTERFACE = 1000
++LT_F_VERS_INTERFACE = 201
+ LT_F_VERS_REVISION = 0
+ LT_F_VERS_AGE = 0
+ 
+-LT_HL_VERS_INTERFACE = 1000
++LT_HL_VERS_INTERFACE = 201
+ LT_HL_VERS_REVISION = 0
+ LT_HL_VERS_AGE = 0
+ 
+-LT_HL_CXX_VERS_INTERFACE = 1000
++LT_HL_CXX_VERS_INTERFACE = 201
+ LT_HL_CXX_VERS_REVISION = 0
+ LT_HL_CXX_VERS_AGE = 0
+ 
+-LT_HL_F_VERS_INTERFACE = 1000
++LT_HL_F_VERS_INTERFACE = 201
+ LT_HL_F_VERS_REVISION = 0
+ LT_HL_F_VERS_AGE = 0
+ 
+-LT_JAVA_VERS_INTERFACE = 1000
++LT_JAVA_VERS_INTERFACE = 201
+ LT_JAVA_VERS_REVISION = 0
+ LT_JAVA_VERS_AGE = 0
+ 
+-LT_TOOLS_VERS_INTERFACE = 1000
++LT_TOOLS_VERS_INTERFACE = 201
+ LT_TOOLS_VERS_REVISION = 0
+ LT_TOOLS_VERS_AGE = 0
+ 
+-- 
+1.8.3.1
+
