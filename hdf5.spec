@@ -1,7 +1,7 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
-%global daos_major 0
+%global daos_major 1
 %global hdf5_commit fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
 %define hdf5_sha .gfa40c6c59a
 
@@ -15,7 +15,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{major}.%{minor}
-Release: 5%{hdf5_sha}%{?dist}
+Release: 6%{hdf5_sha}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -614,6 +614,9 @@ done
 %endif
 
 %changelog
+* Mon Dec 14 2020 Kenneth Cain <kenneth.c.cain@intel.com> - 1.12.0-6.gfa40c6c59a
+- Update packaging to build with libdaos.so.1
+
 * Tue Nov 17 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5.gfa40c6c59a
 - Update to develop branch fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
 
