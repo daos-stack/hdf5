@@ -463,6 +463,7 @@ done
 %{_bindir}/h5stat
 %{_bindir}/h5unjam
 %{_bindir}/h5watch
+%{_bindir}/h5delete
 %{_bindir}/mirror_server
 %{_bindir}/mirror_server_stop
 %{_libdir}/libhdf5.so.*
@@ -535,6 +536,7 @@ done
 %{mpi_libdir}/mpich/bin/h5stat
 %{mpi_libdir}/mpich/bin/h5unjam
 %{mpi_libdir}/mpich/bin/h5watch
+%{mpi_libdir}/mpich/bin/h5delete
 %{mpi_libdir}/mpich/bin/ph5diff
 %{mpi_libdir}/mpich/bin/mirror_server
 %{mpi_libdir}/mpich/bin/mirror_server_stop
@@ -587,6 +589,7 @@ done
 %{mpi_libdir}/openmpi3/bin/h5stat
 %{mpi_libdir}/openmpi3/bin/h5unjam
 %{mpi_libdir}/openmpi3/bin/h5watch
+%{mpi_libdir}/openmpi3/bin/h5delete
 %{mpi_libdir}/openmpi3/bin/ph5diff
 %{mpi_libdir}/openmpi3/bin/mirror_server
 %{mpi_libdir}/openmpi3/bin/mirror_server_stop
@@ -614,7 +617,7 @@ done
 %endif
 
 %changelog
-* Tue Nov 17 2020 Maureen Jean <maureen.jean@intel.com> - 1.13.0-1.g3f37f6648d
+* Wed Dec 23 2020 Maureen Jean <maureen.jean@intel.com> - 1.13.0-1.g3f37f6648d
 - Update to 1.13.0-rc3 branch 3f37f6648dcb868fdbd7f94658ad1cd965ae257c
 
 * Tue Nov 17 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5.gfa40c6c59a
