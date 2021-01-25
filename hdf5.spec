@@ -13,7 +13,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}_%{hdf5_minor}
-Release: %{hdf5_release}%{?dist}
+Release: %{hdf5_release}%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://github.com/HDFGroup/hdf5
@@ -506,7 +506,12 @@ done
 %{_libdir}/*.a
 
 %files -n java-hdf5
+%if (0%{?suse_version} >= 1500)
+%{_jnidir}/hdf5.jar
+%endif
+%if (0%{?rhel} >= 7)
 %{_libdir}/hdf5.jar
+%endif
 %{_libdir}/%{name}/libhdf5_java.so
 
 %if %{with_mpich}
