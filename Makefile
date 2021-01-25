@@ -6,7 +6,7 @@ HDF5_MINOR    := 13_0
 HDF5_RELEASE  := rc5
 BUILD_DEFINES := --define "%hdf5_major $(HDF5_MAJOR)"  --define "%hdf5_minor $(HDF5_MINOR)"  --define "%hdf5_release $(HDF5_RELEASE)"
 RPM_BUILD_OPTIONS := $(BUILD_DEFINES)
-DL_VERSION    := %{name}-%{name}-%{hdf5_major}_%{hdf5_minor}-%{hdf5_release}
+DL_VERSION    := $(NAME)-$(NAME)-$(HDF5_MAJOR)_$(HDF5_MINOR)-$(HDF5_RELEASE)
 
 include packaging/Makefile_packaging.mk
 
