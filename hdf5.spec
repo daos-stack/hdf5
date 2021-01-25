@@ -5,6 +5,9 @@
 
 # Patch version?
 %global snaprel %{nil}
+%global hdf5_major 1
+%global hdf5_minor 13_0
+%global hdf5_release rc5
 
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
