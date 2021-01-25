@@ -1,29 +1,24 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
-%global daos_major 0
-%global hdf5_commit fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
-%define hdf5_sha .gfa40c6c59a
+%global daos_major 1
 
 # Patch version?
 %global snaprel %{nil}
-# HDF5 versions
-%global major 1.12
-%global minor 0
 
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
-Version: %{major}.%{minor}
-Release: 5%{hdf5_sha}%{?dist}
+Version: %{hdf5_major}_%{hdf5_minor}
+Release: %{hdf5_release}%{?relval}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
-URL: https://portal.hdfgroup.org/display/HDF5/HDF5
+URL: https://github.com/HDFGroup/hdf5
 
-Source0: https://github.com/HDFGroup/hdf5/archive/%{hdf5_commit}.tar.gz
+Source0: https://github.com/HDFGroup/hdf5/archive/%{name}-%{name}-%{version}_%{hdf5_release}.tar.gz
 Source1: h5comp
 # For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
+Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
 Patch0: hdf5-shared-lib.patch
 Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Fix java build
@@ -241,7 +236,7 @@ HDF5 tests with openmpi3
 %endif
 
 %prep
-%setup -q -a 2 -n %{name}-%{hdf5_commit}
+%setup -q -a 2 -n %{name}-%{name}-%{version}_%{hdf5_release}
 %patch0 -p1 -b .hdf5-shared-lib
 %patch1 -p1 -b .LD_LIBRARY_PATH
 %patch3 -p1 -b .build
@@ -507,7 +502,7 @@ done
 %{_libdir}/*.a
 
 %files -n java-hdf5
-%{_jnidir}/hdf5.jar
+%{_libdir}/hdf5.jar
 %{_libdir}/%{name}/libhdf5_java.so
 
 %if %{with_mpich}
