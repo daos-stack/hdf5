@@ -245,13 +245,6 @@ HDF5 tests with openmpi3
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
-# Leap 15.1 wants jars in /usr/lib64/java
-%if (0%{?suse_version} >= 1500)
-ed java/src/Makefile.am << EOF
-/^hdf5_javadir =/s/lib/lib64/
-wq
-EOF
-%endif
 
 # Replace jars with system versions
 find -name \*.jar -delete
