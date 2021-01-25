@@ -5,12 +5,15 @@
 
 # Patch version?
 %global snaprel %{nil}
+%global hdf5_major 1
+%global hdf5_minor 13_0
+%global hdf5_release rc5
 
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}_%{hdf5_minor}
-Release: %{hdf5_release}%{?relval}%{?dist}
+Release: %{hdf5_release}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://github.com/HDFGroup/hdf5
@@ -612,6 +615,9 @@ done
 %endif
 
 %changelog
+* Mon Jan 25 2021 Maureen Jean <maureen.jean@intel.com> - 1.13.0-rc5
+- Update to tagged release hdf5-1_13_0-rc5
+
 * Tue Nov 17 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5.gfa40c6c59a
 - Update to develop branch fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
 
