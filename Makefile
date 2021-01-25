@@ -4,7 +4,7 @@ TEST_PACKAGES := $(NAME) java-$(NAME) $(NAME)-devel $(NAME)-static $(NAME)-mpich
 HDF5_MAJOR    := 1
 HDF5_MINOR    := 13_0
 HDF5_RELEASE  := rc5
-DL_VERSION    := $(NAME)-$(NAME)-$(HDF5_MAJOR)_$(HDF5_MINOR)-$(HDF5_RELEASE)
+DL_VERSION    := $(NAME)-$(HDF5_MAJOR)_$(HDF5_MINOR)-$(HDF5_RELEASE)
 
 include packaging/Makefile_packaging.mk
 

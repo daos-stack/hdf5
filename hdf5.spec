@@ -18,7 +18,7 @@ Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://github.com/HDFGroup/hdf5
 
-Source0: https://github.com/HDFGroup/hdf5/archive/%{name}-%{name}-%{version}-%{hdf5_release}.tar.gz
+Source0: https://github.com/HDFGroup/hdf5/archive/%{name}-%{version}-%{hdf5_release}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
