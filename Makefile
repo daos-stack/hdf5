@@ -7,7 +7,7 @@ HDF5_RELEASE  := rc5
 HDF5_TAG      := hdf5-$(HDF5_MAJOR)_$(HDF5_MINOR)-$(HDF5_RELEASE)
 SOURCE_COMMIT := $(shell git rev-list -n 1 $(HDF5_TAG))
 GIT_SHORT     := $(shell git rev-parse --short $(SOURCE_COMMIT))
-BUILD_DEFINES := --define "%relval .g$(GIT_SHORT)" --define "%hdf5_major $(HDF5_MAJOR)"  --define "%hdf5_minor $(HDF5_MINOR)  --define "%hdf5_release $(HDF5_RELEASE)
+BUILD_DEFINES := --define "%relval .g$(GIT_SHORT)" --define "%hdf5_major $(HDF5_MAJOR)"  --define "%hdf5_minor $(HDF5_MINOR)"  --define "%hdf5_release $(HDF5_RELEASE)"
 RPM_BUILD_OPTIONS := $(BUILD_DEFINES)
 
 include packaging/Makefile_packaging.mk
