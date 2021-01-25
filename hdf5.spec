@@ -460,6 +460,7 @@ done
 %{_bindir}/h5watch
 %{_bindir}/mirror_server
 %{_bindir}/mirror_server_stop
+%{_bindir}/h5delete
 %{_libdir}/libhdf5.so.*
 %{_libdir}/libhdf5_cpp.so.*
 %{_libdir}/libhdf5_fortran.so.*
@@ -533,6 +534,7 @@ done
 %{mpi_libdir}/mpich/bin/ph5diff
 %{mpi_libdir}/mpich/bin/mirror_server
 %{mpi_libdir}/mpich/bin/mirror_server_stop
+%{mpi_libdir}/mpich/bin/h5delete
 %{mpi_libdir}/mpich/%{mpi_lib_ext}/*.so.*
 
 %files mpich-devel
@@ -585,6 +587,7 @@ done
 %{mpi_libdir}/openmpi3/bin/ph5diff
 %{mpi_libdir}/openmpi3/bin/mirror_server
 %{mpi_libdir}/openmpi3/bin/mirror_server_stop
+%{mpi_libdir}/openmpi3/bin/h5delete
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.so.*
 
 %files openmpi3-devel
