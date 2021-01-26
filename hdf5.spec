@@ -499,12 +499,7 @@ done
 %{_libdir}/*.a
 
 %files -n java-hdf5
-%if (0%{?suse_version} >= 1500)
-%{_jnidir}/hdf5.jar
-%endif
-%if (0%{?rhel} >= 7)
 %{_libdir}/hdf5.jar
-%endif
 %{_libdir}/%{name}/libhdf5_java.so
 
 %if %{with_mpich}
