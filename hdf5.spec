@@ -282,7 +282,7 @@ sed -e 's|-O -finline-functions|-O3 -finline-functions|g' -i config/gnu-flags
   --enable-fortran2003 \\\
   --enable-hl \\\
   --enable-shared \\\
-  --with-szlib \\\
+
 %{nil}
 # --enable-cxx and --enable-parallel flags are incompatible
 # --with-mpe=DIR Use MPE instrumentation [default=no]
