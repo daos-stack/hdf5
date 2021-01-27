@@ -1,24 +1,23 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
-%global daos_major 1
-
 # Patch version?
 %global snaprel %{nil}
 %global hdf5_major 1
-%global hdf5_minor 13_0
-%global hdf5_release rc5
-
+%global hdf5_minor 13
+%global hdf5_bugfix 0
+%global hdf5_prerelease rc5
+%global hdf5_tag %{hdf5_major}_%{hdf5_minor}_%{hdf5_bugfix}%{?hdf5_prerelease:-%{hdf5_prerelease}}
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
-Version: %{hdf5_major}_%{hdf5_minor}
-Release: %{hdf5_release}%{?commit:.git%{shortcommit}}%{?dist}
+Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
+Release: 1%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
-URL: https://github.com/HDFGroup/hdf5
+URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: https://github.com/HDFGroup/hdf5/archive/%{name}-%{version}-%{hdf5_release}.tar.gz
+Source0: https://github.com/HDFGroup/%{name}/archive/%{name}-%{hdf5_tag}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
@@ -239,7 +238,7 @@ HDF5 tests with openmpi3
 %endif
 
 %prep
-%setup -q -a 2 -n %{name}-%{name}-%{version}-%{hdf5_release}
+%setup -q -a 2 -n %{name}-%{name}-%{hdf5_tag}
 %patch0 -p1 -b .hdf5-shared-lib
 %patch1 -p1 -b .LD_LIBRARY_PATH
 %patch3 -p1 -b .build
@@ -608,8 +607,8 @@ done
 %endif
 
 %changelog
-* Mon Jan 25 2021 Maureen Jean <maureen.jean@intel.com> - 1.13.0-rc5
-- Update to tagged release hdf5-1_13_0-rc5
+* Mon Jan 25 2021 Maureen Jean <maureen.jean@intel.com> - 1.13.0~rc5
+- Update to tagged release hdf5-1_13_0~rc5
 
 * Tue Nov 17 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5.gfa40c6c59a
 - Update to develop branch fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
