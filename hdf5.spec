@@ -398,7 +398,9 @@ rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
 
 # Java
 mkdir -p %{buildroot}%{_libdir}/%{name}
+mkdir -p %{buildroot}%{_jnidir}
 mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
+mv %{buildroot}%{_libdir}/hdf5.jar %{buildroot}%{_jnidir}/
 
 # Some hackery to install tests
 for mpi in %{?mpi_list}
@@ -498,7 +500,7 @@ done
 %{_libdir}/*.a
 
 %files -n java-hdf5
-%{_libdir}/hdf5.jar
+%{_jnidir}/hdf5.jar
 %{_libdir}/%{name}/libhdf5_java.so
 
 %if %{with_mpich}
