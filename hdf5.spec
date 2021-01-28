@@ -1,29 +1,26 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
-%global daos_major 0
-%global hdf5_commit fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
-%define hdf5_sha .gfa40c6c59a
-
 # Patch version?
 %global snaprel %{nil}
-# HDF5 versions
-%global major 1.12
-%global minor 0
-
+%global hdf5_major 1
+%global hdf5_minor 13
+%global hdf5_bugfix 0
+%global hdf5_prerelease rc5
+%global hdf5_tag %{hdf5_major}_%{hdf5_minor}_%{hdf5_bugfix}%{?hdf5_prerelease:-%{hdf5_prerelease}}
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
-Version: %{major}.%{minor}
-Release: 5%{hdf5_sha}%{?dist}
+Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
+Release: 1%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
-Source0: https://github.com/HDFGroup/hdf5/archive/%{hdf5_commit}.tar.gz
+Source0: https://github.com/HDFGroup/%{name}/archive/%{name}-%{hdf5_tag}.tar.gz
 Source1: h5comp
 # For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_%{version}+repack-1~exp2.debian.tar.xz
+Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
 Patch0: hdf5-shared-lib.patch
 Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Fix java build
@@ -241,19 +238,12 @@ HDF5 tests with openmpi3
 %endif
 
 %prep
-%setup -q -a 2 -n %{name}-%{hdf5_commit}
+%setup -q -a 2 -n %{name}-%{name}-%{hdf5_tag}
 %patch0 -p1 -b .hdf5-shared-lib
 %patch1 -p1 -b .LD_LIBRARY_PATH
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
-# Leap 15.1 wants jars in /usr/lib64/java
-%if (0%{?suse_version} >= 1500)
-ed java/src/Makefile.am << EOF
-/^hdf5_javadir =/s/lib/lib64/
-wq
-EOF
-%endif
 
 # Replace jars with system versions
 find -name \*.jar -delete
@@ -292,7 +282,7 @@ sed -e 's|-O -finline-functions|-O3 -finline-functions|g' -i config/gnu-flags
   --enable-fortran2003 \\\
   --enable-hl \\\
   --enable-shared \\\
-  --with-szlib \\\
+
 %{nil}
 # --enable-cxx and --enable-parallel flags are incompatible
 # --with-mpe=DIR Use MPE instrumentation [default=no]
@@ -408,7 +398,9 @@ rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
 
 # Java
 mkdir -p %{buildroot}%{_libdir}/%{name}
+mkdir -p %{buildroot}%{_jnidir}
 mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
+mv %{buildroot}%{_libdir}/hdf5.jar %{buildroot}%{_jnidir}/
 
 # Some hackery to install tests
 for mpi in %{?mpi_list}
@@ -465,6 +457,7 @@ done
 %{_bindir}/h5watch
 %{_bindir}/mirror_server
 %{_bindir}/mirror_server_stop
+%{_bindir}/h5delete
 %{_libdir}/libhdf5.so.*
 %{_libdir}/libhdf5_cpp.so.*
 %{_libdir}/libhdf5_fortran.so.*
@@ -538,6 +531,7 @@ done
 %{mpi_libdir}/mpich/bin/ph5diff
 %{mpi_libdir}/mpich/bin/mirror_server
 %{mpi_libdir}/mpich/bin/mirror_server_stop
+%{mpi_libdir}/mpich/bin/h5delete
 %{mpi_libdir}/mpich/%{mpi_lib_ext}/*.so.*
 
 %files mpich-devel
@@ -590,6 +584,7 @@ done
 %{mpi_libdir}/openmpi3/bin/ph5diff
 %{mpi_libdir}/openmpi3/bin/mirror_server
 %{mpi_libdir}/openmpi3/bin/mirror_server_stop
+%{mpi_libdir}/openmpi3/bin/h5delete
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.so.*
 
 %files openmpi3-devel
@@ -614,6 +609,9 @@ done
 %endif
 
 %changelog
+* Mon Jan 25 2021 Maureen Jean <maureen.jean@intel.com> - 1.13.0~rc5
+- Update to tagged release hdf5-1_13_0~rc5
+
 * Tue Nov 17 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5.gfa40c6c59a
 - Update to develop branch fa40c6c59af5d9aabd4b478cd02f8a9f7ebf7922
 
