@@ -131,7 +131,7 @@ _topdir/SOURCES/%: % | _topdir/SOURCES/
 # At least one spec file, SLURM (sles), has a different version for the
 # download file than the version in the spec file.
 ifeq ($(DL_VERSION),)
-DL_VERSION = $(subst ~,,$(VERSION))
+DL_VERSION = $(subst ~,-,$(VERSION))
 endif
 ifeq ($(DL_NAME),)
 DL_NAME = $(NAME)
