@@ -5,4 +5,11 @@ TEST_PACKAGES := $(NAME) java-$(NAME) $(NAME)-devel $(NAME)-static $(NAME)-mpich
 # so convert . to _ and ~ to - from $(VERSION)
 DL_VERSION     = $(subst ~,-,$(subst .,_,$(VERSION)))
 
+include source_deps.mk
+
 include packaging/Makefile_packaging.mk
+
+source_deps.mk:
+	for s in $(SOURCES); do \
+		echo $${s##*/}:; \
+	done > $@
