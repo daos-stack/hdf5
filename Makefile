@@ -6,6 +6,3 @@ TEST_PACKAGES := $(NAME) java-$(NAME) $(NAME)-devel $(NAME)-static $(NAME)-mpich
 DL_VERSION     = $(subst ~,-,$(subst .,_,$(VERSION)))
 
 include packaging/Makefile_packaging.mk
-
-hdf5_1.12.0+repack-1~exp2.debian.tar.xz:
-	curl -f -L -O http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
