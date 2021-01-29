@@ -11,7 +11,7 @@
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
-Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
+Version: %{hdf5_major}_%{hdf5_minor}_%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
 Release: 1%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
