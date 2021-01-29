@@ -136,6 +136,7 @@ endif
 ifeq ($(DL_NAME),)
 DL_NAME = $(NAME)
 endif
+HDF5_VERSION = $(echo $(VERSION) | sed 's/\./\_/g' | sed 's/\~/\-/g')
 
 $(DL_NAME)-$(DL_VERSION).tar.$(SRC_EXT).asc: $(SPEC) $(CALLING_MAKEFILE)
 	rm -f ./$(DL_NAME)-*.tar.{gz,bz*,xz}.asc
@@ -156,6 +157,10 @@ v$(DL_VERSION).tar.$(SRC_EXT): $(SPEC) $(CALLING_MAKEFILE)
 $(DL_VERSION).tar.$(SRC_EXT): $(SPEC) $(CALLING_MAKEFILE)
 	rm -f ./*.tar.{gz,bz*,xz}
 	curl -f -L -O '$(SOURCE)'
+
+$(DL_NAME)-$(HDF5_VERSION).tar.$(SRC_EXT):
+	rm -f ./*.tar.{gz,bz*,xz}
+	spectool -g $(NAME).spec
 
 $(DEB_TOP)/%: % | $(DEB_TOP)/
 
