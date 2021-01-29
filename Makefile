@@ -2,8 +2,6 @@ NAME           := hdf5
 SRC_EXT        := gz
 TEST_PACKAGES  := $(NAME) java-$(NAME) $(NAME)-devel $(NAME)-static $(NAME)-mpich-tests $(NAME)-openmpi3-tests
 
-include source_deps.mk
-
 include packaging/Makefile_packaging.mk
 
 PR_REPOS := 
@@ -16,8 +14,3 @@ hdf5comp:
 
 %.patch:
 	curl -f -L -O https://src.fedoraproject.org/rpms/hdf5/raw/master/f/$@
-
-source_deps.mk:
-	for s in $(SOURCES); do \
-		echo $${s##*/}:; \
-	done > $@
