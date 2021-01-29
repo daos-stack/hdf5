@@ -1,6 +1,7 @@
 NAME           := hdf5
 SRC_EXT        := gz
 TEST_PACKAGES  := $(NAME) java-$(NAME) $(NAME)-devel $(NAME)-static $(NAME)-mpich-tests $(NAME)-openmpi3-tests
+DL_VERSION     := hdf5-1_13_0-rc5
 
 include packaging/Makefile_packaging.mk
 
