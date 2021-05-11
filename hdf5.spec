@@ -12,7 +12,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
-Release: 1%{?commit:.git%{shortcommit}}%{?dist}
+Release: 2%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -235,6 +235,12 @@ Provides: %{name}-openmpi3-tests-daos-%{daos_major} = %{version}-%{release}
 %description openmpi3-tests
 HDF5 tests with openmpi3
 
+%endif
+
+%if (0%{?suse_version} > 0)
+%global __debug_package 1
+%global _debuginfo_subpackages 0
+%debug_package
 %endif
 
 %prep
@@ -609,7 +615,10 @@ done
 %endif
 
 %changelog
-* Mon Jan 25 2021 Maureen Jean <maureen.jean@intel.com> - 1.13.0~rc5
+* Mon May 10 2021 Brian J. Murrell <brian.murrell@intel.com> - 1.13.0~rc5-2
+- Enable debuginfo package building for SUSE
+
+* Mon Jan 25 2021 Maureen Jean <maureen.jean@intel.com> - 1.13.0~rc5-1
 - Update to tagged release hdf5-1_13_0~rc5
 
 * Tue Nov 17 2020 Maureen Jean <maureen.jean@intel.com> - 1.12.0-5.gfa40c6c59a
