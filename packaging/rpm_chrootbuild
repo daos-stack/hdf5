@@ -12,7 +12,7 @@ if [ -w /etc/mock/"$CHROOT_NAME".cfg ]; then
 /^# repos$/+2;/^"""$/-1d
 wq
 EOF
-    elif [[ $CHROOT_NAME =~ centos8-* ]]; then
+    elif [[ $CHROOT_NAME =~ epel-8-* ]]; then
         echo -e "config_opts['module_enable'] = ['javapackages-tools']\n" >> /etc/mock/"$CHROOT_NAME".cfg
     fi
     cat /etc/mock/"$CHROOT_NAME".cfg
