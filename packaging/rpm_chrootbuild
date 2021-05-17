@@ -14,6 +14,7 @@ wq
 EOF
     fi
     echo -e "config_opts['module_enable'] = \"['javapackages-tools']\"\n" >> /etc/mock/"$CHROOT_NAME".cfg
+    cat /etc/mock/"$CHROOT_NAME".cfg
     echo -e "config_opts['yum.conf'] += \"\"\"\n" >> /etc/mock/"$CHROOT_NAME".cfg
     for repo in $DISTRO_BASE_PR_REPOS $PR_REPOS; do
         branch="master"
