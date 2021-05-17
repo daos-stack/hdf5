@@ -1,3 +1,12 @@
+%global with_mpich 1
+%if (0%{?rhel} >= 8)
+%global with_openmpi 1
+%global with_openmpi3 0
+%else
+%global with_openmpi 0
+%global with_openmpi3 1
+%endif
+
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %{!?_fmoddir:%global _fmoddir %{_libdir}/gfortran/modules}
 
@@ -12,7 +21,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
-Release: 2%{?commit:.git%{shortcommit}}%{?dist}
+Release: 3%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -29,6 +38,8 @@ Patch3: hdf5-build.patch
 Patch11: daos.patch
 # Example file move to DESTDIR
 Patch12: examples.patch
+# Fix a couple of error: format not a string literal and no format arguments [-Werror=format-security]
+Patch100: hdf5-Werror=format-security.patch
 
 %if (0%{?suse_version} >= 1500)
 BuildRequires:  gcc-fortran
@@ -61,11 +72,7 @@ BuildRequires: Modules
 %else
 BuildRequires: environment-modules
 %endif
-Provides:       %{name}-daos-%{daos_major} = %{version}-%{release}
 
-%global with_mpich 1
-%global with_openmpi 0
-%global with_openmpi3 1
 %if 0%{?rhel}
 %ifarch ppc64
 # No mpich2 on ppc64 in EL
@@ -136,7 +143,6 @@ HDF5 development headers and libraries.
 Summary: HDF5 java library
 Requires:  slf4j
 Obsoletes: jhdf5 < 3.3.1-2
-Provides: %{name}-java-hdf5-daos-%{daos_major} = %{version}-%{release}
 
 %description -n java-hdf5
 HDF5 java library
@@ -149,57 +155,53 @@ Requires: %{name}-devel = %{version}-%{release}
 HDF5 static libraries.
 
 
-%if %{with_mpich}
-%package mpich
-Summary: HDF5 mpich libraries
-BuildRequires: mpich-devel
-Provides: %{name}-mpich2 = %{version}-%{release}
-Obsoletes: %{name}-mpich2 < 1.8.11-4
-Provides: %{name}-mpich2-daos-%{daos_major} = %{version}-%{release}
 
-%description mpich
-HDF5 parallel mpich libraries
+%if %{with_openmpi}
+%package openmpi
+Summary: HDF5 openmpi libraries
+BuildRequires: openmpi-devel
+Provides: %{name}-openmpi = %{version}-%{release}
+
+%description openmpi
+HDF5 parallel openmpi libraries
 
 
-%package mpich-devel
-Summary: HDF5 mpich development files
-Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
+%package openmpi-devel
+Summary: HDF5 openmpi development files
+Requires: %{name}-openmpi%{?_isa} = %{version}-%{release}
 Requires: libaec-devel%{?_isa}
 Requires: zlib-devel%{?_isa}
-Requires: mpich-devel%{?_isa}
-Provides: %{name}-mpich2-devel = %{version}-%{release}
+Requires: openmpi-devel%{?_isa}
+Provides: %{name}-openmpi-devel = %{version}-%{release}
 
-%description mpich-devel
-HDF5 parallel mpich development files
-
-
-%package mpich-static
-Summary: HDF5 mpich static libraries
-Requires: %{name}-mpich-devel%{?_isa} = %{version}-%{release}
-Provides: %{name}-mpich2-static = %{version}-%{release}
-
-%description mpich-static
-HDF5 parallel mpich static libraries
+%description openmpi-devel
+HDF5 parallel openmpi development files
 
 
-%package mpich-tests
-Summary: HDF5 tests with mpich
+%package openmpi-static
+Summary: HDF5 openmpi static libraries
+Requires: %{name}-openmpi-devel%{?_isa} = %{version}-%{release}
+Provides: %{name}-openmpi-static = %{version}-%{release}
+
+%description openmpi-static
+HDF5 parallel openmpi static libraries
+
+
+%package openmpi-tests
+Summary: HDF5 tests with openmpi
 Group: Development/Libraries
-Requires: %{name}-mpich2 = %{version}-%{release}
-Provides: %{name}-mpich2-tests-daos-%{daos_major} = %{version}-%{release}
+Requires: %{name}-openmpi = %{version}-%{release}
 
-%description mpich-tests
-HDF5 tests with mpich
+%description openmpi-tests
+HDF5 tests with openmpi
 
 %endif
-
 
 %if %{with_openmpi3}
 %package openmpi3
 Summary: HDF5 openmpi3 libraries
 BuildRequires: openmpi3-devel
 Provides: %{name}-openmpi3 = %{version}-%{release}
-Provides: %{name}-openmpi3-daos-%{daos_major} = %{version}-%{release}
 
 %description openmpi3
 HDF5 parallel openmpi3 libraries
@@ -230,10 +232,51 @@ HDF5 parallel openmpi3 static libraries
 Summary: HDF5 tests with openmpi3
 Group: Development/Libraries
 Requires: %{name}-openmpi3 = %{version}-%{release}
-Provides: %{name}-openmpi3-tests-daos-%{daos_major} = %{version}-%{release}
 
 %description openmpi3-tests
 HDF5 tests with openmpi3
+
+%endif
+
+%if %{with_mpich}
+%package mpich
+Summary: HDF5 mpich libraries
+BuildRequires: mpich-devel
+Provides: %{name}-mpich2 = %{version}-%{release}
+Obsoletes: %{name}-mpich2 < 1.8.11-4
+
+%description mpich
+HDF5 parallel mpich libraries
+
+
+%package mpich-devel
+Summary: HDF5 mpich development files
+Requires: %{name}-mpich%{?_isa} = %{version}-%{release}
+Requires: libaec-devel%{?_isa}
+Requires: zlib-devel%{?_isa}
+Requires: mpich-devel%{?_isa}
+Provides: %{name}-mpich2-devel = %{version}-%{release}
+
+%description mpich-devel
+HDF5 parallel mpich development files
+
+
+%package mpich-static
+Summary: HDF5 mpich static libraries
+Requires: %{name}-mpich-devel%{?_isa} = %{version}-%{release}
+Provides: %{name}-mpich2-static = %{version}-%{release}
+
+%description mpich-static
+HDF5 parallel mpich static libraries
+
+
+%package mpich-tests
+Summary: HDF5 tests with mpich
+Group: Development/Libraries
+Requires: %{name}-mpich2 = %{version}-%{release}
+
+%description mpich-tests
+HDF5 tests with mpich
 
 %endif
 
@@ -250,6 +293,7 @@ HDF5 tests with openmpi3
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
+%patch100 -p1 -b .-Werror=format-security
 
 # Replace jars with system versions
 find -name \*.jar -delete
@@ -260,7 +304,7 @@ ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.25.jar
 ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
 
 # Fix test output
-%if (0%{?suse_version} >= 1500)
+%if (0%{?suse_version} >= 1500) || (0%{?rhel} >= 8)
 junit_ver_file=junit
 %else
 junit_ver_file=JPP-junit
@@ -316,8 +360,7 @@ export CC=mpicc
 export CXX=mpicxx
 export F9X=mpif90
 export LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
-for mpi in %{?mpi_list}
-do
+for mpi in %{?mpi_list}; do
   mkdir $mpi
   pushd $mpi
   %module_load $mpi
@@ -349,8 +392,7 @@ rm %{buildroot}%{_libdir}/*.la
 #Fortran modules
 mkdir -p %{buildroot}%{_fmoddir}
 mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}
-for mpi in %{?mpi_list}
-do
+for mpi in %{?mpi_list}; do
   %module_load $mpi
   make -C $mpi install DESTDIR=%{buildroot}
   rm %{buildroot}/%{mpi_libdir}/$mpi/%{mpi_lib_ext}/*.la
@@ -368,8 +410,7 @@ done
 sed -i -e s/H5pubconf.h/H5pubconf-64.h/ %{buildroot}%{_includedir}/H5public.h
 mv %{buildroot}%{_includedir}/H5pubconf.h \
    %{buildroot}%{_includedir}/H5pubconf-64.h
-for x in h5c++ h5cc h5fc
-do
+for x in h5c++ h5cc h5fc; do
   mv %{buildroot}%{_bindir}/${x} \
      %{buildroot}%{_bindir}/${x}-64
   install -m 0755 %SOURCE1 %{buildroot}%{_bindir}/${x}
@@ -378,8 +419,7 @@ done
 sed -i -e s/H5pubconf.h/H5pubconf-32.h/ %{buildroot}%{_includedir}/H5public.h
 mv %{buildroot}%{_includedir}/H5pubconf.h \
    %{buildroot}%{_includedir}/H5pubconf-32.h
-for x in h5c++ h5cc h5fc
-do
+for x in h5c++ h5cc h5fc; do
   mv %{buildroot}%{_bindir}/${x} \
      %{buildroot}%{_bindir}/${x}-32
   install -m 0755 %SOURCE1 %{buildroot}%{_bindir}/${x}
@@ -395,8 +435,7 @@ EOF
 # Install man pages from debian
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p debian/man/*.1 %{buildroot}%{_mandir}/man1/
-for mpi in %{?mpi_list}
-do
+for mpi in %{?mpi_list}; do
   mkdir -p %{buildroot}%{mpi_libdir}/$mpi/share/man/man1
   cp -p debian/man/h5p[cf]c.1 %{buildroot}%{mpi_libdir}/$mpi/share/man/man1/
 done
@@ -409,8 +448,7 @@ mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
 mv %{buildroot}%{_libdir}/hdf5.jar %{buildroot}%{_jnidir}/
 
 # Some hackery to install tests
-for mpi in %{?mpi_list}
-do
+for mpi in %{?mpi_list}; do
   mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/{,.libs/}
   for x in t_cache testphdf5 t_mpi t_pflush1 t_pflush2 t_shapesame
   do
@@ -427,8 +465,7 @@ export HDF5_Make_Ignore=yes
 export OMPI_MCA_rmaps_base_oversubscribe=1
 # t_cache_image appears to be hanging, others taking very long on s390x
 %ifnarch s390x
-for mpi in %{?mpi_list}
-do
+for mpi in %{?mpi_list}; do
   %module_load $mpi
   make -C $mpi check
   module purge
@@ -509,58 +546,58 @@ done
 %{_jnidir}/hdf5.jar
 %{_libdir}/%{name}/libhdf5_java.so
 
-%if %{with_mpich}
-%files mpich
+
+%if %{with_openmpi}
+%files openmpi
 %license COPYING
 %doc MANIFEST README.txt release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
-%{mpi_libdir}/mpich/bin/gif2h5
-%{mpi_libdir}/mpich/bin/h52gif
-%{mpi_libdir}/mpich/bin/h5clear
-%{mpi_libdir}/mpich/bin/h5copy
-%{mpi_libdir}/mpich/bin/h5debug
-%{mpi_libdir}/mpich/bin/h5diff
-%{mpi_libdir}/mpich/bin/h5dump
-%{mpi_libdir}/mpich/bin/h5format_convert
-%{mpi_libdir}/mpich/bin/h5import
-%{mpi_libdir}/mpich/bin/h5jam
-%{mpi_libdir}/mpich/bin/h5ls
-%{mpi_libdir}/mpich/bin/h5mkgrp
-%{mpi_libdir}/mpich/bin/h5redeploy
-%{mpi_libdir}/mpich/bin/h5repack
-%{mpi_libdir}/mpich/bin/h5perf
-%{mpi_libdir}/mpich/bin/h5perf_serial
-%{mpi_libdir}/mpich/bin/h5repart
-%{mpi_libdir}/mpich/bin/h5stat
-%{mpi_libdir}/mpich/bin/h5unjam
-%{mpi_libdir}/mpich/bin/h5watch
-%{mpi_libdir}/mpich/bin/ph5diff
-%{mpi_libdir}/mpich/bin/mirror_server
-%{mpi_libdir}/mpich/bin/mirror_server_stop
-%{mpi_libdir}/mpich/bin/h5delete
-%{mpi_libdir}/mpich/%{mpi_lib_ext}/*.so.*
+%{mpi_libdir}/openmpi/bin/gif2h5
+%{mpi_libdir}/openmpi/bin/h52gif
+%{mpi_libdir}/openmpi/bin/h5clear
+%{mpi_libdir}/openmpi/bin/h5copy
+%{mpi_libdir}/openmpi/bin/h5debug
+%{mpi_libdir}/openmpi/bin/h5diff
+%{mpi_libdir}/openmpi/bin/h5dump
+%{mpi_libdir}/openmpi/bin/h5format_convert
+%{mpi_libdir}/openmpi/bin/h5import
+%{mpi_libdir}/openmpi/bin/h5jam
+%{mpi_libdir}/openmpi/bin/h5ls
+%{mpi_libdir}/openmpi/bin/h5mkgrp
+%{mpi_libdir}/openmpi/bin/h5perf
+%{mpi_libdir}/openmpi/bin/h5perf_serial
+%{mpi_libdir}/openmpi/bin/h5redeploy
+%{mpi_libdir}/openmpi/bin/h5repack
+%{mpi_libdir}/openmpi/bin/h5repart
+%{mpi_libdir}/openmpi/bin/h5stat
+%{mpi_libdir}/openmpi/bin/h5unjam
+%{mpi_libdir}/openmpi/bin/h5watch
+%{mpi_libdir}/openmpi/bin/ph5diff
+%{mpi_libdir}/openmpi/bin/mirror_server
+%{mpi_libdir}/openmpi/bin/mirror_server_stop
+%{mpi_libdir}/openmpi/bin/h5delete
+%{mpi_libdir}/openmpi/%{mpi_lib_ext}/*.so.*
 
-%files mpich-devel
-%{mpi_includedir}/mpich%{mpi_include_ext}
-%{mpi_libdir}/mpich/%{mpi_lib_ext}/lib*.so
-%{mpi_libdir}/mpich/%{mpi_lib_ext}/lib*.settings
+%files openmpi-devel
+%{mpi_includedir}/openmpi%{mpi_include_ext}
+%{mpi_libdir}/openmpi/%{mpi_lib_ext}/lib*.so
+%{mpi_libdir}/openmpi/%{mpi_lib_ext}/lib*.settings
 %if (0%{?rhel} >= 7)
-%{_fmoddir}/mpich/*.mod
+%{_fmoddir}/openmpi/*.mod
 %endif
-%{mpi_libdir}/mpich/bin/h5pcc
-%{mpi_libdir}/mpich/bin/h5pfc
-%{mpi_libdir}/mpich/share/hdf5_examples/
-%{mpi_libdir}/mpich/share/man/man1/h5pcc.1*
-%{mpi_libdir}/mpich/share/man/man1/h5pfc.1*
+%{mpi_libdir}/openmpi/bin/h5pcc
+%{mpi_libdir}/openmpi/bin/h5pfc
+%{mpi_libdir}/openmpi/share/hdf5_examples/
+%{mpi_libdir}/openmpi/share/man/man1/h5pcc.1*
+%{mpi_libdir}/openmpi/share/man/man1/h5pfc.1*
 
-%files mpich-static
-%{mpi_libdir}/mpich/%{mpi_lib_ext}/*.a
+%files openmpi-static
+%{mpi_libdir}/openmpi/%{mpi_lib_ext}/*.a
 
-%files mpich-tests
-%{_libdir}/hdf5/mpich/tests
+%files openmpi-tests
+%{_libdir}/hdf5/openmpi/tests
 
 %endif
-
 
 %if %{with_openmpi3}
 %files openmpi3
@@ -614,7 +651,62 @@ done
 
 %endif
 
+%if %{with_mpich}
+%files mpich
+%license COPYING
+%doc MANIFEST README.txt release_docs/RELEASE.txt
+%doc release_docs/HISTORY*.txt
+%{mpi_libdir}/mpich/bin/gif2h5
+%{mpi_libdir}/mpich/bin/h52gif
+%{mpi_libdir}/mpich/bin/h5clear
+%{mpi_libdir}/mpich/bin/h5copy
+%{mpi_libdir}/mpich/bin/h5debug
+%{mpi_libdir}/mpich/bin/h5diff
+%{mpi_libdir}/mpich/bin/h5dump
+%{mpi_libdir}/mpich/bin/h5format_convert
+%{mpi_libdir}/mpich/bin/h5import
+%{mpi_libdir}/mpich/bin/h5jam
+%{mpi_libdir}/mpich/bin/h5ls
+%{mpi_libdir}/mpich/bin/h5mkgrp
+%{mpi_libdir}/mpich/bin/h5redeploy
+%{mpi_libdir}/mpich/bin/h5repack
+%{mpi_libdir}/mpich/bin/h5perf
+%{mpi_libdir}/mpich/bin/h5perf_serial
+%{mpi_libdir}/mpich/bin/h5repart
+%{mpi_libdir}/mpich/bin/h5stat
+%{mpi_libdir}/mpich/bin/h5unjam
+%{mpi_libdir}/mpich/bin/h5watch
+%{mpi_libdir}/mpich/bin/ph5diff
+%{mpi_libdir}/mpich/bin/mirror_server
+%{mpi_libdir}/mpich/bin/mirror_server_stop
+%{mpi_libdir}/mpich/bin/h5delete
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/*.so.*
+
+%files mpich-devel
+%{mpi_includedir}/mpich%{mpi_include_ext}
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/lib*.so
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/lib*.settings
+%if (0%{?rhel} >= 7)
+%{_fmoddir}/mpich/*.mod
+%endif
+%{mpi_libdir}/mpich/bin/h5pcc
+%{mpi_libdir}/mpich/bin/h5pfc
+%{mpi_libdir}/mpich/share/hdf5_examples/
+%{mpi_libdir}/mpich/share/man/man1/h5pcc.1*
+%{mpi_libdir}/mpich/share/man/man1/h5pfc.1*
+
+%files mpich-static
+%{mpi_libdir}/mpich/%{mpi_lib_ext}/*.a
+
+%files mpich-tests
+%{_libdir}/hdf5/mpich/tests
+
+%endif
+
 %changelog
+* Mon May 17 2021 Brian J. Murrell <brian.murrell@intel.com> - 1.13.0~rc5-3
+- Package for openmpi on EL8
+
 * Mon May 10 2021 Brian J. Murrell <brian.murrell@intel.com> - 1.13.0~rc5-2
 - Enable debuginfo package building for SUSE
 
