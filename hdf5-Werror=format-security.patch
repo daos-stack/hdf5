@@ -1,0 +1,42 @@
+--- a/src/H5Clog_trace.c	2021-05-17 12:12:23.229278875 -0400
++++ b/src/H5Clog_trace.c	2021-05-17 12:12:29.905481711 -0400
+@@ -168,7 +168,7 @@
+ 
+     /* Write the log message and flush */
+     n_chars = HDstrlen(trace_udata->message);
+-    if ((int)n_chars != HDfprintf(trace_udata->outfile, trace_udata->message))
++    if ((int)n_chars != HDfprintf(trace_udata->outfile, "%s", trace_udata->message))
+         HGOTO_ERROR(H5E_CACHE, H5E_LOGGING, FAIL, "error writing log message")
+     HDmemset((void *)(trace_udata->message), 0, (size_t)(n_chars * sizeof(char)));
+ 
+--- a/src/H5Clog_json.c	2021-05-17 12:14:21.494852790 -0400
++++ b/src/H5Clog_json.c	2021-05-17 12:11:49.470253220 -0400
+@@ -173,7 +173,7 @@
+ 
+     /* Write the log message and flush */
+     n_chars = HDstrlen(json_udata->message);
+-    if ((int)n_chars != HDfprintf(json_udata->outfile, json_udata->message))
++    if ((int)n_chars != HDfprintf(json_udata->outfile, "%s", json_udata->message))
+         HGOTO_ERROR(H5E_CACHE, H5E_LOGGING, FAIL, "error writing log message")
+     HDmemset((void *)(json_udata->message), 0, (size_t)(n_chars * sizeof(char)));
+
+--- a/tools/src/h5import/h5import.c	2021-05-17 12:33:36.503574614 -0400
++++ b/tools/src/h5import/h5import.c	2021-05-17 12:31:51.675323044 -0400
+@@ -2536,7 +2536,7 @@
+ 
+     token = HDstrtok(temp, delimiter);
+     if (HDstrlen(token) >= MAX_PATH_NAME_LENGTH) {
+-        (void)HDfprintf(stderr, err1);
++        (void)HDfprintf(stderr, "%s", err1);
+         return (-1);
+     }
+     HDstrcpy(path->group[i++], token);
+@@ -2546,7 +2546,7 @@
+         if (token == NULL)
+             break;
+         if (HDstrlen(token) >= MAX_PATH_NAME_LENGTH) {
+-            (void)HDfprintf(stderr, err1);
++            (void)HDfprintf(stderr, "%s", err1);
+             return (-1);
+         }
+         HDstrcpy(path->group[i++], token);
