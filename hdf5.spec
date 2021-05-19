@@ -449,11 +449,12 @@ mv %{buildroot}%{_libdir}/hdf5.jar %{buildroot}%{_jnidir}/
 
 # Some hackery to install tests
 for mpi in %{?mpi_list}; do
-  mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/{,.libs/}
+  mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/{$mpi/hdf5-tests/{,.libs/},hdf5/$mpi}
+  ln -s ../../$mpi/hdf5-tests ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests
   for x in t_cache testphdf5 t_mpi t_pflush1 t_pflush2 t_shapesame
   do
-    install -m 0755 $mpi/testpar/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/
-    install -m 0755 $mpi/testpar/.libs/${x} ${RPM_BUILD_ROOT}%{_libdir}/hdf5/$mpi/tests/.libs/
+    install -m 0755 $mpi/testpar/${x} ${RPM_BUILD_ROOT}%{_libdir}/$mpi/hdf5-tests/
+    install -m 0755 $mpi/testpar/.libs/${x} ${RPM_BUILD_ROOT}%{_libdir}/$mpi/hdf5-tests/.libs/
   done
 done
 
@@ -595,6 +596,7 @@ done
 %{mpi_libdir}/openmpi/%{mpi_lib_ext}/*.a
 
 %files openmpi-tests
+%{_libdir}/openmpi/hdf5-tests
 %{_libdir}/hdf5/openmpi/tests
 
 %endif
@@ -647,6 +649,7 @@ done
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.a
 
 %files openmpi3-tests
+%{_libdir}/openmpi3/hdf5-tests
 %{_libdir}/hdf5/openmpi3/tests
 
 %endif
@@ -699,6 +702,7 @@ done
 %{mpi_libdir}/mpich/%{mpi_lib_ext}/*.a
 
 %files mpich-tests
+%{_libdir}/mpich/hdf5-tests
 %{_libdir}/hdf5/mpich/tests
 
 %endif
@@ -706,6 +710,8 @@ done
 %changelog
 * Mon May 17 2021 Brian J. Murrell <brian.murrell@intel.com> - 1.13.0~rc5-3
 - Package for openmpi on EL8
+- Move tests under %%_libdir/$mpi to keep the dependency generator happy
+  - But keep backward compatible paths
 
 * Mon May 10 2021 Brian J. Murrell <brian.murrell@intel.com> - 1.13.0~rc5-2
 - Enable debuginfo package building for SUSE
