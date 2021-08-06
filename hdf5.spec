@@ -68,9 +68,9 @@ BuildRequires: libaec-devel
 BuildRequires: gcc, gcc-c++
 %if (0%{?suse_version} >= 1500)
 BuildRequires: ed
-BuildRequires: Modules
+BuildRequires: lua-lmod
 %else
-BuildRequires: environment-modules
+BuildRequires: Lmod
 %endif
 
 %if 0%{?rhel}
