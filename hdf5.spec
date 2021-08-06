@@ -242,6 +242,7 @@ HDF5 tests with openmpi3
 %package mpich
 Summary: HDF5 mpich libraries
 BuildRequires: mpich-devel
+BuildRequires: libfabric-devel
 Provides: %{name}-mpich2 = %{version}-%{release}
 Obsoletes: %{name}-mpich2 < 1.8.11-4
 
