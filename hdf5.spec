@@ -21,7 +21,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
-Release: 3%{?commit:.git%{shortcommit}}%{?dist}
+Release: 4%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -242,6 +242,7 @@ HDF5 tests with openmpi3
 %package mpich
 Summary: HDF5 mpich libraries
 BuildRequires: mpich-devel
+BuildRequires: libfabric-devel
 Provides: %{name}-mpich2 = %{version}-%{release}
 Obsoletes: %{name}-mpich2 < 1.8.11-4
 
@@ -708,6 +709,9 @@ done
 %endif
 
 %changelog
+* Fri Aug 6 2021 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.0~rc5-4
+- add libfabric-devel dep
+
 * Mon May 17 2021 Brian J. Murrell <brian.murrell@intel.com> - 1.13.0~rc5-3
 - Package for openmpi on EL8
 - Move tests under %%_libdir/$mpi to keep the dependency generator happy
