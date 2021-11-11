@@ -21,7 +21,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
-Release: 5%{?commit:.git%{shortcommit}}%{?dist}
+Release: 6%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -708,6 +708,9 @@ done
 %endif
 
 %changelog
+* Thu Nov 11 2021 Wang Shilong <shilong.wang@intel.com> - 1.15.0~rc5-6
+- Rebuilt for breaking DAOS API change
+
 * Thu Oct 14 2021 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.0~rc5-5
 - remove libfabric-devel
 
