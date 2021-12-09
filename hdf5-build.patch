@@ -1,8 +1,8 @@
 diff --git a/java/examples/datasets/JavaDatasetExample.sh.in b/java/examples/datasets/JavaDatasetExample.sh.in
-index 7c47002..0a48487 100644
+index f29739a..fc9cddb 100644
 --- a/java/examples/datasets/JavaDatasetExample.sh.in
 +++ b/java/examples/datasets/JavaDatasetExample.sh.in
-@@ -40,7 +40,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
+@@ -39,7 +39,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
  BLDDIR="."
  BLDLIBDIR="$BLDDIR/testlibs"
  HDFTEST_HOME="$top_srcdir/java/examples/datasets"
@@ -12,10 +12,10 @@ index 7c47002..0a48487 100644
  test -d $BLDLIBDIR || mkdir -p $BLDLIBDIR
  
 diff --git a/java/examples/datasets/Makefile.am b/java/examples/datasets/Makefile.am
-index c5b8a5d..5acd6e1 100644
+index 41a914b..195201a 100644
 --- a/java/examples/datasets/Makefile.am
 +++ b/java/examples/datasets/Makefile.am
-@@ -27,7 +27,7 @@ classes:
+@@ -26,7 +26,7 @@ classes:
  	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
  
  pkgpath = examples/datasets
@@ -25,10 +25,10 @@ index c5b8a5d..5acd6e1 100644
  
  jarfile = jar$(PACKAGE_TARNAME)datasets.jar
 diff --git a/java/examples/datatypes/JavaDatatypeExample.sh.in b/java/examples/datatypes/JavaDatatypeExample.sh.in
-index 6a4581a..5e744a8 100644
+index e26d8c0..f6a9d87 100644
 --- a/java/examples/datatypes/JavaDatatypeExample.sh.in
 +++ b/java/examples/datatypes/JavaDatatypeExample.sh.in
-@@ -37,7 +37,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
+@@ -36,7 +36,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
  BLDDIR="."
  BLDLIBDIR="$BLDDIR/testlibs"
  HDFTEST_HOME="$top_srcdir/java/examples/datatypes"
@@ -38,10 +38,10 @@ index 6a4581a..5e744a8 100644
  test -d $BLDLIBDIR || mkdir -p $BLDLIBDIR
  
 diff --git a/java/examples/datatypes/Makefile.am b/java/examples/datatypes/Makefile.am
-index f695528..c07edb9 100644
+index 90790f7..450edef 100644
 --- a/java/examples/datatypes/Makefile.am
 +++ b/java/examples/datatypes/Makefile.am
-@@ -27,7 +27,7 @@ classes:
+@@ -26,7 +26,7 @@ classes:
  	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
  
  pkgpath = examples/datatypes
@@ -51,10 +51,10 @@ index f695528..c07edb9 100644
  
  jarfile = jar$(PACKAGE_TARNAME)datatypes.jar
 diff --git a/java/examples/groups/JavaGroupExample.sh.in b/java/examples/groups/JavaGroupExample.sh.in
-index f32947a..e804ffc 100644
+index 3b0e9d1..416c69f 100644
 --- a/java/examples/groups/JavaGroupExample.sh.in
 +++ b/java/examples/groups/JavaGroupExample.sh.in
-@@ -38,7 +38,7 @@ BLDDIR="."
+@@ -37,7 +37,7 @@ BLDDIR="."
  BLDLIBDIR="$BLDDIR/testlibs"
  BLDITERDIR="./groups"
  HDFTEST_HOME="$top_srcdir/java/examples/groups"
@@ -64,10 +64,10 @@ index f32947a..e804ffc 100644
  test -d $BLDLIBDIR || mkdir -p $BLDLIBDIR
  test -d $BLDITERDIR || mkdir -p $BLDITERDIR
 diff --git a/java/examples/groups/Makefile.am b/java/examples/groups/Makefile.am
-index d5824e8..1ca1e57 100644
+index bfde9ae..f48a5b9 100644
 --- a/java/examples/groups/Makefile.am
 +++ b/java/examples/groups/Makefile.am
-@@ -27,7 +27,7 @@ classes:
+@@ -26,7 +26,7 @@ classes:
  	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
  
  pkgpath = examples/groups
@@ -77,10 +77,10 @@ index d5824e8..1ca1e57 100644
  
  jarfile = jar$(PACKAGE_TARNAME)groups.jar
 diff --git a/java/examples/intro/JavaIntroExample.sh.in b/java/examples/intro/JavaIntroExample.sh.in
-index 7f7dabf..f94203e 100644
+index db741e5..d0ba65d 100644
 --- a/java/examples/intro/JavaIntroExample.sh.in
 +++ b/java/examples/intro/JavaIntroExample.sh.in
-@@ -37,7 +37,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
+@@ -36,7 +36,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
  BLDDIR="."
  BLDLIBDIR="$BLDDIR/testlibs"
  HDFTEST_HOME="$top_srcdir/java/examples/intro"
@@ -90,10 +90,10 @@ index 7f7dabf..f94203e 100644
  test -d $BLDLIBDIR || mkdir -p $BLDLIBDIR
  
 diff --git a/java/examples/intro/Makefile.am b/java/examples/intro/Makefile.am
-index 8c3716a..76263be 100644
+index 7d1aeab..01a10c9 100644
 --- a/java/examples/intro/Makefile.am
 +++ b/java/examples/intro/Makefile.am
-@@ -27,7 +27,7 @@ classes:
+@@ -26,7 +26,7 @@ classes:
  	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
  
  pkgpath = examples/intro
@@ -103,10 +103,10 @@ index 8c3716a..76263be 100644
  
  jarfile = jar$(PACKAGE_TARNAME)intro.jar
 diff --git a/java/src/Makefile.am b/java/src/Makefile.am
-index 4f691a1..38e6e4a 100644
+index a0abb32..49242d9 100644
 --- a/java/src/Makefile.am
 +++ b/java/src/Makefile.am
-@@ -33,7 +33,7 @@ JAVAROOT = .classes
+@@ -32,7 +32,7 @@ JAVAROOT = .classes
  classes:
  	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
  
@@ -116,10 +116,10 @@ index 4f691a1..38e6e4a 100644
  
  pkgpath = hdf/hdf5lib
 diff --git a/java/test/Makefile.am b/java/test/Makefile.am
-index a52bf2c..4e06352 100644
+index ac3b619..486779f 100644
 --- a/java/test/Makefile.am
 +++ b/java/test/Makefile.am
-@@ -27,7 +27,7 @@ classes:
+@@ -26,7 +26,7 @@ classes:
  	test -d $(@D)/$(JAVAROOT) || $(MKDIR_P) $(@D)/$(JAVAROOT)
  
  pkgpath = test
@@ -129,13 +129,13 @@ index a52bf2c..4e06352 100644
  
  jarfile = jar$(PACKAGE_TARNAME)test.jar
 diff --git a/java/test/junit.sh.in b/java/test/junit.sh.in
-index 62a5104..fe6cc08 100644
+index 39db296..83d6c7c 100644
 --- a/java/test/junit.sh.in
 +++ b/java/test/junit.sh.in
-@@ -46,7 +46,7 @@ HDFLIB_HOME="$top_srcdir/java/lib"
- BLDDIR="."
- BLDLIBDIR="$BLDDIR/testlibs"
+@@ -47,7 +47,7 @@ BLDLIBDIR="$BLDDIR/testlibs"
  HDFTEST_HOME="$top_srcdir/java/test"
+ TOOLS_TESTFILES="$top_srcdir/tools/testfiles"
+ 
 -JARFILE=jar@PACKAGE_TARNAME@-@PACKAGE_VERSION@.jar
 +JARFILE=@PACKAGE_TARNAME@.jar
  TESTJARFILE=jar@PACKAGE_TARNAME@test.jar

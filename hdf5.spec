@@ -29,7 +29,6 @@ Source0: https://github.com/HDFGroup/%{name}/archive/%{name}-%{hdf5_tag}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
-Patch0: hdf5-shared-lib.patch
 Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Fix java build
 Patch3: hdf5-build.patch
@@ -37,8 +36,6 @@ Patch3: hdf5-build.patch
 Patch11: daos.patch
 # Example file move to DESTDIR
 Patch12: examples.patch
-# Fix a couple of error: format not a string literal and no format arguments [-Werror=format-security]
-Patch100: hdf5-Werror=format-security.patch
 Patch200: https://github.com/HDFGroup/hdf5/pull/1272/commits/cac705eec1056e9ad58dff2bcb20d45b54e3ae63.patch
 
 %if (0%{?suse_version} >= 1500)
@@ -288,12 +285,10 @@ HDF5 tests with mpich
 
 %prep
 %setup -q -a 2 -n %{name}-%{name}-%{hdf5_tag}
-%patch0 -p1 -b .hdf5-shared-lib
 %patch1 -p1 -b .LD_LIBRARY_PATH
 %patch3 -p1 -b .build
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
-%patch100 -p1 -b .-Werror=format-security
 %patch200 -p1 -b .cac705eec1056e9ad58dff2bcb20d45b54e3ae63.patch
 
 # Replace jars with system versions
@@ -500,8 +495,6 @@ done
 %{_bindir}/h5stat
 %{_bindir}/h5unjam
 %{_bindir}/h5watch
-%{_bindir}/mirror_server
-%{_bindir}/mirror_server_stop
 %{_bindir}/h5delete
 %{_libdir}/libhdf5.so.*
 %{_libdir}/libhdf5_cpp.so.*
@@ -566,6 +559,7 @@ done
 %{mpi_libdir}/openmpi/bin/h5jam
 %{mpi_libdir}/openmpi/bin/h5ls
 %{mpi_libdir}/openmpi/bin/h5mkgrp
+%{mpi_libdir}/openmpi/bin/perf
 %{mpi_libdir}/openmpi/bin/h5perf
 %{mpi_libdir}/openmpi/bin/h5perf_serial
 %{mpi_libdir}/openmpi/bin/h5redeploy
@@ -575,8 +569,6 @@ done
 %{mpi_libdir}/openmpi/bin/h5unjam
 %{mpi_libdir}/openmpi/bin/h5watch
 %{mpi_libdir}/openmpi/bin/ph5diff
-%{mpi_libdir}/openmpi/bin/mirror_server
-%{mpi_libdir}/openmpi/bin/mirror_server_stop
 %{mpi_libdir}/openmpi/bin/h5delete
 %{mpi_libdir}/openmpi/%{mpi_lib_ext}/*.so.*
 
@@ -619,6 +611,7 @@ done
 %{mpi_libdir}/openmpi3/bin/h5jam
 %{mpi_libdir}/openmpi3/bin/h5ls
 %{mpi_libdir}/openmpi3/bin/h5mkgrp
+%{mpi_libdir}/openmpi3/bin/perf
 %{mpi_libdir}/openmpi3/bin/h5perf
 %{mpi_libdir}/openmpi3/bin/h5perf_serial
 %{mpi_libdir}/openmpi3/bin/h5redeploy
@@ -628,8 +621,6 @@ done
 %{mpi_libdir}/openmpi3/bin/h5unjam
 %{mpi_libdir}/openmpi3/bin/h5watch
 %{mpi_libdir}/openmpi3/bin/ph5diff
-%{mpi_libdir}/openmpi3/bin/mirror_server
-%{mpi_libdir}/openmpi3/bin/mirror_server_stop
 %{mpi_libdir}/openmpi3/bin/h5delete
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.so.*
 
@@ -674,6 +665,7 @@ done
 %{mpi_libdir}/mpich/bin/h5mkgrp
 %{mpi_libdir}/mpich/bin/h5redeploy
 %{mpi_libdir}/mpich/bin/h5repack
+%{mpi_libdir}/mpich/bin/perf
 %{mpi_libdir}/mpich/bin/h5perf
 %{mpi_libdir}/mpich/bin/h5perf_serial
 %{mpi_libdir}/mpich/bin/h5repart
@@ -681,8 +673,6 @@ done
 %{mpi_libdir}/mpich/bin/h5unjam
 %{mpi_libdir}/mpich/bin/h5watch
 %{mpi_libdir}/mpich/bin/ph5diff
-%{mpi_libdir}/mpich/bin/mirror_server
-%{mpi_libdir}/mpich/bin/mirror_server_stop
 %{mpi_libdir}/mpich/bin/h5delete
 %{mpi_libdir}/mpich/%{mpi_lib_ext}/*.so.*
 
