@@ -15,12 +15,13 @@
 %global hdf5_major 1
 %global hdf5_minor 13
 %global hdf5_bugfix 0
-%global hdf5_tag %{hdf5_major}_%{hdf5_minor}_%{hdf5_bugfix}
+#global hdf5_prerelease rc5
+%global hdf5_tag %{hdf5_major}_%{hdf5_minor}_%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}
-Release: 0%{?commit:.git%{shortcommit}}%{?dist}
+Release: 1%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -699,7 +700,7 @@ done
 %endif
 
 %changelog
-* Thu Dec 9 2021 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.0
+* Thu Dec 9 2021 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.0-1
 - Update to 1.13.0 + patch to fix async operations
 
 * Thu Oct 14 2021 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.0~rc5-5
