@@ -1,17 +1,8 @@
-From d7a8d7f26e6ef303893bf01bb9642471eb4d2141 Mon Sep 17 00:00:00 2001
-From: Maureen Jean <mjean@boro-69.boro.hpdd.intel.com>
-Date: Thu, 5 Nov 2020 20:58:09 +0000
-Subject: [PATCH] daos
-
----
- testpar/testphdf5.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
 diff --git a/testpar/testphdf5.c b/testpar/testphdf5.c
-index ca38623..e3d1f5f 100644
+index 1ead1b8..184e5e4 100644
 --- a/testpar/testphdf5.c
 +++ b/testpar/testphdf5.c
-@@ -365,6 +365,8 @@ main(int argc, char **argv)
+@@ -364,6 +364,8 @@ main(int argc, char **argv)
      AddTest("ecdsetr", extend_readAll, NULL, "extendible dataset collective read", PARATESTFILE);
      AddTest("eidsetw2", extend_writeInd2, NULL, "extendible dataset independent write #2", PARATESTFILE);
      AddTest("selnone", none_selection_chunk, NULL, "chunked dataset with none-selection", PARATESTFILE);
@@ -20,15 +11,15 @@ index ca38623..e3d1f5f 100644
      AddTest("calloc", test_chunk_alloc, NULL, "parallel extend Chunked allocation on serial file",
              PARATESTFILE);
      AddTest("fltread", test_filter_read, NULL, "parallel read of dataset written serially with filters",
-@@ -373,6 +375,7 @@ main(int argc, char **argv)
+@@ -372,6 +374,7 @@ main(int argc, char **argv)
  #ifdef H5_HAVE_FILTER_DEFLATE
      AddTest("cmpdsetr", compress_readAll, NULL, "compressed dataset collective read", PARATESTFILE);
  #endif /* H5_HAVE_FILTER_DEFLATE */
 +#endif /* DAOS_UNSUPPORTED */
-
+ 
      AddTest("zerodsetr", zero_dim_dset, NULL, "zero dim dset", PARATESTFILE);
  
-@@ -397,7 +400,10 @@ main(int argc, char **argv)
+@@ -396,7 +399,10 @@ main(int argc, char **argv)
  #else
      HDprintf("big dataset test will be skipped on Windows (JIRA HDDFV-8064)\n");
  #endif
@@ -36,40 +27,44 @@ index ca38623..e3d1f5f 100644
 +#ifdef DAOS_UNSUPPORTED
      AddTest("fill", dataset_fillvalue, NULL, "dataset fill value", PARATESTFILE);
 +#endif /* DAOS_UNSUPPORTED */
-
+ 
      AddTest("cchunk1", coll_chunk1, NULL, "simple collective chunk io", PARATESTFILE);
      AddTest("cchunk2", coll_chunk2, NULL, "noncontiguous collective chunk io", PARATESTFILE);
-@@ -462,8 +468,11 @@ main(int argc, char **argv)
-
+@@ -461,12 +467,18 @@ main(int argc, char **argv)
+ 
      AddTest("actualio", actual_io_mode_tests, NULL, "test actual io mode proprerty", PARATESTFILE);
-
-+/* MSC - creates and EFL file using POSIX API */
+ 
++/* MSC - creates an EFL file using POSIX API */
 +#ifdef DAOS_UNSUPPORTED
      AddTest("nocolcause", no_collective_cause_tests, NULL, "test cause for broken collective io",
              PARATESTFILE);
 +#endif /* DAOS_UNSUPPORTED */
-
+ 
      AddTest("edpl", test_plist_ed, NULL, "encode/decode Property Lists", NULL);
-
-@@ -474,6 +483,9 @@ main(int argc, char **argv)
+ 
++/* MSC - creates an EFL file using POSIX API */
++#ifdef DAOS_UNSUPPORTED
+     AddTest("extlink", external_links, NULL, "test external links", NULL);
++#endif /* DAOS_UNSUPPORTED */
+ 
+     if ((mpi_size < 2) && MAINPROCESS) {
+         HDprintf("File Image Ops daisy chain test needs at least 2 processes.\n");
+@@ -475,6 +487,9 @@ main(int argc, char **argv)
      AddTest((mpi_size < 2) ? "-fiodc" : "fiodc", file_image_daisy_chain_test, NULL,
              "file image ops daisy chain", NULL);
-
-+/* MSC - creates and EFL file using POSIX API */
+ 
++/* MSC - creates an EFL file using POSIX API */
 +#ifdef DAOS_UNSUPPORTED
 +
      if ((mpi_size < 2) && MAINPROCESS) {
          HDprintf("Atomicity tests need at least 2 processes to participate\n");
          HDprintf("8 is more recommended.. Atomicity tests will be skipped \n");
-@@ -485,6 +497,8 @@ main(int argc, char **argv)
+@@ -486,6 +501,8 @@ main(int argc, char **argv)
          AddTest("atomicity", dataset_atomicity, NULL, "dataset atomic updates", PARATESTFILE);
      }
-
+ 
 +#endif /* DAOS_UNSUPPORTED */
 +
      AddTest("denseattr", test_dense_attr, NULL, "Store Dense Attributes", PARATESTFILE);
  
      AddTest("noselcollmdread", test_partial_no_selection_coll_md_read, NULL,
--- 
-1.8.3.1
-
