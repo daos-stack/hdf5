@@ -17,6 +17,7 @@
 %global hdf5_bugfix 1
 #global hdf5_prerelease rc5
 %global hdf5_tag %{hdf5_major}_%{hdf5_minor}_%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
+%global hdf5_jar_tag %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
@@ -291,9 +292,9 @@ HDF5 tests with mpich
 find -name \*.jar -delete
 ln -s %{_javadir}/hamcrest/core.jar java/lib/hamcrest-core.jar
 ln -s %{_javadir}/junit.jar java/lib/junit.jar
-ln -s %{_javadir}/slf4j/api.jar java/lib/slf4j-api-1.7.25.jar
-ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.25.jar
-ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
+ln -s %{_javadir}/slf4j/api.jar java/lib/slf4j-api-1.7.33.jar
+ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.33.jar
+ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.33.jar
 
 # Fix test output
 %if (0%{?suse_version} >= 1500) || (0%{?rhel} >= 8)
@@ -334,6 +335,7 @@ sed -e 's|-O -finline-functions|-O3 -finline-functions|g' -i config/gnu-flags
 export CC=gcc
 export CXX=g++
 export F9X=gfortran
+export CFLAGS="${RPM_OPT_FLAGS/-Werror=format-security /}"
 export LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
 mkdir build
 pushd build
@@ -351,6 +353,7 @@ popd
 export CC=mpicc
 export CXX=mpicxx
 export F9X=mpif90
+export CFLAGS="${RPM_OPT_FLAGS/-Werror=format-security /}"
 export LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
 for mpi in %{?mpi_list}; do
   mkdir $mpi
@@ -361,6 +364,7 @@ for mpi in %{?mpi_list}; do
     %{configure_opts} \
 %if (0%{?rhel} >= 7)
     FCFLAGS="$FCFLAGS -I$MPI_FORTRAN_MOD_DIR" \
+    CFLAGS="$CFLAGS -Wno-error=format-security" \
 %endif
     --enable-parallel \
     --enable-map-api \
@@ -437,7 +441,7 @@ rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
 mkdir -p %{buildroot}%{_libdir}/%{name}
 mkdir -p %{buildroot}%{_jnidir}
 mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
-mv %{buildroot}%{_libdir}/hdf5.jar %{buildroot}%{_jnidir}/
+mv %{buildroot}%{_libdir}/jarhdf5-%{hdf5_jar_tag}.jar %{buildroot}%{_jnidir}/
 
 # Some hackery to install tests
 for mpi in %{?mpi_list}; do
@@ -471,7 +475,7 @@ done
 
 %files
 %license COPYING
-%doc MANIFEST README.txt release_docs/RELEASE.txt
+%doc MANIFEST README.md release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{_bindir}/gif2h5
 %{_bindir}/h52gif
@@ -534,14 +538,14 @@ done
 %{_libdir}/*.a
 
 %files -n java-hdf5
-%{_jnidir}/hdf5.jar
+%{_jnidir}/jarhdf5-%{hdf5_jar_tag}.jar
 %{_libdir}/%{name}/libhdf5_java.so
 
 
 %if %{with_openmpi}
 %files openmpi
 %license COPYING
-%doc MANIFEST README.txt release_docs/RELEASE.txt
+%doc MANIFEST README.md release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{mpi_libdir}/openmpi/bin/gif2h5
 %{mpi_libdir}/openmpi/bin/h52gif
@@ -593,7 +597,7 @@ done
 %if %{with_openmpi3}
 %files openmpi3
 %license COPYING
-%doc MANIFEST README.txt release_docs/RELEASE.txt
+%doc MANIFEST README.md release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{mpi_libdir}/openmpi3/bin/gif2h5
 %{mpi_libdir}/openmpi3/bin/h52gif
@@ -645,7 +649,7 @@ done
 %if %{with_mpich}
 %files mpich
 %license COPYING
-%doc MANIFEST README.txt release_docs/RELEASE.txt
+%doc MANIFEST README.md release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{mpi_libdir}/mpich/bin/gif2h5
 %{mpi_libdir}/mpich/bin/h52gif
