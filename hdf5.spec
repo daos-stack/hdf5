@@ -134,22 +134,6 @@ Requires: gcc-gfortran%{?_isa}
 %description devel
 HDF5 development headers and libraries.
 
-%package -n java-hdf5
-Summary: HDF5 java library
-Requires:  slf4j
-Obsoletes: jhdf5 < 3.3.1-2
-
-%description -n java-hdf5
-HDF5 java library
-
-%package static
-Summary: HDF5 static libraries
-Requires: %{name}-devel = %{version}-%{release}
-
-%description static
-HDF5 static libraries.
-
-
 
 %if %{with_openmpi}
 %package openmpi
@@ -287,22 +271,6 @@ HDF5 tests with mpich
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
 
-# Replace jars with system versions
-find -name \*.jar -delete
-ln -s %{_javadir}/hamcrest/core.jar java/lib/hamcrest-core.jar
-ln -s %{_javadir}/junit.jar java/lib/junit.jar
-ln -s %{_javadir}/slf4j/api.jar java/lib/slf4j-api-1.7.25.jar
-ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.25.jar
-ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
-
-# Fix test output
-%if (0%{?suse_version} >= 1500) || (0%{?rhel} >= 8)
-junit_ver_file=junit
-%else
-junit_ver_file=JPP-junit
-%endif
-junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/$junit_ver_file.pom)
-sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
 
 # Force shared by default for compiler wrappers (bug #1266645)
 sed -i -e '/^STATIC_AVAILABLE=/s/=.*/=no/' */*/h5[cf]*.in
@@ -340,8 +308,7 @@ pushd build
 ln -s ../configure .
 %configure \
   %{configure_opts} \
-  --enable-cxx \
-  --enable-java
+  --enable-cxx
 
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
@@ -433,12 +400,6 @@ for mpi in %{?mpi_list}; do
 done
 rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
 
-# Java
-mkdir -p %{buildroot}%{_libdir}/%{name}
-mkdir -p %{buildroot}%{_jnidir}
-mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
-mv %{buildroot}%{_libdir}/hdf5.jar %{buildroot}%{_jnidir}/
-
 # Some hackery to install tests
 for mpi in %{?mpi_list}; do
   mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/{$mpi/hdf5-tests/{,.libs/},hdf5/$mpi}
@@ -529,14 +490,6 @@ done
 %{_mandir}/man1/h5debug.1*
 %{_mandir}/man1/h5fc.1*
 %{_mandir}/man1/h5redeploy.1*
-
-%files static
-%{_libdir}/*.a
-
-%files -n java-hdf5
-%{_jnidir}/hdf5.jar
-%{_libdir}/%{name}/libhdf5_java.so
-
 
 %if %{with_openmpi}
 %files openmpi
@@ -696,7 +649,7 @@ done
 
 %changelog
 * Thu Mar 10 2022 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.1-1
-- Update to 1.13.1
+- Update to 1.13.1, remove java builds
 
 * Thu Oct 14 2021 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.0~rc5-5
 - remove libfabric-devel
