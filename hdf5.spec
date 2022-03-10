@@ -31,13 +31,10 @@ Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
 Patch1: hdf5-LD_LIBRARY_PATH.patch
-# Fix java build
-Patch3: hdf5-build.patch
 # Disable tests that don't work with DAOS
 Patch11: daos.patch
 # Example file move to DESTDIR
 Patch12: examples.patch
-Patch200: https://github.com/HDFGroup/hdf5/pull/1272/commits/cac705eec1056e9ad58dff2bcb20d45b54e3ae63.patch
 
 %if (0%{?suse_version} >= 1500)
 BuildRequires:  gcc-fortran
@@ -287,10 +284,8 @@ HDF5 tests with mpich
 %prep
 %setup -q -a 2 -n %{name}-%{name}-%{hdf5_tag}
 %patch1 -p1 -b .LD_LIBRARY_PATH
-%patch3 -p1 -b .build
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
-%patch200 -p1 -b .cac705eec1056e9ad58dff2bcb20d45b54e3ae63.patch
 
 # Replace jars with system versions
 find -name \*.jar -delete
