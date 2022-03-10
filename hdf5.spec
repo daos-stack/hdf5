@@ -32,11 +32,9 @@ Source1: h5comp
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
 Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Disable tests that don't work with DAOS
-Patch2: daos.patch
+Patch11: daos.patch
 # Example file move to DESTDIR
-Patch3: examples.patch
-# Fix tools build
-Patch4: tools-build.patch
+Patch12: examples.patch
 
 %if (0%{?suse_version} >= 1500)
 BuildRequires:  gcc-fortran
@@ -270,9 +268,8 @@ HDF5 tests with mpich
 %prep
 %setup -q -a 2 -n %{name}-%{name}-%{hdf5_tag}
 %patch1 -p1 -b .LD_LIBRARY_PATH
-%patch2 -p1 -b .daos
-%patch3 -p1 -b .examples
-%patch4 -p1 -b .tools-build
+%patch11 -p1 -b .daos
+%patch12 -p1 -b .examples
 
 
 # Force shared by default for compiler wrappers (bug #1266645)
@@ -652,7 +649,7 @@ done
 
 %changelog
 * Thu Mar 10 2022 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.1-1
-- Update to 1.13.1, remove java builds, fix tools build error
+- Update to 1.13.1, remove java builds
 
 * Thu Oct 14 2021 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.0~rc5-5
 - remove libfabric-devel
