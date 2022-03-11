@@ -1,42 +1,41 @@
---- a/src/H5Clog_trace.c	2021-05-17 12:12:23.229278875 -0400
-+++ b/src/H5Clog_trace.c	2021-05-17 12:12:29.905481711 -0400
-@@ -168,7 +168,7 @@
+diff --git a/tools/src/h5ls/h5ls.c b/tools/src/h5ls/h5ls.c
+index a27a8cc..f427d6b 100644
+--- a/tools/src/h5ls/h5ls.c
++++ b/tools/src/h5ls/h5ls.c
+@@ -2299,7 +2299,7 @@ list_lnk(const char *name, const H5L_info2_t *linfo, void *_iter)
+                 iter->symlink_list->dangle_link = TRUE;
  
-     /* Write the log message and flush */
-     n_chars = HDstrlen(trace_udata->message);
--    if ((int)n_chars != HDfprintf(trace_udata->outfile, trace_udata->message))
-+    if ((int)n_chars != HDfprintf(trace_udata->outfile, "%s", trace_udata->message))
-         HGOTO_ERROR(H5E_CACHE, H5E_LOGGING, FAIL, "error writing log message")
-     HDmemset((void *)(trace_udata->message), 0, (size_t)(n_chars * sizeof(char)));
+             h5tools_str_append(&buffer, "Soft Link {");
+-            h5tools_str_append(&buffer, buf);
++            h5tools_str_append(&buffer, " %s", buf);
+             h5tools_str_append(&buffer, "}");
+             h5tools_render_element(rawoutstream, info, &ctx, &buffer, &curr_pos, (size_t)info->line_ncols,
+                                    (hsize_t)0, (hsize_t)0);
+@@ -2367,11 +2367,11 @@ list_lnk(const char *name, const H5L_info2_t *linfo, void *_iter)
+                 goto done;
  
---- a/src/H5Clog_json.c	2021-05-17 12:14:21.494852790 -0400
-+++ b/src/H5Clog_json.c	2021-05-17 12:11:49.470253220 -0400
-@@ -173,7 +173,7 @@
- 
-     /* Write the log message and flush */
-     n_chars = HDstrlen(json_udata->message);
--    if ((int)n_chars != HDfprintf(json_udata->outfile, json_udata->message))
-+    if ((int)n_chars != HDfprintf(json_udata->outfile, "%s", json_udata->message))
-         HGOTO_ERROR(H5E_CACHE, H5E_LOGGING, FAIL, "error writing log message")
-     HDmemset((void *)(json_udata->message), 0, (size_t)(n_chars * sizeof(char)));
+             h5tools_str_append(&buffer, "External Link {");
+-            h5tools_str_append(&buffer, filename);
++            h5tools_str_append(&buffer, " %s", filename);
+             h5tools_str_append(&buffer, "/");
+             if (*path != '/')
+                 h5tools_str_append(&buffer, "/");
+-            h5tools_str_append(&buffer, path);
++            h5tools_str_append(&buffer, " %s", path);
+             h5tools_str_append(&buffer, "}");
+             h5tools_render_element(rawoutstream, info, &ctx, &buffer, &curr_pos, (size_t)info->line_ncols,
+                                    (hsize_t)0, (hsize_t)0);
 
---- a/tools/src/h5import/h5import.c	2021-05-17 12:33:36.503574614 -0400
-+++ b/tools/src/h5import/h5import.c	2021-05-17 12:31:51.675323044 -0400
-@@ -2536,7 +2536,7 @@
+diff --git a/tools/lib/h5tools_str.c b/tools/lib/h5tools_str.c
+index 1fb2c68..5e6c9dd 100644
+--- a/tools/lib/h5tools_str.c
++++ b/tools/lib/h5tools_str.c
+@@ -1051,7 +1051,7 @@ h5tools_str_sprint(h5tools_str_t *str, const h5tool_format_t *info, hid_t contai
  
-     token = HDstrtok(temp, delimiter);
-     if (HDstrlen(token) >= MAX_PATH_NAME_LENGTH) {
--        (void)HDfprintf(stderr, err1);
-+        (void)HDfprintf(stderr, "%s", err1);
-         return (-1);
-     }
-     HDstrcpy(path->group[i++], token);
-@@ -2546,7 +2546,7 @@
-         if (token == NULL)
-             break;
-         if (HDstrlen(token) >= MAX_PATH_NAME_LENGTH) {
--            (void)HDfprintf(stderr, err1);
-+            (void)HDfprintf(stderr, "%s", err1);
-             return (-1);
-         }
-         HDstrcpy(path->group[i++], token);
+                 H5TOOLS_DEBUG("H5T_ENUM");
+                 if (H5Tenum_nameof(type, vp, enum_name, sizeof enum_name) >= 0)
+-                    h5tools_str_append(str, h5tools_escape(enum_name, sizeof(enum_name)));
++                    h5tools_str_append(str, "%s", h5tools_escape(enum_name, sizeof(enum_name)));
+                 else {
+                     size_t i;
+                     if (1 == nsize)

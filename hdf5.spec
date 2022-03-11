@@ -36,6 +36,8 @@ Patch1: hdf5-LD_LIBRARY_PATH.patch
 Patch11: daos.patch
 # Example file move to DESTDIR
 Patch12: examples.patch
+# Fix a couple of error: format not a string literal and no format arguments [-Werror=format-security]
+Patch100: hdf5-Werror=format-security.patch
 
 %if (0%{?suse_version} >= 1500)
 BuildRequires:  gcc-fortran
@@ -287,6 +289,7 @@ HDF5 tests with mpich
 %patch1 -p1 -b .LD_LIBRARY_PATH
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
+%patch100 -p1 -b .-Werror=format-security
 
 # Replace jars with system versions
 find -name \*.jar -delete
@@ -335,7 +338,6 @@ sed -e 's|-O -finline-functions|-O3 -finline-functions|g' -i config/gnu-flags
 export CC=gcc
 export CXX=g++
 export F9X=gfortran
-export CFLAGS="${RPM_OPT_FLAGS/-Werror=format-security /}"
 export LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
 mkdir build
 pushd build
@@ -353,7 +355,6 @@ popd
 export CC=mpicc
 export CXX=mpicxx
 export F9X=mpif90
-export CFLAGS="${RPM_OPT_FLAGS/-Werror=format-security /}"
 export LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed"
 for mpi in %{?mpi_list}; do
   mkdir $mpi
@@ -364,7 +365,6 @@ for mpi in %{?mpi_list}; do
     %{configure_opts} \
 %if (0%{?rhel} >= 7)
     FCFLAGS="$FCFLAGS -I$MPI_FORTRAN_MOD_DIR" \
-    CFLAGS="$CFLAGS -Wno-error=format-security" \
 %endif
     --enable-parallel \
     --enable-map-api \
