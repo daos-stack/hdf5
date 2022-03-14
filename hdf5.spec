@@ -16,7 +16,7 @@
 %global hdf5_minor 13
 %global hdf5_bugfix 1
 #global hdf5_prerelease rc5
-%global hdf5_tag %{hdf5_major}_%{hdf5_minor}_%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
+%global hdf5_tag %{hdf5_major}_%{hdf5_minor}_%{hdf5_bugfix}%{?hdf5_prerelease:-%{hdf5_prerelease}}
 %global hdf5_jar_tag %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
