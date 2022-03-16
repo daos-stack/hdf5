@@ -14,14 +14,15 @@
 %global snaprel %{nil}
 %global hdf5_major 1
 %global hdf5_minor 13
-%global hdf5_bugfix 0
-%global hdf5_prerelease rc5
+%global hdf5_bugfix 1
+#global hdf5_prerelease rc5
 %global hdf5_tag %{hdf5_major}_%{hdf5_minor}_%{hdf5_bugfix}%{?hdf5_prerelease:-%{hdf5_prerelease}}
+%global hdf5_jar_tag %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}
 # NOTE:  Try not to release new versions to released versions of Fedora
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
-Release: 5%{?commit:.git%{shortcommit}}%{?dist}
+Release: 1%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -30,10 +31,7 @@ Source0: https://github.com/HDFGroup/%{name}/archive/%{name}-%{hdf5_tag}.tar.gz
 Source1: h5comp
 # For man pages
 Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.0+repack-1~exp2.debian.tar.xz
-Patch0: hdf5-shared-lib.patch
 Patch1: hdf5-LD_LIBRARY_PATH.patch
-# Fix java build
-Patch3: hdf5-build.patch
 # Disable tests that don't work with DAOS
 Patch11: daos.patch
 # Example file move to DESTDIR
@@ -288,9 +286,7 @@ HDF5 tests with mpich
 
 %prep
 %setup -q -a 2 -n %{name}-%{name}-%{hdf5_tag}
-%patch0 -p1 -b .hdf5-shared-lib
 %patch1 -p1 -b .LD_LIBRARY_PATH
-%patch3 -p1 -b .build
 %patch11 -p1 -b .daos
 %patch12 -p1 -b .examples
 %patch100 -p1 -b .-Werror=format-security
@@ -299,9 +295,9 @@ HDF5 tests with mpich
 find -name \*.jar -delete
 ln -s %{_javadir}/hamcrest/core.jar java/lib/hamcrest-core.jar
 ln -s %{_javadir}/junit.jar java/lib/junit.jar
-ln -s %{_javadir}/slf4j/api.jar java/lib/slf4j-api-1.7.25.jar
-ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.25.jar
-ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.25.jar
+ln -s %{_javadir}/slf4j/api.jar java/lib/slf4j-api-1.7.33.jar
+ln -s %{_javadir}/slf4j/nop.jar java/lib/ext/slf4j-nop-1.7.33.jar
+ln -s %{_javadir}/slf4j/simple.jar java/lib/ext/slf4j-simple-1.7.33.jar
 
 # Fix test output
 %if (0%{?suse_version} >= 1500) || (0%{?rhel} >= 8)
@@ -445,7 +441,7 @@ rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
 mkdir -p %{buildroot}%{_libdir}/%{name}
 mkdir -p %{buildroot}%{_jnidir}
 mv %{buildroot}%{_libdir}/libhdf5_java.so %{buildroot}%{_libdir}/%{name}/
-mv %{buildroot}%{_libdir}/hdf5.jar %{buildroot}%{_jnidir}/
+mv %{buildroot}%{_libdir}/jarhdf5-%{hdf5_jar_tag}.jar %{buildroot}%{_jnidir}/
 
 # Some hackery to install tests
 for mpi in %{?mpi_list}; do
@@ -479,7 +475,7 @@ done
 
 %files
 %license COPYING
-%doc MANIFEST README.txt release_docs/RELEASE.txt
+%doc MANIFEST README.md release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{_bindir}/gif2h5
 %{_bindir}/h52gif
@@ -499,8 +495,6 @@ done
 %{_bindir}/h5stat
 %{_bindir}/h5unjam
 %{_bindir}/h5watch
-%{_bindir}/mirror_server
-%{_bindir}/mirror_server_stop
 %{_bindir}/h5delete
 %{_libdir}/libhdf5.so.*
 %{_libdir}/libhdf5_cpp.so.*
@@ -544,14 +538,14 @@ done
 %{_libdir}/*.a
 
 %files -n java-hdf5
-%{_jnidir}/hdf5.jar
+%{_jnidir}/jarhdf5-%{hdf5_jar_tag}.jar
 %{_libdir}/%{name}/libhdf5_java.so
 
 
 %if %{with_openmpi}
 %files openmpi
 %license COPYING
-%doc MANIFEST README.txt release_docs/RELEASE.txt
+%doc MANIFEST README.md release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{mpi_libdir}/openmpi/bin/gif2h5
 %{mpi_libdir}/openmpi/bin/h52gif
@@ -565,6 +559,7 @@ done
 %{mpi_libdir}/openmpi/bin/h5jam
 %{mpi_libdir}/openmpi/bin/h5ls
 %{mpi_libdir}/openmpi/bin/h5mkgrp
+%{mpi_libdir}/openmpi/bin/perf
 %{mpi_libdir}/openmpi/bin/h5perf
 %{mpi_libdir}/openmpi/bin/h5perf_serial
 %{mpi_libdir}/openmpi/bin/h5redeploy
@@ -574,8 +569,6 @@ done
 %{mpi_libdir}/openmpi/bin/h5unjam
 %{mpi_libdir}/openmpi/bin/h5watch
 %{mpi_libdir}/openmpi/bin/ph5diff
-%{mpi_libdir}/openmpi/bin/mirror_server
-%{mpi_libdir}/openmpi/bin/mirror_server_stop
 %{mpi_libdir}/openmpi/bin/h5delete
 %{mpi_libdir}/openmpi/%{mpi_lib_ext}/*.so.*
 
@@ -604,7 +597,7 @@ done
 %if %{with_openmpi3}
 %files openmpi3
 %license COPYING
-%doc MANIFEST README.txt release_docs/RELEASE.txt
+%doc MANIFEST README.md release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{mpi_libdir}/openmpi3/bin/gif2h5
 %{mpi_libdir}/openmpi3/bin/h52gif
@@ -618,6 +611,7 @@ done
 %{mpi_libdir}/openmpi3/bin/h5jam
 %{mpi_libdir}/openmpi3/bin/h5ls
 %{mpi_libdir}/openmpi3/bin/h5mkgrp
+%{mpi_libdir}/openmpi3/bin/perf
 %{mpi_libdir}/openmpi3/bin/h5perf
 %{mpi_libdir}/openmpi3/bin/h5perf_serial
 %{mpi_libdir}/openmpi3/bin/h5redeploy
@@ -627,8 +621,6 @@ done
 %{mpi_libdir}/openmpi3/bin/h5unjam
 %{mpi_libdir}/openmpi3/bin/h5watch
 %{mpi_libdir}/openmpi3/bin/ph5diff
-%{mpi_libdir}/openmpi3/bin/mirror_server
-%{mpi_libdir}/openmpi3/bin/mirror_server_stop
 %{mpi_libdir}/openmpi3/bin/h5delete
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.so.*
 
@@ -657,7 +649,7 @@ done
 %if %{with_mpich}
 %files mpich
 %license COPYING
-%doc MANIFEST README.txt release_docs/RELEASE.txt
+%doc MANIFEST README.md release_docs/RELEASE.txt
 %doc release_docs/HISTORY*.txt
 %{mpi_libdir}/mpich/bin/gif2h5
 %{mpi_libdir}/mpich/bin/h52gif
@@ -673,6 +665,7 @@ done
 %{mpi_libdir}/mpich/bin/h5mkgrp
 %{mpi_libdir}/mpich/bin/h5redeploy
 %{mpi_libdir}/mpich/bin/h5repack
+%{mpi_libdir}/mpich/bin/perf
 %{mpi_libdir}/mpich/bin/h5perf
 %{mpi_libdir}/mpich/bin/h5perf_serial
 %{mpi_libdir}/mpich/bin/h5repart
@@ -680,8 +673,6 @@ done
 %{mpi_libdir}/mpich/bin/h5unjam
 %{mpi_libdir}/mpich/bin/h5watch
 %{mpi_libdir}/mpich/bin/ph5diff
-%{mpi_libdir}/mpich/bin/mirror_server
-%{mpi_libdir}/mpich/bin/mirror_server_stop
 %{mpi_libdir}/mpich/bin/h5delete
 %{mpi_libdir}/mpich/%{mpi_lib_ext}/*.so.*
 
@@ -708,6 +699,9 @@ done
 %endif
 
 %changelog
+* Thu Mar 10 2022 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.1-1
+- Update to 1.13.1
+
 * Thu Oct 14 2021 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.0~rc5-5
 - remove libfabric-devel
 
