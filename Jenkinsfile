@@ -41,5 +41,4 @@
 //@Library(value="pipeline-lib@your_branch") _
 
 packageBuildingPipelineDAOSTest(['distros' : ['el8', 'leap15'],
-                                 'rpmlint_rpms_skip': true,
                                  'test-tag': 'hdf5testsuite'])
