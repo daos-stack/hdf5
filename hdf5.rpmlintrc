@@ -1,0 +1,6 @@
+# This line is mandatory to access the configuration functions
+from Config import *
+
+addFilter('libtool-wrapper-in-package')
+addFilter('binary-or-shlib-defines-rpath')
+addFilter('static-library-without-debuginfo')
