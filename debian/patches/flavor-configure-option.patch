@@ -10,7 +10,7 @@ Index: hdf5/configure.ac
 ===================================================================
 --- hdf5.orig/configure.ac
 +++ hdf5/configure.ac
-@@ -3988,6 +3988,26 @@ fi
+@@ -4158,6 +4158,26 @@ fi
  ##
  AM_CONDITIONAL([HAVE_SHARED_CONDITIONAL], [test "X$enable_shared" = "Xyes"])
  
@@ -53,7 +53,7 @@ Index: hdf5/src/Makefile.am
 ===================================================================
 --- hdf5.orig/src/Makefile.am
 +++ hdf5/src/Makefile.am
-@@ -29,10 +29,10 @@ include $(top_srcdir)/config/lt_vers.am
+@@ -26,10 +26,10 @@ include $(top_srcdir)/config/lt_vers.am
  noinst_PROGRAMS = H5detect H5make_libsettings
  
  # Our main target, the HDF5 library
@@ -72,7 +72,7 @@ Index: hdf5/src/Makefile.am
  # library sources
 -libhdf5_la_SOURCES= H5.c H5checksum.c H5dbg.c H5lib_settings.c H5system.c \
 +libhdf5@FLAVOR@_la_SOURCES= H5.c H5checksum.c H5dbg.c H5lib_settings.c H5system.c \
- 		H5timer.c H5trace.c \
+         H5timer.c H5trace.c \
          H5A.c H5Abtree2.c H5Adense.c H5Adeprec.c H5Aint.c H5Atest.c \
          H5AC.c H5ACdbg.c H5ACproxy_entry.c \
 @@ -121,27 +121,27 @@ libhdf5_la_SOURCES= H5.c H5checksum.c H5
