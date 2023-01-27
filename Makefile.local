@@ -1,0 +1,9 @@
+REPO_FILE_URL   := https://artifactory.dc.hpdd.intel.com/artifactory/repo-files/
+REPOSITORY_URL  := https://repo.dc.hpdd.intel.com/
+noARTIFACTORY_URL := https://artifactory.dc.hpdd.intel.com/
+DEBEMAIL := brian.murrell@intel.com
+DEBFULLNAME := Brian J. Murrell
+
+DAOS_STACK_EL_7_LOCAL_REPO    := foo
+DAOS_STACK_EL_8_LOCAL_REPO    := foo
+DAOS_STACK_LEAP_15_LOCAL_REPO := foo

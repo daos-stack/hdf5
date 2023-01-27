@@ -1,0 +1,9 @@
+hdf5-1_13_0-rc5.tar.gz:
+hdf5-shared-lib.patch:
+hdf5-LD_LIBRARY_PATH.patch:
+hdf5-build.patch:
+daos.patch:
+examples.patch:
+hdf5-Werror=format-security.patch:
+h5comp:
+hdf5_1.12.0+repack-1~exp2.debian.tar.xz:

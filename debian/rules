@@ -311,7 +311,7 @@ dh_install_doc:
 	  -exec mv "{}.new" "{}" \;
 
 dh_install_java: build_serial
-	mv debian/build-serial/java/src/hdf5.jar debian/build-serial/java/src/jarhdf5.jar
+	mv debian/build-serial/java/src/jarhdf5-$(upstreamversion).jar debian/build-serial/java/src/jarhdf5.jar
 
 override_dh_auto_build-indep: build_doc build_serial
 override_dh_auto_install-indep: $(dh_install_java)
