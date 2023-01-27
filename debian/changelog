@@ -1,3 +1,10 @@
+hdf5 (1.13.0~rc5) focal; urgency=medium
+
+  * New upstream release
+  * Build for the DAOS project
+
+ -- Brian J. Murrell <brian.murrell@intel.com>  Thu, 12 Jan 2023 13:38:46 -0500
+
 hdf5 (1.10.4+repack-11ubuntu1) focal; urgency=medium
 
   * Update symbols files for riscv64.

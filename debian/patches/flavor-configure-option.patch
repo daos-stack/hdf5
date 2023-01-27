@@ -10,7 +10,7 @@ Index: hdf5/configure.ac
 ===================================================================
 --- hdf5.orig/configure.ac
 +++ hdf5/configure.ac
-@@ -3424,6 +3424,26 @@ fi
+@@ -3988,6 +3988,26 @@ fi
  ##
  AM_CONDITIONAL([HAVE_SHARED_CONDITIONAL], [test "X$enable_shared" = "Xyes"])
  
@@ -36,7 +36,7 @@ Index: hdf5/configure.ac
 +
  AC_CONFIG_FILES([src/libhdf5.settings
                   Makefile
-                  src/Makefile
+                  doxygen/Doxyfile
 Index: hdf5/src/libhdf5.settings.in
 ===================================================================
 --- hdf5.orig/src/libhdf5.settings.in
@@ -53,7 +53,7 @@ Index: hdf5/src/Makefile.am
 ===================================================================
 --- hdf5.orig/src/Makefile.am
 +++ hdf5/src/Makefile.am
-@@ -27,10 +27,10 @@ include $(top_srcdir)/config/lt_vers.am
+@@ -29,10 +29,10 @@ include $(top_srcdir)/config/lt_vers.am
  noinst_PROGRAMS = H5detect H5make_libsettings
  
  # Our main target, the HDF5 library
@@ -65,22 +65,22 @@ Index: hdf5/src/Makefile.am
 +libhdf5@FLAVOR@_la_LDFLAGS= -version-info $(LT_VERS_INTERFACE):$(LT_VERS_REVISION):$(LT_VERS_AGE) $(AM_LDFLAGS)
  
  # H5Tinit.c and H5lib_settings.c are generated files and should be cleaned.
- MOSTLYCLEANFILES=H5Tinit.c H5lib_settings.c
-@@ -38,7 +38,7 @@ MOSTLYCLEANFILES=H5Tinit.c H5lib_setting
+ MOSTLYCLEANFILES=H5Tinit.c H5lib_settings.c $(DX_CLEANFILES)
+@@ -40,7 +40,7 @@ MOSTLYCLEANFILES=H5Tinit.c H5lib_setting
  DISTCLEANFILES=H5pubconf.h
  
  # library sources
--libhdf5_la_SOURCES= H5.c H5checksum.c H5dbg.c H5system.c H5timer.c H5trace.c \
-+libhdf5@FLAVOR@_la_SOURCES= H5.c H5checksum.c H5dbg.c H5system.c H5timer.c H5trace.c \
+-libhdf5_la_SOURCES= H5.c H5checksum.c H5dbg.c H5lib_settings.c H5system.c \
++libhdf5@FLAVOR@_la_SOURCES= H5.c H5checksum.c H5dbg.c H5lib_settings.c H5system.c \
+ 		H5timer.c H5trace.c \
          H5A.c H5Abtree2.c H5Adense.c H5Adeprec.c H5Aint.c H5Atest.c \
-         H5AC.c H5ACdbg.c H5AClog.c H5ACproxy_entry.c \
-         H5B.c H5Bcache.c H5Bdbg.c \
-@@ -119,12 +119,12 @@ libhdf5_la_SOURCES= H5.c H5checksum.c H5
+         H5AC.c H5ACdbg.c H5ACproxy_entry.c \
+@@ -121,27 +121,27 @@ libhdf5_la_SOURCES= H5.c H5checksum.c H5
  
  # Only compile parallel sources if necessary
  if BUILD_PARALLEL_CONDITIONAL
--    libhdf5_la_SOURCES += H5ACmpio.c H5Cmpio.c H5Dmpio.c H5Fmpi.c H5FDmpi.c H5FDmpio.c H5Smpio.c
-+    libhdf5@FLAVOR@_la_SOURCES += H5ACmpio.c H5Cmpio.c H5Dmpio.c H5Fmpi.c H5FDmpi.c H5FDmpio.c H5Smpio.c
+-    libhdf5_la_SOURCES += H5mpi.c H5ACmpio.c H5Cmpio.c H5Dmpio.c H5Fmpi.c H5FDmpi.c H5FDmpio.c H5Smpio.c
++    libhdf5@FLAVOR@_la_SOURCES += H5mpi.c H5ACmpio.c H5Cmpio.c H5Dmpio.c H5Fmpi.c H5FDmpi.c H5FDmpio.c H5Smpio.c
  endif
  
  # Only compile the direct VFD if necessary
@@ -89,8 +89,26 @@ Index: hdf5/src/Makefile.am
 +    libhdf5@FLAVOR@_la_SOURCES += H5FDdirect.c
  endif
  
+ # Only compile the read-only HDFS VFD if necessary
+ if HDFS_VFD_CONDITIONAL
+-    libhdf5_la_SOURCES += H5FDhdfs.c
++    libhdf5@FLAVOR@_la_SOURCES += H5FDhdfs.c
+ endif
+ 
+ # Only compile the mirror VFD if necessary
+ if MIRROR_VFD_CONDITIONAL
+-    libhdf5_la_SOURCES += H5FDmirror.c
++    libhdf5@FLAVOR@_la_SOURCES += H5FDmirror.c
+ endif
+ 
+ # Only compile the read-only S3 VFD if necessary
+ if ROS3_VFD_CONDITIONAL
+-    libhdf5_la_SOURCES += H5FDros3.c H5FDs3comms.c
++    libhdf5@FLAVOR@_la_SOURCES += H5FDros3.c H5FDs3comms.c
+ endif
+ 
  # Public headers
-@@ -143,7 +143,11 @@ include_HEADERS = hdf5.h H5api_adpt.h H5
+@@ -162,7 +162,11 @@ include_HEADERS = hdf5.h H5api_adpt.h H5
  
  # install libhdf5.settings in lib directory
  settingsdir=$(libdir)
@@ -103,24 +121,16 @@ Index: hdf5/src/Makefile.am
  
  # Number format detection
  # The LD_LIBRARY_PATH setting is a kludge.
-@@ -185,6 +189,7 @@ $(top_srcdir)/src/H5version.h: $(top_src
- $(top_srcdir)/src/H5overflow.h: $(top_srcdir)/src/H5overflow.txt
- 	perl $(top_srcdir)/bin/make_overflow $?
- 
-+
- # Add TRACE macros to library source files.  This is done via the trace script
- # in the hdf5/bin directory.  If the file contains HDF5 API macros, a "clean"
- # version of the source file is saved with a tilde (~) after its name and
-@@ -192,7 +197,7 @@ $(top_srcdir)/src/H5overflow.h: $(top_sr
+@@ -211,7 +211,7 @@ $(top_srcdir)/src/H5overflow.h: $(top_sr
+ # tracing information is inserted.  trace should have no effect on files
  # without HDF5 macros.
- .PHONY: trace
  
 -trace: $(libhdf5_la_SOURCES)
 +trace: $(libhdf5@FLAVOR@_la_SOURCES)
  	@for dep in $? dummy; do                                          \
  	 if test $$dep != "dummy" -a -n "$(PERL)"; then                      \
  	  case "$$dep" in                                                 \
-@@ -203,4 +208,24 @@ trace: $(libhdf5_la_SOURCES)
+@@ -222,5 +222,25 @@ trace: $(libhdf5_la_SOURCES)
  	 fi;                                                              \
  	done
  
@@ -145,6 +155,7 @@ Index: hdf5/src/Makefile.am
 +endif
 +
  include $(top_srcdir)/config/conclude.am
+ 
 Index: hdf5/test/testlibinfo.sh.in
 ===================================================================
 --- hdf5.orig/test/testlibinfo.sh.in
@@ -157,7 +168,7 @@ Index: hdf5/test/testlibinfo.sh.in
 +   shlib=$(grep dlname ../src/libhdf5@FLAVOR@.la | sed -e "s/dlname='//" -e "s/'//")
  else
     h5libdir=../src
- fi 
+ fi
 @@ -96,9 +96,9 @@ fi
  
  # Though rare, libhdf5.a may not have been built.
@@ -170,67 +181,6 @@ Index: hdf5/test/testlibinfo.sh.in
  fi
  
  # Check if executables has the lib information only if shared lib is not
-Index: hdf5/tools/src/misc/h5cc.in
-===================================================================
---- hdf5.orig/tools/src/misc/h5cc.in
-+++ hdf5/tools/src/misc/h5cc.in
-@@ -27,6 +27,7 @@
- prefix="@prefix@"
- exec_prefix="@exec_prefix@"
- libdir="@libdir@"
-+libdevdir="@libdir@/hdf5/@FLAVOR_NAME@"
- includedir="@includedir@"
- HL="@HL@"
- 
-@@ -170,7 +171,7 @@ usage() {
- # libhdf5.settings file reside in the lib directory.
- showconfigure()
- {
--  cat ${libdir}/libhdf5.settings
-+  cat ${libdir}/libhdf5@FLAVOR@.settings
-   status=$?
- }
- 
-@@ -331,7 +332,7 @@ if test "x$do_link" = "xyes"; then
-   else
-    libraries=" $libraries  -lhdf5 "
-   fi
--  link_args="$link_args -L${libdir}"
-+  link_args="$link_args -L${libdevdir}"
- 
-   case "$kind" in
-     gcc|linux*)
-@@ -350,7 +351,7 @@ if test "x$do_link" = "xyes"; then
-   esac
- 
-   if test -n "$flag"; then
--    shared_link="${flag}${libdir}"
-+    shared_link="${flag}${libdevdir}"
-   fi
- 
-   if test "x$USE_SHARED_LIB" != "xyes"; then
-@@ -360,10 +361,10 @@ if test "x$do_link" = "xyes"; then
-     for lib in $libraries; do
-       case "$lib" in
-         -lhdf5)
--          new_libraries="$new_libraries ${libdir}/libhdf5.a"
-+          new_libraries="$new_libraries ${libdevdir}/libhdf5.a"
-           ;;
-         -lhdf5_hl)
--          new_libraries="$new_libraries ${libdir}/libhdf5_hl.a"
-+          new_libraries="$new_libraries ${libdevdir}/libhdf5_hl.a"
-           ;;
-         *)
-           new_libraries="$new_libraries $lib"
-@@ -392,7 +393,7 @@ if test "x$do_link" = "xyes"; then
-   # paths and libraries from AM_LDFLAGS, LDFLAGS, AM_LIBS or LIBS carried in 
-   # from the hdf5 build. The order of the flags is intended to give precedence
-   # to the user's flags.
--  $SHOW $CLINKER $H5BLD_CPPFLAGS $CPPFLAGS $H5BLD_CFLAGS $CFLAGS $LDFLAGS $clibpath $link_objs $LIBS $link_args $shared_link
-+  $SHOW $CLINKER -I$includedir $H5BLD_CPPFLAGS $CPPFLAGS $H5BLD_CFLAGS $CFLAGS $LDFLAGS $clibpath $link_objs $LIBS $link_args $shared_link
-   status=$?
- fi
- 
 Index: hdf5/c++/src/h5c++.in
 ===================================================================
 --- hdf5.orig/c++/src/h5c++.in
@@ -382,14 +332,14 @@ Index: hdf5/fortran/src/Makefile.am
  
  # Source files for the library.
 -libhdf5_fortran_la_SOURCES=H5f90global.F90 \
-+libhdf5@FLAVOR@_fortran_la_SOURCES=H5f90global.f90 \
++libhdf5@FLAVOR@_fortran_la_SOURCES=H5f90global.F90 \
            H5fortran_types.F90 H5_ff.F90 H5Aff.F90 H5Dff.F90 H5Eff.F90    \
            H5Fff.F90 H5Gff.F90 H5Iff.F90 H5Lff.F90 H5Off.F90 H5Pff.F90 H5Rff.F90 H5Sff.F90    \
-           H5Tff.F90 H5Zff.F90 H5_gen.F90 H5fortkit.F90 \
+           H5Tff.F90 H5VLff.F90 H5Zff.F90 H5_gen.F90 H5fortkit.F90 \
 @@ -49,7 +49,7 @@ libhdf5_fortran_la_SOURCES=H5f90global.F
            H5If.c H5Lf.c H5Of.c H5Pf.c H5Rf.c H5Sf.c H5Tf.c H5Zf.c HDF5.F90
  
- # HDF5 Fortran library depends on HDF5 Library. 
+ # HDF5 Fortran library depends on HDF5 Library.
 -libhdf5_fortran_la_LIBADD=$(LIBHDF5)
 +libhdf5@FLAVOR@_fortran_la_LIBADD=$(LIBHDF5)
  
@@ -407,7 +357,7 @@ Index: hdf5/fortran/src/Makefile.am
  else
    H5FC_NAME = h5fc
  endif
-@@ -164,4 +168,16 @@ HDF5.lo:             $(srcdir)/HDF5.F90
+@@ -165,4 +178,16 @@
  	             H5Off.lo H5Pff.lo H5Rff.lo \
                       H5Sff.lo H5Tff.lo H5Zff.lo H5_gen.lo
  
@@ -423,6 +373,23 @@ Index: hdf5/fortran/src/Makefile.am
 +	done
 +endif
 +
+ include $(top_srcdir)/config/conclude_fc.am
+Index: hdf5/bin/Makefile.am
+===================================================================
+--- hdf5.orig/bin/Makefile.am
++++ hdf5/bin/Makefile.am
+@@ -40,7 +40,11 @@
+ # h5cc needs custom install and uninstall rules, since it may be
+ # named h5pcc if hdf5 is being built in parallel mode.
+ if BUILD_PARALLEL_CONDITIONAL
++if FLAVOR
++  H5CC_NAME = h5pcc.@FLAVOR_NAME@
++else
+   H5CC_NAME=h5pcc
++endif
+ else
+   H5CC_NAME=h5cc
+ endif
  include $(top_srcdir)/config/conclude_fc.am
 Index: hdf5/hl/fortran/src/Makefile.am
 ===================================================================
@@ -453,9 +420,9 @@ Index: hdf5/hl/fortran/src/Makefile.am
 -libhdf5hl_fortran_la_LIBADD=$(LIBH5_HL) $(LIBH5F)
 +libhdf5@FLAVOR@hl_fortran_la_LIBADD=$(LIBH5_HL) $(LIBH5F)
  
- # Fortran module files can have different extensions and different names
- # (e.g., different capitalizations) on different platforms.  Write rules
-@@ -98,4 +98,17 @@ H5IMff.lo:          $(srcdir)/H5IMff.F90
+ # The name of the lib file doesn't follow the same pattern as the other hl lib
+ # files, namely libhdf5_hl_*.  Add a symlink with the compliant name to the
+@@ -114,4 +114,17 @@ H5IMff.lo:          $(srcdir)/H5IMff.F90
  H5TBff.lo:          $(srcdir)/H5TBff.F90
  H5LTff_gen.lo:      H5LTff.lo H5LTff_gen.F90
  H5TBff_gen.lo:      H5TBff.lo H5LTff_gen.F90 H5TBff_gen.F90
@@ -536,7 +503,7 @@ Index: hdf5/config/commence.am
  LIBH5CPP_HL=$(top_builddir)/hl/c++/src/libhdf5_hl_cpp.la
  
  # Install directories that automake doesn't know about
-@@ -102,3 +102,4 @@ CHECK_CLEANFILES=*.chkexe *.chklog *.clo
+@@ -103,3 +103,4 @@ CHECK_CLEANFILES=*.chkexe *.chklog *.clo
  help:
  	@$(top_srcdir)/bin/makehelp
  
@@ -583,27 +550,11 @@ Index: hdf5/hl/c++/src/Makefile.am
 +endif
 +
  include $(top_srcdir)/config/conclude.am
-Index: hdf5/tools/src/misc/Makefile.am
-===================================================================
---- hdf5.orig/tools/src/misc/Makefile.am
-+++ hdf5/tools/src/misc/Makefile.am
-@@ -43,7 +43,11 @@ LDADD=$(LIBH5TOOLS) $(LIBHDF5)
- # h5cc needs custom install and uninstall rules, since it may be
- # named h5pcc if hdf5 is being built in parallel mode.
- if BUILD_PARALLEL_CONDITIONAL
-+if FLAVOR
-+  H5CC_NAME=h5pcc.@FLAVOR_NAME@
-+else
-   H5CC_NAME=h5pcc
-+endif
- else
-   H5CC_NAME=h5cc
- endif
 Index: hdf5/java/test/junit.sh.in
 ===================================================================
 --- hdf5.orig/java/test/junit.sh.in
 +++ hdf5/java/test/junit.sh.in
-@@ -56,7 +56,7 @@ test -d $BLDLIBDIR || mkdir -p $BLDLIBDI
+@@ -59,7 +59,7 @@ test -d $BLDLIBDIR || mkdir -p $BLDLIBDI
  #       Comment '#' without space can be used.
  # --------------------------------------------------------------------
  LIST_LIBRARY_FILES="
@@ -616,7 +567,7 @@ Index: hdf5/java/examples/datasets/JavaDatasetExample.sh.in
 ===================================================================
 --- hdf5.orig/java/examples/datasets/JavaDatasetExample.sh.in
 +++ hdf5/java/examples/datasets/JavaDatasetExample.sh.in
-@@ -52,7 +52,7 @@ test -d $BLDLIBDIR || mkdir -p $BLDLIBDI
+@@ -53,7 +53,7 @@ test -d $BLDLIBDIR || mkdir -p $BLDLIBDI
  #       Comment '#' without space can be used.
  # --------------------------------------------------------------------
  LIST_LIBRARY_FILES="
@@ -629,7 +580,7 @@ Index: hdf5/java/examples/datatypes/JavaDatatypeExample.sh.in
 ===================================================================
 --- hdf5.orig/java/examples/datatypes/JavaDatatypeExample.sh.in
 +++ hdf5/java/examples/datatypes/JavaDatatypeExample.sh.in
-@@ -49,7 +49,7 @@ test -d $BLDLIBDIR || mkdir -p $BLDLIBDI
+@@ -50,7 +50,7 @@ test -d $BLDLIBDIR || mkdir -p $BLDLIBDI
  #       Comment '#' without space can be used.
  # --------------------------------------------------------------------
  LIST_LIBRARY_FILES="
@@ -642,7 +593,7 @@ Index: hdf5/java/examples/groups/JavaGroupExample.sh.in
 ===================================================================
 --- hdf5.orig/java/examples/groups/JavaGroupExample.sh.in
 +++ hdf5/java/examples/groups/JavaGroupExample.sh.in
-@@ -51,7 +51,7 @@ test -d $BLDITERDIR || mkdir -p $BLDITER
+@@ -52,7 +52,7 @@ test -d $BLDITERDIR || mkdir -p $BLDITER
  #       Comment '#' without space can be used.
  # --------------------------------------------------------------------
  LIST_LIBRARY_FILES="
@@ -655,7 +606,7 @@ Index: hdf5/java/examples/intro/JavaIntroExample.sh.in
 ===================================================================
 --- hdf5.orig/java/examples/intro/JavaIntroExample.sh.in
 +++ hdf5/java/examples/intro/JavaIntroExample.sh.in
-@@ -49,7 +49,7 @@ test -d $BLDLIBDIR || mkdir -p $BLDLIBDI
+@@ -50,7 +50,7 @@ test -d $BLDLIBDIR || mkdir -p $BLDLIBDI
  #       Comment '#' without space can be used.
  # --------------------------------------------------------------------
  LIST_LIBRARY_FILES="

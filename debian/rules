@@ -88,11 +88,21 @@ CONFIGURE_FLAGS = --prefix=/usr --host=$(DEB_HOST_GNU_TYPE) \
 		  --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
 		  --mandir=\$${prefix}/share/man \
 		  --with-default-plugindir=/usr/lib/$(DEB_HOST_MULTIARCH)/hdf5/plugins \
-		  --with-pthread --enable-linux-lfs --enable-unsupported \
+		  --with-pthread --enable-unsupported \
 		  --enable-shared --enable-build-mode=$(USE_PROD) \
 		  --disable-sharedlib-rpath --with-zlib --with-default-api-version=v18 \
 		  --with-szlib \
-		  --enable-fortran --enable-fortran2003
+		  --enable-fortran
+
+# RPM build uses
+#  --disable-silent-rules
+#  --enable-fortran
+#  --enable-fortran2003
+#  --enable-hl
+#  --enable-shared
+#  --enable-cxx
+#  --enable-java
+
 FLAVOR_FLAGS = --includedir=\$${prefix}/include/hdf5/$(1) --with-flavor=$(1)
 SERIAL_FLAGS = $(call FLAVOR_FLAGS,serial) --enable-threadsafe --enable-cxx
 
@@ -226,6 +236,7 @@ override_dh_auto_configure: $(foreach flavor,$(FLAVORS),configure_$(flavor))
 build_%: flavor = $(patsubst build_%,%,$@)
 build_%: builddir = debian/build-$(flavor)
 build_%:
+	make -C $(builddir)/src H5version.h H5Edefin.h H5overflow.h
 	dh_auto_build --builddirectory=$(builddir)
 
 override_dh_auto_build-arch: $(foreach flavor,$(FLAVORS),build_$(flavor))
@@ -300,7 +311,7 @@ dh_install_doc:
 	  -exec mv "{}.new" "{}" \;
 
 dh_install_java: build_serial
-	mv debian/build-serial/java/src/jarhdf5-$(upstreamversion).jar debian/build-serial/java/src/jarhdf5.jar
+	mv debian/build-serial/java/src/hdf5.jar debian/build-serial/java/src/jarhdf5.jar
 
 override_dh_auto_build-indep: build_doc build_serial
 override_dh_auto_install-indep: $(dh_install_java)
