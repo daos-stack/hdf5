@@ -1,0 +1,58 @@
+Description: avoid the issue of PATH_MAX not being available on Hurd.
+ Call realpath() the POSIX way, with NULL as second parameter so that
+ the returned string is dynamically allocated. This way there is no
+ more need for the strdup() call.
+Author: Gilles Filippini <pini@debian.org>
+Bug-Debian: http://bugs.debian.org/627896
+Bug: HDFFV-9209
+Index: hdf5/src/H5Fint.c
+===================================================================
+--- hdf5.orig/src/H5Fint.c
++++ hdf5/src/H5Fint.c
+@@ -2377,10 +2377,6 @@ H5F_build_actual_name(const H5F_t *f, co
+     char **actual_name/*out*/)
+ {
+     hid_t       new_fapl_id = -1;       /* ID for duplicated FAPL */
+-#ifdef H5_HAVE_SYMLINK
+-    /* This has to be declared here to avoid unfreed resources on errors */
+-    char *realname = NULL;              /* Fully resolved path name of file */
+-#endif /* H5_HAVE_SYMLINK */
+     herr_t      ret_value = SUCCEED;    /* Return value */
+ 
+     FUNC_ENTER_NOAPI_NOINIT
+@@ -2414,10 +2410,6 @@ H5F_build_actual_name(const H5F_t *f, co
+             h5_stat_t fst;              /* Stat info from fstat() call */
+             hbool_t want_posix_fd;      /* Flag for retrieving file descriptor from VFD */
+ 
+-            /* Allocate realname buffer */
+-            if(NULL == (realname = (char *)H5MM_calloc((size_t)PATH_MAX * sizeof(char))))
+-                HGOTO_ERROR(H5E_RESOURCE, H5E_NOSPACE, FAIL, "memory allocation failed")
+-
+             /* Perform a sanity check that the file or link wasn't switched
+              * between when we opened it and when we called lstat().  This is
+              * according to the security best practices for lstat() documented
+@@ -2452,12 +2444,8 @@ H5F_build_actual_name(const H5F_t *f, co
+                 HGOTO_ERROR(H5E_FILE, H5E_BADVALUE, FAIL, "files' st_ino or st_dev fields changed!")
+ 
+             /* Get the resolved path for the file name */
+-            if(NULL == HDrealpath(name, realname))
++            if(NULL == (*actual_name = HDrealpath(name, NULL)))
+                 HGOTO_ERROR(H5E_FILE, H5E_CANTGET, FAIL, "can't retrieve real path for file")
+-
+-            /* Duplicate the resolved path for the file name */
+-            if(NULL == (*actual_name = (char *)H5MM_strdup(realname)))
+-                HGOTO_ERROR(H5E_FILE, H5E_CANTALLOC, FAIL, "can't duplicate real path")
+         } /* end if */
+     } /* end if */
+ #endif /* H5_HAVE_SYMLINK */
+@@ -2474,10 +2462,6 @@ done:
+     if(new_fapl_id > 0)
+         if(H5I_dec_app_ref(new_fapl_id) < 0)
+             HDONE_ERROR(H5E_FILE, H5E_CANTCLOSEOBJ, FAIL, "can't close duplicated FAPL")
+-#ifdef H5_HAVE_SYMLINK
+-    if(realname)
+-        realname = (char *)H5MM_xfree(realname);
+-#endif /* H5_HAVE_SYMLINK */
+ 
+     FUNC_LEAVE_NOAPI(ret_value)
+ } /* H5F_build_actual_name() */

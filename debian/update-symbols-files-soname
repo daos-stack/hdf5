@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+eval "$(debian/rules sonames)"
+
+[ -f "debian/libhdf5-$SONAME.symbols" ] || mv debian/libhdf5-[0-9]*.symbols "debian/libhdf5-$SONAME.symbols"
+[ -f "debian/libhdf5-cpp-$SONAME_CXX.symbols" ] || mv debian/libhdf5-cpp-[0-9]*.symbols "debian/libhdf5-cpp-$SONAME_CXX.symbols"
+[ -f "debian/libhdf5-openmpi-$SONAME.symbols" ] || mv debian/libhdf5-openmpi-[0-9]*.symbols "debian/libhdf5-openmpi-$SONAME.symbols"
+[ -f "debian/libhdf5-mpich-$SONAME.symbols" ] || mv debian/libhdf5-mpich-[0-9]*.symbols "debian/libhdf5-mpich-$SONAME.symbols"
+
+for flavor in serial openmpi mpich; do
+  if [ $flavor != serial ]; then
+    flavor_string="-$flavor"
+  else
+    flavor_string=""
+  fi
+  symbols_file=libhdf5${flavor_string}-$SONAME.symbols
+  sed -ri \
+    -e "/^libhdf5_${flavor}.so/{s/\.[0-9]+/.$SONAME/;s/-[0-9]+/-$SONAME/}" \
+    -e "/^libhdf5_${flavor}_fortran.so/{s/\.[0-9]+/.$SONAME_F/;s/-[0-9]+/-$SONAME/}" \
+    -e "/^libhdf5_${flavor}_hl.so/{s/\.[0-9]+/.$SONAME_HL/;s/-[0-9]+/-$SONAME/}" \
+    -e "/^libhdf5_${flavor}hl_fortran.so/{s/\.[0-9]+/.$SONAME_HL_F/;s/-[0-9]+/-$SONAME/}" \
+    debian/$symbols_file
+done
+
+sed -ri \
+  -e "/^libhdf5_cpp.so/{s/\.[0-9]+/.$SONAME_CXX/;s/-[0-9]+/-$SONAME/}" \
+  -e "/^libhdf5_hl_cpp.so/{s/\.[0-9]+/.$SONAME_HL_CXX/;s/-[0-9]+/-$SONAME/}" \
+  debian/libhdf5-cpp-$SONAME_CXX.symbols

@@ -1,0 +1,328 @@
+#!/usr/bin/make -f
+
+# Using dh (debhelper command sequencer) with compat=10
+# Automagically supports:
+# * parallel build
+# * dpkg-buildflags
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+package = libhdf5
+pkgversion ?= $(shell dpkg-parsechangelog | awk '/^Version:/ {print $$2}')
+upstreamversion ?= $(shell echo $(pkgversion) | sed -r 's/^([0-9\.]*)([-~][^-~+]*)?(\+repack[0-9]*)?-[^-]*$$/\1\2/')
+libversion ?= $(shell echo $(pkgversion) | sed -r 's/^([0-9\.]*)([-~][^-~+]*)?(\+repack[0-9]*)?-[^-]*$$/\1/')
+
+# BEGIN - Get sonames from config/lt_vers.am
+include config/lt_vers.am
+INTERFACES := @ _CXX _F _HL _HL_CXX _HL_F _TOOLS
+istr = $(subst @,,$(interface))
+$(foreach interface,$(INTERFACES),$(eval \
+  SONAME$(istr) := $(shell if [ -n "$(LT$(istr)_VERS_INTERFACE)" ]; then \
+                             echo $$(($(LT$(istr)_VERS_INTERFACE) - $(LT$(istr)_VERS_AGE))); \
+                           fi)))
+# Default to SONAME when empty
+$(foreach interface,$(INTERFACES),$(eval \
+  SONAME$(istr) := $(shell soname=$(SONAME$(istr)); echo $${soname:-$(SONAME)})))
+
+# Targets used by helper script debian/make-version-scripts
+SONAM%: interface = $(subst SONAME,,$@)
+SONAM%:
+	@echo $(SONAME$(istr))
+# END - Get sonames from config/lt_vers.am
+
+serpack = $(package)-$(SONAME)
+serpackdev = $(package)-dev
+sercpppack = $(package)-cpp-$(SONAME_CXX)
+openmpipack = $(package)-openmpi-$(SONAME)
+mpichpack = $(package)-mpich-$(SONAME)
+
+# Crossbuild and multiarch variables
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+DEB_HOST_ARCH      ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+# Get default MPI implementation name
+ifneq (,$(wildcard /usr/share/mpi-default-dev/debian_defaults))
+include /usr/share/mpi-default-dev/debian_defaults 
+endif
+DEFAULT_MPI=$(ARCH_DEFAULT_MPI_IMPL)
+
+# Arches to build MPI flavors on
+# Setting empty OMPIARCHS and MPICHARCHS environment variables disables
+# the related mpi targets
+#
+OMPIARCHS?=any
+MPICHARCHS?=any
+
+# BEGIN - Construct the FLAVORS list for current arch
+FLAVORS := serial
+
+ARCHS_openmpi := $(OMPIARCHS)
+ARCHS_mpich := $(MPICHARCHS)
+
+define CHECK_FLAVOR
+# To build for $arch there must be either "any" or "$arch" and no "!$arch"
+$(eval flavor_$(1) = $(and $(or $(filter any,$(ARCHS_$(1))),$(filter $(DEB_HOST_ARCH),$(ARCHS_$(1)))),$(if $(filter !$(DEB_HOST_ARCH),$(ARCHS_$(1))),,$(1))))
+FLAVORS += $(flavor_$(1))
+# If not selected, exclude this arch's binary packages from the build.
+# See debhelper manpage.
+# This is in case an arch is disabled with "!$arch". These strings can't
+# appear in debian/control, but the build have to be disabled anyway for
+# the related archs.
+$(if $(flavor_$(1)),,export DH_OPTIONS += -N$($(1)pack) -Nlibhdf5-$(1)-dev)
+endef
+$(foreach mpi,openmpi mpich,$(eval $(call CHECK_FLAVOR,$(mpi))))
+# END - Construct the FLAVORS list
+
+# BEGIN - Configure flags and environment variables
+ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+       USE_PROD = production
+else
+       USE_PROD = debug
+endif
+
+CONFIGURE_FLAGS = --prefix=/usr --host=$(DEB_HOST_GNU_TYPE) \
+		  --build=$(DEB_BUILD_GNU_TYPE) \
+		  --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
+		  --mandir=\$${prefix}/share/man \
+		  --with-default-plugindir=/usr/lib/$(DEB_HOST_MULTIARCH)/hdf5/plugins \
+		  --with-pthread --enable-linux-lfs --enable-unsupported \
+		  --enable-shared --enable-build-mode=$(USE_PROD) \
+		  --disable-sharedlib-rpath --with-zlib --with-default-api-version=v18 \
+		  --with-szlib \
+		  --enable-fortran --enable-fortran2003
+FLAVOR_FLAGS = --includedir=\$${prefix}/include/hdf5/$(1) --with-flavor=$(1)
+SERIAL_FLAGS = $(call FLAVOR_FLAGS,serial) --enable-threadsafe --enable-cxx
+
+# No java >= 1.7 on hppa and hurd-i386
+ifeq (,$(filter $(DEB_HOST_ARCH),hppa hurd-i386))
+SERIAL_FLAGS += --enable-java
+DH_HELPERS = --with javahelper
+install_jni := install_jni
+dh_install_java := dh_install_java
+PACKAGES_java := libhdf5-java libhdf5-jni
+else
+export DH_OPTIONS += -Nlibhdf5-java -Nlibhdf5-jni
+endif
+
+OPENMPI_FLAGS = $(call FLAVOR_FLAGS,openmpi) --enable-parallel=yes
+MPICH_FLAGS = $(call FLAVOR_FLAGS,mpich) --enable-parallel=yes
+
+SERIAL_ENV := H5_LDFLAGS="-Wl,--version-script,\$$(top_srcdir)/debian/map_serial.ver"
+MPI_ENV = H5_LDFLAGS="-Wl,--version-script,\$$(top_srcdir)/debian/map_mpi.ver" \
+	CC=mpicc.$(1) FC=mpif90.$(1) F9X=mpif90.$(1) RUNPARALLEL=/usr/bin/mpirun.$(1)
+OPENMPI_ENV := $(call MPI_ENV,openmpi)
+MPICH_ENV := $(call MPI_ENV,mpich)
+
+# Fix FTBFS on kfreebsd-*
+ifneq (,$(filter $(DEB_HOST_ARCH),kfreebsd-i386 kfreebsd-amd64))
+SERIAL_ENV += H5_CPPFLAGS="-I/usr/lib/jvm/default-java/include/bsd"
+endif
+
+# Target Java 1.8 bytecode
+SERIAL_ENV += JAVACFLAGS="-source 1.8 -target 1.8"
+
+# END - Configure flags and environment variables
+
+# Compose the packages' name flavor part from $(flavor)
+flavorpkg = $(subst -serial,,-$(flavor))
+
+# Generate helper files list from debian/*.in
+DEBIAN_OUT := $(shell \
+  ls -1 debian/*.in | \
+  awk '\
+    BEGIN {$(foreach flavor,$(FLAVORS),flavor["$(flavor)"]="$(flavorpkg)";)} \
+    { \
+      gsub(".in$$","",$$0); \
+      gsub("soname_cxx","$(SONAME_CXX)",$$0); \
+      gsub("soname","$(SONAME)",$$0); \
+      gsub("-flavor-cpp","-cpp",$$0); \
+    } \
+    /-flavor/{helpers=""; for (f in flavor) {helper=$$0; gsub("-flavor",flavor[f],helper); helpers=helpers" "helper}; $$0=helpers} \
+    !/control/ {print $$0} \
+  ' \
+)
+# Requested to prevent deletion of $(DEBIAN_OUT) files as intermediate files
+.SECONDARY: $(DEBIAN_OUT)
+
+# Force debian/control update
+.PHONY: debian/control.in
+
+# Print sonames
+sonames:
+	@$(foreach interface,$(INTERFACES),echo "SONAME$(istr)=$(SONAME$(istr))" &&) true
+
+# Informative target
+info: VARIABLES := package pkgversion upstreamversion libversion $(foreach interface,$(INTERFACES),SONAME$(istr))
+info: VARIABLES += FLAVORS DH_OPTIONS DEBIAN_OUT
+info:
+	@$(foreach var,$(VARIABLES), echo "$(shell printf "%30s" "$(var)") = $($(var))" &&) true
+
+
+# These snippets generate every needed helper file from their respective
+# template
+debian/%: debian/%.in
+	sed -e 's/@MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' \
+	    -e 's/@SONAME_CXX@/$(SONAME_CXX)/g' \
+	    -e 's/@SONAME_F@/$(SONAME_F)/g' \
+	    -e 's/@SONAME_HL@/$(SONAME_HL)/g' \
+	    -e 's/@SONAME_HL_F@/$(SONAME_HL_F)/g' \
+	    -e 's/@SONAME@/$(SONAME)/g' \
+	    -e "s/@OMPIARCHS@/$(filter-out !%,$(OMPIARCHS))/" \
+	    -e "s/@MPICHARCHS@/$(filter-out !%,$(MPICHARCHS))/" \
+	    -e "s/@NODOCARCHS@/$(NODOCARCHS)/g" \
+	  $< >$@
+
+libhdf5-flavor-cpp-$(SONAME_CXX)%: libhdf5-flavor-cpp-soname_cxx%
+	ln -s $$(basename $<) $@
+
+libhdf5-flavor-$(SONAME)%: libhdf5-flavor-soname%
+	ln -s $$(basename $<) $@
+
+define helper_flavor_rule
+debian/libhdf5$(2)-%: flavor = $(1)
+debian/libhdf5$(2)-%: ifmpi = $(if $(findstring mpi,$(1)),,\#)
+debian/libhdf5$(2)-%: ifserial = $(if $(findstring mpi,$(1)),\#,)
+debian/libhdf5$(2)-%: debian/libhdf5-flavor-%
+	sed -e 's/@FLAVORLIB@/'_$$(flavor)'/g' \
+	    -e 's/@FLAVORPKG@/'$$(flavorpkg)'/g' \
+	    -e 's/@FLAVOR@/'$$(flavor)'/g' \
+	    -e 's/@IFMPI@/'$$(ifmpi)'/g' \
+	    -e 's/@IFSERIAL@/'$$(ifserial)'/g' \
+	  $$< >$$@
+endef
+$(foreach flavor,$(FLAVORS),$(eval $(call helper_flavor_rule,$(flavor),$(flavorpkg))))
+
+# End of helper files generation snippets
+
+
+%:
+	dh $@ $(DH_HELPERS)
+
+override_dh_auto_clean: debian/control
+	rm -fr $(DEBIAN_OUT)
+	rm -fr debian/build-*
+	rm -f c++/src/cpp_doc_config_u
+	rm -fr html
+
+override_dh_clean:
+	dh_clean -Xh5ex_g_iterate.orig
+
+configure_%: flavor = $(patsubst configure_%,%,$@)
+configure_%: FLAVOR = $(shell echo $(flavor) | tr '[:lower:]' '[:upper:]')
+configure_%: flavor_map = $(or $(findstring mpi,$(flavor)),serial)
+configure_%: builddir = debian/build-$(flavor)
+configure_%: $(DEBIAN_OUT)
+	$($(FLAVOR)_ENV) dh_auto_configure --builddirectory=$(builddir) -- $(CONFIGURE_FLAGS) $($(FLAVOR)_FLAGS)
+	# Remove build path from libhdf5-$(flavor).settings (Reproducible Builds)
+	# This have to be done before the build because this file is included
+	# into the library
+	sed -i 's:$(CURDIR):$$(top_srcdir):g' $(builddir)/src/libhdf5.settings
+
+override_dh_auto_configure: $(foreach flavor,$(FLAVORS),configure_$(flavor))
+
+build_%: flavor = $(patsubst build_%,%,$@)
+build_%: builddir = debian/build-$(flavor)
+build_%:
+	dh_auto_build --builddirectory=$(builddir)
+
+override_dh_auto_build-arch: $(foreach flavor,$(FLAVORS),build_$(flavor))
+
+install_%: flavor = $(patsubst install_%,%,$@)
+install_%: builddir = $(CURDIR)/debian/build-$(flavor)
+install_%: destdir = $(builddir)/tmpinst
+install_%: destdir_jni = $(builddir)/tmpinst-jni
+install_%:
+	dh_auto_install --builddirectory=$(builddir) --destdir=$(destdir)
+	chrpath -d $(destdir)/usr/lib/*/libhdf5*so*
+
+install_jni: serial_builddir = $(CURDIR)/debian/build-serial
+install_jni: serial_destdir = $(serial_builddir)/tmpinst
+install_jni: install_serial
+	dh_auto_install --builddirectory=$(serial_builddir)/java/src/jni --destdir=$(serial_destdir)
+	jnilib=$(serial_destdir)/usr/lib/$(DEB_HOST_MULTIARCH)/libhdf5_java.so && \
+	install -D $(serial_destdir)/usr/lib/$(DEB_HOST_MULTIARCH)/libhdf5_java.so \
+		$(serial_destdir)/usr/lib/$(DEB_HOST_MULTIARCH)/jni/libhdf5_java.so
+
+override_dh_auto_install-arch: $(foreach flavor,$(FLAVORS),install_$(flavor)) $(install_jni)
+
+PACKAGES_serial := $(serpack) $(package)-dev hdf5-helpers hdf5-tools $(sercpppack) $(PACKAGES_java)
+PACKAGES_openmpi := $(openmpipack) $(package)-openmpi-dev
+PACKAGES_mpich := $(mpichpack) $(package)-mpich-dev
+
+dh_install_%: flavor = $(patsubst dh_install_%,%,$@)
+dh_install_%: builddir = debian/build-$(flavor)
+dh_install_%: destdir = $(builddir)/tmpinst
+dh_install_%: devpkg = $(package)$(flavorpkg)-dev
+dh_install_%:
+	dh_install $(foreach pkg,$(PACKAGES_$(flavor)),-p$(pkg)) --sourcedir=$(destdir)
+	install -d debian/$(devpkg)/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig
+	sed -e 's/@MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' \
+		-e 's/@VERSION@/$(libversion)/g' \
+		debian/hdf5-$(flavor).pc >debian/$(devpkg)/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/hdf5-$(flavor).pc
+
+override_dh_install-arch: $(foreach flavor,$(FLAVORS),dh_install_$(flavor))
+	find debian/$(serpack)/usr/lib -name '*cpp*' -delete
+	rm -f debian/$(serpackdev)/usr/lib/$(DEB_HOST_MULTIARCH)/libhdf5_java*
+	# Drop dpkg-buildflags from helpers to improve reproducibility
+	sed -i $(foreach flags,CFLAGS CXXFLAGS CPPFLAGS FCFLAGS LDFLAGS,-e '/_$(flags)=/s/$(shell dpkg-buildflags --get $(flags) | sed 's:/:\\/:g')//') \
+	  debian/hdf5-helpers/usr/bin/h5* debian/libhdf5-*mpi*-dev/usr/bin/h5*
+
+override_dh_makeshlibs:
+	dh_makeshlibs -- -v$(libversion)
+	echo "hdf5-mpi-dev=libhdf5-$(DEFAULT_MPI)-dev" >> debian/libhdf5-mpi-dev.substvars
+
+override_dh_shlibdeps:
+	# Workaround for #842881; this forces /usr/lib/$(DEB_HOST_MULTIARCH)
+	# before /usr/lib in the search path, so that the right
+	# libmpich.so.12 is matched first
+	dh_shlibdeps -l/usr/lib/$(DEB_HOST_MULTIARCH)
+
+build_doc:
+	echo "builddeps:Built-Using=doxygen (= $$(dpkg-query -W -f='$${source:Version}' doxygen))" >>debian/libhdf5-doc.substvars
+	# Upgrade the doxygen configuration file
+	cp c++/src/cpp_doc_config c++/src/cpp_doc_config_u
+	cd c++/src && doxygen -s -u cpp_doc_config_u
+	# Generate doc
+	cd c++/src && doxygen cpp_doc_config_u >/dev/null
+	rm -fr html/cpplus_RM
+	mkdir -p html
+	mv c++/src/cpplus_RM html/cpplus_RM
+
+dh_install_doc: HTML_DIR := debian/$(package)-doc/usr/share/doc/$(package)-doc/html
+dh_install_doc:
+	dh_install -p$(package)-doc -X Dependencies -X Makefile.in -X CppUserNotes.doc
+	# process php in html files
+	find "$(HTML_DIR)"/ -type f -iname '*.html' \
+	  -execdir /bin/sh -c "/usr/bin/php -f '{}' > '{}.new'" \; \
+	  -exec mv "{}.new" "{}" \;
+
+dh_install_java: build_serial
+	mv debian/build-serial/java/src/jarhdf5-$(upstreamversion).jar debian/build-serial/java/src/jarhdf5.jar
+
+override_dh_auto_build-indep: build_doc build_serial
+override_dh_auto_install-indep: $(dh_install_java)
+override_dh_install-indep: dh_install_serial dh_install_doc
+
+override_dh_installchangelogs:
+	dh_installchangelogs -k release_docs/RELEASE.txt
+
+override_dh_compress:
+	dh_compress -Xpdf
+
+auto_test_%: flavor = $(patsubst auto_test_%,%,$@)
+auto_test_%: builddir = debian/build-$(flavor)
+auto_test_%:
+	dh_auto_test -B$(builddir)
+
+# HDFFV-10309 - long double tests fail on ppc64el
+#    elmt 107:
+#       src =  00 3f ff ff ff ff ff ff                                     18014398509481983
+#       dst =  00 00 00 00 00 00 00 00 43 50 00 00 00 00 00 00      18014398509481984.000000
+#       ans =  bf f0 00 00 00 00 00 00 43 50 00 00 00 00 00 00      18014398509481983.000000
+ifneq (ppc64el,$(DEB_HOST_ARCH))
+auto_test_serial := auto_test_serial
+endif
+override_dh_auto_test: $(auto_test_serial)

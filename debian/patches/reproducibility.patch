@@ -1,0 +1,26 @@
+Index: hdf5/configure.ac
+===================================================================
+--- hdf5.orig/configure.ac
++++ hdf5/configure.ac
+@@ -170,7 +170,7 @@ AC_MSG_RESULT([done])
+ ## Save system information for the library settings file.
+ ##
+ AC_SUBST([UNAME_INFO])
+-UNAME_INFO=`uname -a`
++UNAME_INFO=Debian
+ 
+ ## ----------------------------------------------------------------------
+ ## Some platforms have broken basename, and/or xargs programs. Check
+@@ -3004,10 +3004,10 @@ H5_VERSION="`cut -d' ' -f3 $srcdir/READM
+ AC_SUBST([H5_VERSION])
+ 
+ ## Configuration date
+-AC_SUBST([CONFIG_DATE]) CONFIG_DATE="`date`"
++AC_SUBST([CONFIG_DATE]) CONFIG_DATE="$(date -u -R -d @$SOURCE_DATE_EPOCH)"
+ 
+ ## User doing the configuration
+-AC_SUBST([CONFIG_USER]) CONFIG_USER="`whoami`@`hostname`"
++AC_SUBST([CONFIG_USER]) CONFIG_USER="Debian"
+ if test -n "$ORGANIZATION"; then
+   CONFIG_USER="$CONFIG_USER at $ORGANIZATION"
+ fi

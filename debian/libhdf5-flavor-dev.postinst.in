@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e
+
+if [ "@FLAVOR@" != "serial" ]; then
+  update-alternatives \
+	--install /usr/bin/h5pcc h5pcc /usr/bin/h5pcc.@FLAVOR@ 50 \
+	--slave /usr/bin/h5pfc h5pfc /usr/bin/h5pfc.@FLAVOR@ \
+	--slave /usr/share/man/man1/h5pcc.1.gz h5pcc.1.gz /usr/share/man/man1/h5pcc.@FLAVOR@.1.gz \
+	--slave /usr/share/man/man1/h5pfc.1.gz h5pfc.1.gz /usr/share/man/man1/h5pfc.@FLAVOR@.1.gz
+fi
+update-alternatives \
+	--install /usr/lib/@MULTIARCH@/pkgconfig/hdf5.pc hdf5.pc /usr/lib/@MULTIARCH@/pkgconfig/hdf5-@FLAVOR@.pc 50 \
+
+#DEBHELPER#
+
+exit 0

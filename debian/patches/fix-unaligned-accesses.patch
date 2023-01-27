@@ -1,0 +1,148 @@
+Package: libhdf5-100
+Version: 1.10.0-patch1+docs-3
+Tags: upstream patch
+User: debian-sparc@lists.debian.org
+Usertags: sparc64
+X-Debbugs-Cc: debian-sparc@lists.debian.org, Ghislain Vaillant <ghisvail@gmail.com>
+Control: affects -1 src:h5py
+
+Hi,
+Currently libhdf5-100 performs unaligned memory accesses on sparc64 in
+certain cases, and this is causing the latest version of h5py to FTBFS
+due to the test suite being killed with SIGBUS when doing vlen-related
+tests (the tests in question being new in the latest upstream version).
+On investigating, there are two issues:
+
+ 1. NO_ALIGNMENT_RESTRICTIONS is being defined on sparc64. GCC is
+    sufficiently smart to notice that the test program run when
+    configuring is performing unaligned accesses, and so instead of
+    using the usual multi-byte load instructions (which require the
+    address to be aligned), it expands it out into individual byte
+    loads, and therefore the test actually succeeds. This is only
+    because GCC can statically determine that the address is unaligned,
+    and therefore tries to be helpful (since it knows using multi-byte
+    loads will never work), whereas for a general address it will assume
+    the address is aligned and emit a single multi-byte load.
+
+    Adding in a few volatile qualifiers in the important places ensures
+    that GCC can no longer statically prove the relevant addresses are
+    unaligned, and therefore it uses the normal multi-byte load
+    instructions and the test program will crash, so configure knows not
+    to define NO_ALIGNMENT_RESTRICTIONS.
+
+ 2. Even with that fixed, H5T_vlen_reclaim_recurse needs fixing to
+    ensure it doesn't perform unaligned accesses when not supported.
+
+With the attached patch, h5py's test suite now passes again. Please feel
+free to forward this patch upstream if you deem it acceptable.
+
+Regards,
+James
+Index: hdf5/config/cmake/ConversionTests.c
+===================================================================
+--- hdf5.orig/config/cmake/ConversionTests.c
++++ hdf5/config/cmake/ConversionTests.c
+@@ -259,13 +259,13 @@ main ()
+ 
+     char *chp = "beefs";
+     char **chpp = malloc (2 * sizeof (char *));
+-    char **chpp2;
++    char * volatile *chpp2;
+     hvl_t vl = { 12345, (void *) chp };
+     hvl_t *vlp;
+-    hvl_t *vlp2;
++    hvl_t * volatile vlp2;
+ 
+     memcpy ((void *) ((char *) chpp + 1), &chp, sizeof (char *));
+-    chpp2 = (char **) ((char *) chpp + 1);
++    chpp2 = (char * volatile *) (chpp + 1);
+     if (strcmp (*chpp2, chp)) {
+         free (chpp);
+         return 1;
+@@ -274,7 +274,7 @@ main ()
+ 
+     vlp = malloc (2 * sizeof (hvl_t));
+     memcpy ((void *) ((char *) vlp + 1), &vl, sizeof (hvl_t));
+-    vlp2 = (hvl_t *) ((char *) vlp + 1);
++    vlp2 = (hvl_t * volatile) ((char *) vlp + 1);
+     if (vlp2->len != vl.len || vlp2->p != vl.p) {
+         free (vlp);
+         return 1;
+Index: hdf5/src/H5Tvlen.c
+===================================================================
+--- hdf5.orig/src/H5Tvlen.c
++++ hdf5/src/H5Tvlen.c
+@@ -1044,35 +1044,64 @@ H5T_vlen_reclaim_recurse(void *elem, con
+         case H5T_VLEN:
+             /* Recurse on the VL information if it's VL, compound, enum or array, then free VL sequence */
+             if(dt->shared->u.vlen.type == H5T_VLEN_SEQUENCE) {
++                void *p;
++                size_t len;
++#ifdef H5_NO_ALIGNMENT_RESTRICTIONS
+                 hvl_t *vl = (hvl_t *)elem;    /* Temp. ptr to the vl info */
++                p = vl->p;
++                len = vl->len;
++#else
++                hvl_t vl;         /* The vl info */
++                HDmemcpy(&vl, elem, sizeof(hvl_t));
++                p = vl.p;
++                len = vl.len;
++#endif
+ 
+                 /* Check if there is anything actually in this sequence */
+-                if(vl->len!=0) {
++                if(len!=0) {
+                     /* Recurse if it's VL, array, enum or compound */
+                     if(H5T_IS_COMPLEX(dt->shared->parent->shared->type)) {
+                         void *off;     /* offset of field */
+ 
+                         /* Calculate the offset of each array element and recurse on it */
+-                        while(vl->len > 0) {
+-                            off = ((uint8_t *)vl->p) + (vl->len - 1) * dt->shared->parent->shared->size;
+-                            if(H5T_vlen_reclaim_recurse(off, dt->shared->parent, free_func, free_info) < 0)
++                        while(len > 0) {
++                            off = ((uint8_t *)p) + (len - 1) * dt->shared->parent->shared->size;
++                            if(H5T_vlen_reclaim_recurse(off, dt->shared->parent, free_func, free_info) < 0) {
++#ifdef H5_NO_ALIGNMENT_RESTRICTIONS
++                                vl->len = len;
++#else
++                                HDmemcpy(((uint8_t *)elem)+HOFFSET(hvl_t, len), &len, sizeof(size_t));
++#endif
+                                 HGOTO_ERROR(H5E_DATATYPE, H5E_CANTFREE, FAIL, "Unable to free VL element")
+-                            vl->len--;
++                            }
++                            len--;
+                         } /* end while */
++#ifdef H5_NO_ALIGNMENT_RESTRICTIONS
++                        vl->len = 0;
++#else
++                        HDmemset(((uint8_t *)elem)+HOFFSET(hvl_t, len), 0, sizeof(size_t));
++#endif
+                     } /* end if */
+ 
+                     /* Free the VL sequence */
+                     if(free_func != NULL)
+-                        (*free_func)(vl->p, free_info);
++                        (*free_func)(p, free_info);
+                     else
+-                        HDfree(vl->p);
++                        HDfree(p);
+                 } /* end if */
+             } else if(dt->shared->u.vlen.type == H5T_VLEN_STRING) {
+                 /* Free the VL string */
++#ifdef H5_NO_ALIGNMENT_RESTRICTIONS
++                char *s=*(char **)elem;   /* Pointer to the user's string information */
++#else
++                char *s;      /* Pointer to the user's string information */
++                HDmemcpy(&s, elem, sizeof(char *));
++#endif
++
+                 if(free_func != NULL)
+-                    (*free_func)(*(char **)elem, free_info);
++                    (*free_func)(s, free_info);
+                 else
+-                    HDfree(*(char **)elem);
++                    HDfree(s);
+             } else {
+                 HDassert(0 && "Invalid VL type");
+             } /* end else */

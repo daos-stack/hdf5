@@ -1,0 +1,8 @@
+flavor-configure-option.patch
+path_max.diff
+ullong_force.diff
+relax-version-check.patch
+fix-unaligned-accesses.patch
+reproducibility.patch
+fix-junit-script.patch
+drop-deprecated-mpi-1-api.patch

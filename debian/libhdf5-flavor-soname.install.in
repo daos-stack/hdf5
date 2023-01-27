@@ -1,0 +1,4 @@
+usr/lib/*/libhdf5@FLAVORLIB@.so.*
+usr/lib/*/libhdf5@FLAVORLIB@_hl.so.*
+usr/lib/*/libhdf5@FLAVORLIB@_fortran.so.*
+usr/lib/*/libhdf5@FLAVORLIB@hl_fortran.so.*

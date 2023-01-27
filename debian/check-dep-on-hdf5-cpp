@@ -1,0 +1,36 @@
+#!/bin/sh
+# Script to list dependencies on HDF5 C++ API
+set -e
+[ -x /usr/bin/aptitude ]
+[ -x /usr/bin/file ]
+
+wkdir=
+cleanup () {
+  if [ -n "$wkdir" ]; then
+    rm -fr "$wkdir"
+  fi
+}
+trap 'cleanup' EXIT TERM ABRT INT
+
+wkdir=$(mktemp -d)
+cd "$wkdir"
+
+for pkg in $(apt-cache rdepends libhdf5-8 | grep -v '^    ' | tail -n +3 | sort -u | sed 's/^  //' | grep -v '^libhdf5-'); do
+  /usr/bin/aptitude download $pkg >/dev/null
+done
+for pkgfile in $(ls *.deb); do
+  mkdir root
+  dpkg-deb -x "$pkgfile" root
+  for file in $(find root -type f -print); do
+    if /usr/bin/file "$file" | grep -wq "ELF"; then
+      unset dep
+      dep=$(ldd "$file" | grep 'libhdf5_cpp\.so') || true
+      #dep=$(ldd "$file" | grep 'libhdf5\.so') || true
+      if [ -n "$dep" ]; then
+        echo "$(echo $pkgfile | awk -F'_' '{print $1}'): $dep"
+        break
+      fi
+    fi
+  done
+  rm -fr root
+done
