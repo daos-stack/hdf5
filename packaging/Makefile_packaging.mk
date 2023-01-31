@@ -181,8 +181,10 @@ $(DEB_TOP)/.patched: $(PATCHES) check-env deb_detar | \
 	$(DEB_BUILD)/debian/
 	mkdir -p ${DEB_BUILD}/debian/patches
 	mkdir -p $(DEB_TOP)/patches
-	mv $(DEB_BUILD)/debian/patches/series      \
-	   $(DEB_BUILD)/debian/patches/series.orig
+	if [ -f $(DEB_BUILD)/debian/patches/series ]; then                   \
+	    mv $(DEB_BUILD)/debian/patches/series                            \
+	       $(DEB_BUILD)/debian/patches/series.orig;                      \
+	fi
 	for f in $(PATCHES); do                                              \
           rm -f $(DEB_TOP)/patches/*;                                    \
 	  if git mailsplit -o$(DEB_TOP)/patches < "$$f"; then                \
@@ -207,8 +209,10 @@ $(DEB_TOP)/.patched: $(PATCHES) check-env deb_detar | \
 		fi;                                                              \
 	  fi;                                                                \
 	done
-	cat $(DEB_BUILD)/debian/patches/series.orig >> \
-	     $(DEB_BUILD)/debian/patches/series
+	if [ -f $(DEB_BUILD)/debian/patches/series.orig ]; then              \
+	    cat $(DEB_BUILD)/debian/patches/series.orig >>                   \
+	         $(DEB_BUILD)/debian/patches/series;                         \
+	fi
 	touch $@
 
 

@@ -117,8 +117,8 @@ else
 export DH_OPTIONS += -Nlibhdf5-java -Nlibhdf5-jni
 endif
 
-OPENMPI_FLAGS = $(call FLAVOR_FLAGS,openmpi) --enable-parallel=yes
-MPICH_FLAGS = $(call FLAVOR_FLAGS,mpich) --enable-parallel=yes
+OPENMPI_FLAGS = $(call FLAVOR_FLAGS,openmpi) --enable-parallel=yes --enable-map-api
+MPICH_FLAGS = $(call FLAVOR_FLAGS,mpich) --enable-parallel=yes --enable-map-api
 
 SERIAL_ENV := H5_LDFLAGS="-Wl,--version-script,\$$(top_srcdir)/debian/map_serial.ver"
 MPI_ENV = H5_LDFLAGS="-Wl,--version-script,\$$(top_srcdir)/debian/map_mpi.ver" \
