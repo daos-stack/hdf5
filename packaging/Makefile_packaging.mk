@@ -72,7 +72,7 @@ endif
 endif
 SOURCE           ?= $(REAL_SOURCE)
 PATCHES          ?= $(eval PATCHES := $(shell CHROOT_NAME=$(CHROOT_NAME) $(SPECTOOL) $(COMMON_RPM_ARGS) -l $(SPEC) | sed -ne 1d -e '/already present/d' -e 's/.*:  *//' -e 's/.*\///' -e '/\.patch/p'))$(PATCHES)
-OTHER_SOURCES    := $(eval OTHER_SOURCES := $(shell CHROOT_NAME=$(CHROOT_NAME) $(SPECTOOL) $(COMMON_RPM_ARGS) -l $(SPEC) | sed -ne 1d -e '/already present/d' -e 's/Source.*:  *//' -e '/.*\//p'))$(OTHER_SOURCES)
+OTHER_SOURCES    := $(eval OTHER_SOURCES := $(shell CHROOT_NAME=$(CHROOT_NAME) $(SPECTOOL) $(COMMON_RPM_ARGS) -l $(SPEC) | sed -ne 1d -e '/already present/d' -e 's/Source.*:  *//p'))$(OTHER_SOURCES)
 SOURCES          := $(addprefix _topdir/SOURCES/,$(notdir $(SOURCE) $(OTHER_SOURCES)) $(PATCHES))
 ifeq ($(ID_LIKE),debian)
 DEBS             := $(addsuffix _$(VERSION)-1_amd64.deb,$(shell sed -n '/-udeb/b; s,^Package:[[:blank:]],$(DEB_TOP)/,p' $(TOPDIR)/debian/control))
