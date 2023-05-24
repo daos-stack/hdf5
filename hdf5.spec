@@ -59,6 +59,7 @@ BuildRequires: libtool
 # Needed for mpi tests
 %if (0%{?suse_version} >= 1500)
 BuildRequires: openssh
+BuildRequires: hostname
 %else
 BuildRequires: openssh-clients
 %endif
@@ -700,7 +701,7 @@ done
 
 %changelog
 * Wed May 24 2023 Brian J. Murrell <brian.murrell@intel.com> - 1.13.1-3
-- update %patch usage
+- update %%patch usage
 - fix junit version extraction
 
 * Tue Aug 30 2022 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.1-2
