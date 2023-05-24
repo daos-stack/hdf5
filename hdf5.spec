@@ -22,7 +22,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
-Release: 2%{?commit:.git%{shortcommit}}%{?dist}
+Release: 3%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -59,6 +59,7 @@ BuildRequires: libtool
 # Needed for mpi tests
 %if (0%{?suse_version} >= 1500)
 BuildRequires: openssh
+BuildRequires: hostname
 %else
 BuildRequires: openssh-clients
 %endif
@@ -286,10 +287,10 @@ HDF5 tests with mpich
 
 %prep
 %setup -q -a 2 -n %{name}-%{name}-%{hdf5_tag}
-%patch1 -p1 -b .LD_LIBRARY_PATH
-%patch11 -p1 -b .daos
-%patch12 -p1 -b .examples
-%patch100 -p1 -b .-Werror=format-security
+%patch -P 1 -p1 -b .LD_LIBRARY_PATH
+%patch -P 11 -p1 -b .daos
+%patch -P 12 -p1 -b .examples
+%patch -P 100 -p1 -b .-Werror=format-security
 
 # Replace jars with system versions
 find -name \*.jar -delete
@@ -305,7 +306,7 @@ junit_ver_file=junit
 %else
 junit_ver_file=JPP-junit
 %endif
-junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9]*\)<.*/\1/;p;q}' /usr/share/maven-poms/$junit_ver_file.pom)
+junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9\.]*\)<.*/\1/;p;q}' /usr/share/maven-poms/$junit_ver_file.pom)
 sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
 
 # Force shared by default for compiler wrappers (bug #1266645)
@@ -699,6 +700,10 @@ done
 %endif
 
 %changelog
+* Wed May 24 2023 Brian J. Murrell <brian.murrell@intel.com> - 1.13.1-3
+- update %%patch usage
+- fix junit version extraction
+
 * Tue Aug 30 2022 Mohamad Chaarawi <mohamad.chaarawi@intel.com> - 1.13.1-2
 - update broken link
 
