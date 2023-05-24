@@ -286,10 +286,10 @@ HDF5 tests with mpich
 
 %prep
 %setup -q -a 2 -n %{name}-%{name}-%{hdf5_tag}
-%patch1 -p1 -b .LD_LIBRARY_PATH
-%patch11 -p1 -b .daos
-%patch12 -p1 -b .examples
-%patch100 -p1 -b .-Werror=format-security
+%patch -P 1 -p1 -b .LD_LIBRARY_PATH
+%patch -P 11 -p1 -b .daos
+%patch -P 12 -p1 -b .examples
+%patch -P 100 -p1 -b .-Werror=format-security
 
 # Replace jars with system versions
 find -name \*.jar -delete
