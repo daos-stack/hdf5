@@ -1,0 +1,5 @@
+flavor-configure-option.patch
+path_max.diff
+relax-version-check.patch
+reproducibility.patch
+fix-junit-script.patch

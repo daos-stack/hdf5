@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" != "upgrade" ]; then
+  if [ "@FLAVOR@" != "serial" ]; then
+    update-alternatives \
+	--remove h5pcc /usr/bin/h5pcc.@FLAVOR@
+  fi
+  update-alternatives \
+	--remove hdf5.pc /usr/lib/@MULTIARCH@/pkgconfig/hdf5-@FLAVOR@.pc
+fi
+
+#DEBHELPER#
+
+exit 0

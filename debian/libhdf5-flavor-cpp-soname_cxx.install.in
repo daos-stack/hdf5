@@ -1,0 +1,2 @@
+usr/lib/*/libhdf5_cpp.so.*
+usr/lib/*/libhdf5_hl_cpp.so.*

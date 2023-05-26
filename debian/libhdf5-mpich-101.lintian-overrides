@@ -1,0 +1,1 @@
+libhdf5-mpich-101: package-name-doesnt-match-sonames libhdf5-mpich101 libhdf5-mpich-fortran100 libhdf5-mpich-hl100 libhdf5-mpichhl-fortran100

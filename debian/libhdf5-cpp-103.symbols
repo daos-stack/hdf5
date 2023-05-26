@@ -1,0 +1,1260 @@
+libhdf5_cpp.so.103 libhdf5-cpp-103 #MINVER#
+ (optional|c++)"H5::AbstractDs::AbstractDs()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::getArrayType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::getCompType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::getDataType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::getEnumType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::getFloatType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::getIntType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::getStrType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::getTypeClass() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::getVarLenType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AbstractDs::~AbstractDs()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::ArrayType::ArrayType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::ArrayType::ArrayType(H5::ArrayType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::ArrayType::ArrayType(H5::DataType const&, int, unsigned long long const*)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::ArrayType::ArrayType(H5::H5Location const&, char const*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::ArrayType::ArrayType(H5::H5Location const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.10.1" 1.10.1
+ (arch-bits=64|optional|c++)"H5::ArrayType::ArrayType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::ArrayType::decode() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::ArrayType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::ArrayType::getArrayDims(unsigned long long*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::ArrayType::getArrayNDims() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::ArrayType::operator=(H5::ArrayType const&)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::ArrayType::~ArrayType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AtomType::AtomType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AtomType::AtomType(H5::AtomType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::AtomType::AtomType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::AtomType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::AtomType::getOffset() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AtomType::getOrder() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AtomType::getOrder(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::AtomType::getPad(H5T_pad_t&, H5T_pad_t&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AtomType::getPrecision() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::AtomType::setOffset(unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::AtomType::setOrder(H5T_order_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AtomType::setPad(H5T_pad_t, H5T_pad_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::AtomType::setPrecision(unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::AtomType::setSize(unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::AtomType::~AtomType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Attribute::Attribute()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Attribute::Attribute(H5::Attribute const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::Attribute::Attribute(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::Attribute::close()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Attribute::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Attribute::getId() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Attribute::getInMemDataSize() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::Attribute::getName(char*, unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::Attribute::getName(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, unsigned long) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Attribute::getName[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (arch-bits=64|optional|c++)"H5::Attribute::getName[abi:cxx11](unsigned long) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Attribute::getSpace() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Attribute::getStorageSize() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Attribute::p_get_type() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Attribute::p_read_fixed_len(H5::DataType const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Attribute::p_read_variable_len(H5::DataType const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (arch-bits=64|optional|c++)"H5::Attribute::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::Attribute::read(H5::DataType const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Attribute::read(H5::DataType const&, void*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Attribute::write(H5::DataType const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Attribute::write(H5::DataType const&, void const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Attribute::~Attribute()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AttributeIException::AttributeIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::AttributeIException::AttributeIException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::AttributeIException::~AttributeIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::CommonFG()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::openArrayType(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::openArrayType(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CommonFG::openCompType(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::openCompType(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CommonFG::openDataType(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::openDataType(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CommonFG::openEnumType(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::openEnumType(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CommonFG::openFloatType(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::openFloatType(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CommonFG::openIntType(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::openIntType(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CommonFG::openStrType(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::openStrType(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CommonFG::openVarLenType(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CommonFG::openVarLenType(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CommonFG::~CommonFG()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::CompType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::CompType(H5::CompType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::CompType(H5::DataSet const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::CompType(H5::H5Location const&, char const*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::CompType::CompType(H5::H5Location const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.10.1" 1.10.1
+ (arch-bits=64|optional|c++)"H5::CompType::CompType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::CompType::CompType(unsigned long)@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::CompType::decode() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::CompType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CompType::getMemberArrayType(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberClass(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberCompType(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberDataType(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberEnumType(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberFloatType(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberIndex(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberIndex(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CompType::getMemberIntType(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberName[abi:cxx11](unsigned int) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CompType::getMemberOffset(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberStrType(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getMemberVarLenType(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::getNmembers() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::CompType::insertMember(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned long, H5::DataType const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::CompType::p_get_member_type(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::CompType::pack() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::CompType::setSize(unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::CompType::~CompType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetAccPropList::DEFAULT@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::DEFAULT_@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::DSetAccPropList()@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::DSetAccPropList(H5::DSetAccPropList const&)@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::DSetAccPropList(long)@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::deleteConstants()@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::fromClass[abi:cxx11]() const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::getChunkCache(unsigned long&, unsigned long&, double&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::getConstant()@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::setChunkCache(unsigned long, unsigned long, double) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetAccPropList::~DSetAccPropList()@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DSetCreatPropList::DEFAULT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::DEFAULT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::DSetCreatPropList::DSetCreatPropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::DSetCreatPropList(H5::DSetCreatPropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DSetCreatPropList::DSetCreatPropList(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DSetCreatPropList::allFiltersAvail() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetCreatPropList::deleteConstants()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::DSetCreatPropList::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DSetCreatPropList::getAllocTime() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetCreatPropList::getChunk(int, unsigned long long*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::getConstant()@HDF5_CPP_1.8.16" 1.8.16
+ (arch-bits=64|optional|c++)"H5::DSetCreatPropList::getExternal(unsigned int, unsigned long, char*, long&, unsigned long long&) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::getExternalCount() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::getFillTime() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetCreatPropList::getFillValue(H5::DataType const&, void*) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DSetCreatPropList::getFilter(int, unsigned int&, unsigned long&, unsigned int*, unsigned long, char*, unsigned int&) const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DSetCreatPropList::getFilterById(int, unsigned int&, unsigned long&, unsigned int*, unsigned long, char*, unsigned int&) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::getLayout() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::getNfilters() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::isFillValueDefined() const@HDF5_CPP_1.10.1" 1.10.1
+ (arch-bits=64|optional|c++)"H5::DSetCreatPropList::modifyFilter(int, unsigned int, unsigned long, unsigned int const*) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::removeFilter(int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::setAllocTime(H5D_alloc_time_t) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetCreatPropList::setChunk(int, unsigned long long const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::setDeflate(int) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DSetCreatPropList::setExternal(char const*, long, unsigned long long) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::setFillTime(H5D_fill_time_t) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetCreatPropList::setFillValue(H5::DataType const&, void const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DSetCreatPropList::setFilter(int, unsigned int, unsigned long, unsigned int const*) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::setFletcher32() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::setLayout(H5D_layout_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::setNbit() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetCreatPropList::setShuffle() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::setSzip(unsigned int, unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetCreatPropList::setVirtual(H5::DataSpace const&, char const*, char const*, H5::DataSpace const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetCreatPropList::setVirtual(H5::DataSpace const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, H5::DataSpace const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetCreatPropList::~DSetCreatPropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::DEFAULT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::DEFAULT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::DSetMemXferPropList::DSetMemXferPropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::DSetMemXferPropList(H5::DSetMemXferPropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::DSetMemXferPropList(char const*)@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DSetMemXferPropList::DSetMemXferPropList(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DSetMemXferPropList::deleteConstants()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::DSetMemXferPropList::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DSetMemXferPropList::getBtreeRatios(double&, double&, double&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::getBuffer(void**, void**) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::getConstant()@HDF5_CPP_1.8.16" 1.8.16
+ (arch-bits=64|optional|c++)"H5::DSetMemXferPropList::getDataTransform(char*, unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::getDataTransform[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DSetMemXferPropList::getEDCCheck() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetMemXferPropList::getHyperVectorSize() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetMemXferPropList::getPreserve() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::getSmallDataBlockSize() const@HDF5_CPP_1.10.1" 1.10.1
+ (arch-bits=64|optional|c++)"H5::DSetMemXferPropList::getTypeConvCB(H5T_conv_ret_t (**)(H5T_conv_except_t, long, long, void*, void*, void*), void**) const@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::DSetMemXferPropList::getVlenMemManager(void* (*&)(unsigned long, void*), void**, void (*&)(void*, void*), void**) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::setBtreeRatios(double, double, double) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DSetMemXferPropList::setBuffer(unsigned long, void*, void*) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::setDataTransform(char const*) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::setDataTransform(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DSetMemXferPropList::setEDCCheck(H5Z_EDC_t) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetMemXferPropList::setHyperVectorSize(unsigned long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DSetMemXferPropList::setPreserve(bool) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::setSmallDataBlockSize(unsigned long long) const@HDF5_CPP_1.10.1" 1.10.1
+ (arch-bits=64|optional|c++)"H5::DSetMemXferPropList::setTypeConvCB(H5T_conv_ret_t (*)(H5T_conv_except_t, long, long, void*, void*, void*), void*) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DSetMemXferPropList::setVlenMemManager() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DSetMemXferPropList::setVlenMemManager(void* (*)(unsigned long, void*), void*, void (*)(void*, void*), void*) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DSetMemXferPropList::~DSetMemXferPropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::DataSet()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::DataSet(H5::Attribute const&, void const*, H5R_type_t, H5::PropList const&)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataSet::DataSet(H5::DataSet const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::DataSet(H5::H5Location const&, void const*, H5R_type_t, H5::PropList const&)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::DataSet::DataSet(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataSet::close()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::extend(unsigned long long const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::fillMemBuf(void const*, H5::DataType const&, void*, H5::DataType const&, H5::DataSpace const&) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DataSet::fillMemBuf(void*, H5::DataType const&, H5::DataSpace const&) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DataSet::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataSet::getAccessPlist() const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DataSet::getCreatePlist() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::getId() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::getInMemDataSize() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::getOffset() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::getSpace() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::getSpaceStatus(H5D_space_status_t&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::getStorageSize() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::getVlenBufSize(H5::DataType const&, H5::DataSpace const&) const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DataSet::iterateElems(void*, H5::DataType const&, H5::DataSpace const&, int (*)(void*, long, unsigned int, unsigned long long const*, void*), void*)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataSet::p_get_type() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DataSet::p_read_fixed_len(long, long, long, long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::DataSet::p_read_variable_len(long, long, long, long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::DataSet::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataSet::read(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, H5::DataType const&, H5::DataSpace const&, H5::DataSpace const&, H5::DSetMemXferPropList const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataSet::read(void*, H5::DataType const&, H5::DataSpace const&, H5::DataSpace const&, H5::DSetMemXferPropList const&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::vlenReclaim(H5::DataType const&, H5::DataSpace const&, H5::DSetMemXferPropList const&, void*)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::vlenReclaim(void*, H5::DataType const&, H5::DataSpace const&, H5::DSetMemXferPropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::write(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::DataType const&, H5::DataSpace const&, H5::DataSpace const&, H5::DSetMemXferPropList const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataSet::write(void const*, H5::DataType const&, H5::DataSpace const&, H5::DataSpace const&, H5::DSetMemXferPropList const&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSet::~DataSet()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSetIException::DataSetIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSetIException::DataSetIException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataSetIException::~DataSetIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::ALL@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::ALL_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::DataSpace::DataSpace(H5::DataSpace const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::DataSpace(H5S_class_t)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::DataSpace(int, unsigned long long const*, unsigned long long const*)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DataSpace::DataSpace(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataSpace::close()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::copy(H5::DataSpace const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::deleteConstants()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::DataSpace::extentCopy(H5::DataSpace const&) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DataSpace::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataSpace::getConstant()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::DataSpace::getId() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSelectBounds(unsigned long long*, unsigned long long*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSelectElemNpoints() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSelectElemPointlist(unsigned long long, unsigned long long, unsigned long long*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSelectHyperBlocklist(unsigned long long, unsigned long long, unsigned long long*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSelectHyperNblocks() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSelectNpoints() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSimpleExtentDims(unsigned long long*, unsigned long long*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSimpleExtentNdims() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSimpleExtentNpoints() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::getSimpleExtentType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::isSimple() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::offsetSimple(long long const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::operator=(H5::DataSpace const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DataSpace::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataSpace::selectAll() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DataSpace::selectElements(H5S_seloper_t, unsigned long, unsigned long long const*) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DataSpace::selectHyperslab(H5S_seloper_t, unsigned long long const*, unsigned long long const*, unsigned long long const*, unsigned long long const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::selectNone() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::selectValid() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::setExtentNone() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::setExtentSimple(int, unsigned long long const*, unsigned long long const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpace::~DataSpace()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpaceIException::DataSpaceIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataSpaceIException::DataSpaceIException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataSpaceIException::~DataSpaceIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::DataType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::DataType(H5::DataType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::DataType(H5::H5Location const&, char const*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DataType::DataType(H5::H5Location const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DataType::DataType(H5::H5Location const&, void const*, H5R_type_t, H5::PropList const&)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataType::DataType(H5::PredType const&)@HDF5_CPP_1.8.15" 1.8.15
+ (arch-bits=64|optional|c++)"H5::DataType::DataType(H5T_class_t, unsigned long)@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DataType::DataType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataType::close()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::commit(H5::H5Location const&, char const*)@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DataType::commit(H5::H5Location const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataType::committed() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DataType::convert(H5::DataType const&, unsigned long, void*, void*, H5::PropList const&) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::DataType::copy(H5::DataSet const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::copy(H5::DataType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::decode() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::DataType::detectClass(H5::PredType const&, H5T_class_t)@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::DataType::detectClass(H5T_class_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::encode()@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::DataType::find(H5::DataType const&, H5T_cdata_t**) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataType::getClass() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::getCreatePlist() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::DataType::getId() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::getSize() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::getSuper() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::getTag[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataType::hasBinaryDesc() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::DataType::isVariableStr() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::lock() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::operator!=(H5::DataType const&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::DataType::operator=(H5::DataType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::operator==(H5::DataType const&) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::DataType::p_commit(long, char const*)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataType::p_decode() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::DataType::p_opentype(H5::H5Location const&, char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (arch-bits=64|optional|c++)"H5::DataType::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::DataType::registerFunc(H5T_pers_t, char const*, H5::DataType const&, int (*)(long, long, H5T_cdata_t*, unsigned long, unsigned long, unsigned long, void*, void*, long)) const@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::DataType::registerFunc(H5T_pers_t, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::DataType const&, int (*)(long, long, H5T_cdata_t*, unsigned long, unsigned long, unsigned long, void*, void*, long)) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataType::setTag(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataType::setTag(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (arch-bits=64|optional|c++)"H5::DataType::unregister(H5T_pers_t, char const*, H5::DataType const&, int (*)(long, long, H5T_cdata_t*, unsigned long, unsigned long, unsigned long, void*, void*, long)) const@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::DataType::unregister(H5T_pers_t, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::DataType const&, int (*)(long, long, H5T_cdata_t*, unsigned long, unsigned long, unsigned long, void*, void*, long)) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::DataType::~DataType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataTypeIException::DataTypeIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::DataTypeIException::DataTypeIException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::DataTypeIException::~DataTypeIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::EnumType::EnumType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::EnumType::EnumType(H5::DataSet const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::EnumType::EnumType(H5::EnumType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::EnumType::EnumType(H5::H5Location const&, char const*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::EnumType::EnumType(H5::H5Location const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::EnumType::EnumType(H5::IntType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::EnumType::EnumType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::EnumType::EnumType(unsigned long)@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::EnumType::decode() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::EnumType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::EnumType::getMemberIndex(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::EnumType::getMemberIndex(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::EnumType::getMemberValue(unsigned int, void*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::EnumType::getNmembers() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::EnumType::insert(char const*, void*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::EnumType::insert(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void*) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (arch-bits=64|optional|c++)"H5::EnumType::nameOf[abi:cxx11](void*, unsigned long) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::EnumType::valueOf(char const*, void*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::EnumType::valueOf(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void*) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::EnumType::~EnumType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Exception::DEFAULT_MSG@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Exception::Exception()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Exception::Exception(H5::Exception const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Exception::Exception(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Exception::clearErrorStack()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Exception::dontPrint()@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::Exception::getAutoPrint(int (*&)(long, void*), void**)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::Exception::getCDetailMsg() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Exception::getCFuncName() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Exception::getDetailMsg[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Exception::getFuncName[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (arch-bits=64|optional|c++)"H5::Exception::getMajorString[abi:cxx11](long) const@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::Exception::getMinorString[abi:cxx11](long) const@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::Exception::printErrorStack(_IO_FILE*, long)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::Exception::setAutoPrint(int (*&)(long, void*), void*)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::Exception::walkErrorStack(H5E_direction_t, int (*)(unsigned int, H5E_error2_t const*, void*), void*)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Exception::~Exception()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::DEFAULT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::DEFAULT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::FileAccPropList::FileAccPropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::FileAccPropList(H5::FileAccPropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FileAccPropList::FileAccPropList(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::FileAccPropList::deleteConstants()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::FileAccPropList::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::FileAccPropList::getAlignment(unsigned long long&, unsigned long long&) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FileAccPropList::getCache(int&, unsigned long&, unsigned long&, double&) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::FileAccPropList::getConstant()@HDF5_CPP_1.8.16" 1.8.16
+ (arch-bits=64|optional|c++)"H5::FileAccPropList::getCore(unsigned long&, bool&) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::FileAccPropList::getDriver() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::getFamily(unsigned long long&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::getFamily(unsigned long long&, H5::FileAccPropList&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::getFamilyOffset() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::getFcloseDegree() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::FileAccPropList::getGcReferences() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::getLibverBounds(H5F_libver_t&, H5F_libver_t&) const@HDF5_CPP_1.8.15" 1.8.15
+ (optional|c++)"H5::FileAccPropList::getMetaBlockSize() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::getMultiType() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::getSieveBufSize() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::setAlignment(unsigned long long, unsigned long long) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FileAccPropList::setCache(int, unsigned long, unsigned long, double) const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FileAccPropList::setCore(unsigned long, bool) const@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::FileAccPropList::setDriver(long, void const*) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::FileAccPropList::setFamily(unsigned long long, H5::FileAccPropList const&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::setFamilyOffset(unsigned long long) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::setFcloseDegree(H5F_close_degree_t) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::FileAccPropList::setGcReferences(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::setLibverBounds(H5F_libver_t, H5F_libver_t) const@HDF5_CPP_1.8.15" 1.8.15
+ (arch-bits=64|optional|c++)"H5::FileAccPropList::setLog(char const*, unsigned int, unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FileAccPropList::setLog(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned int, unsigned long) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::FileAccPropList::setMetaBlockSize(unsigned long long&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::setMultiType(H5F_mem_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::setSec2() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FileAccPropList::setSieveBufSize(unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::FileAccPropList::setSplit(H5::FileAccPropList const&, H5::FileAccPropList const&, char const*, char const*) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::FileAccPropList::setSplit(H5::FileAccPropList const&, H5::FileAccPropList const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::FileAccPropList::setStdio() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileAccPropList::~FileAccPropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::DEFAULT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::DEFAULT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::FileCreatPropList::FileCreatPropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::FileCreatPropList(H5::FileCreatPropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FileCreatPropList::FileCreatPropList(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::FileCreatPropList::deleteConstants()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::FileCreatPropList::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::FileCreatPropList::getConstant()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::FileCreatPropList::getFileSpacePagesize() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::FileCreatPropList::getFileSpaceStrategy(H5F_fspace_strategy_t&, bool&, unsigned long long&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::FileCreatPropList::getIstorek() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FileCreatPropList::getSizes(unsigned long&, unsigned long&) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::getSymk(unsigned int&, unsigned int&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::getUserblock() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::getVersion(unsigned int&, unsigned int&, unsigned int&, unsigned int&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::setFileSpacePagesize(unsigned long long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::FileCreatPropList::setFileSpaceStrategy(H5F_fspace_strategy_t, bool, unsigned long long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::FileCreatPropList::setIstorek(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FileCreatPropList::setSizes(unsigned long, unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::setSymk(unsigned int, unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::setUserblock(unsigned long long) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileCreatPropList::~FileCreatPropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileIException::FileIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FileIException::FileIException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::FileIException::~FileIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FloatType::FloatType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FloatType::FloatType(H5::DataSet const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FloatType::FloatType(H5::FloatType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FloatType::FloatType(H5::H5Location const&, char const*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::FloatType::FloatType(H5::H5Location const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::FloatType::FloatType(H5::PredType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FloatType::FloatType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::FloatType::decode() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::FloatType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::FloatType::getEbias() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FloatType::getFields(unsigned long&, unsigned long&, unsigned long&, unsigned long&, unsigned long&) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::FloatType::getInpad(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::FloatType::getNorm(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (arch-bits=64|optional|c++)"H5::FloatType::setEbias(unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::FloatType::setFields(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::FloatType::setInpad(H5T_pad_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FloatType::setNorm(H5T_norm_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::FloatType::~FloatType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Group::Group()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Group::Group(H5::Group const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Group::Group(H5::H5Location const&, void const*, H5R_type_t, H5::PropList const&)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::Group::Group(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::Group::close()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Group::closeObjId(long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::Group::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Group::getId() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Group::getLocId() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::Group::getNumObjs() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::Group::getObjId(char const*, H5::PropList const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::Group::getObjId(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::PropList const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (arch-bits=64|optional|c++)"H5::Group::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::Group::throwException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::Group::~Group()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::GroupIException::GroupIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::GroupIException::GroupIException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::GroupIException::~GroupIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::H5File()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::H5File(H5::H5File const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::H5File(char const*, unsigned int, H5::FileCreatPropList const&, H5::FileAccPropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::H5File::H5File(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::H5File::H5File(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned int, H5::FileCreatPropList const&, H5::FileAccPropList const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5File::close()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5File::getAccessPlist() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::getCreatePlist() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::getFileInfo(H5F_info2_t&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5File::getFileSize() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::getFreeSpace() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::getId() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::getLocId() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::getObjCount(unsigned int) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::H5File::getObjIDs(unsigned int, unsigned long, long*) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::H5File::getVFDHandle(H5::FileAccPropList const&, void**) const@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::H5File::getVFDHandle(void**) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::isHdf5(char const*)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::isHdf5(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5File::openFile(char const*, unsigned int, H5::FileAccPropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::openFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned int, H5::FileAccPropList const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5File::p_get_file(char const*, unsigned int, H5::FileCreatPropList const&, H5::FileAccPropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::H5File::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::H5File::reOpen()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::reopen()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5File::throwException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5File::~H5File()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5Library::H5Library()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::H5Library::checkVersion(unsigned int, unsigned int, unsigned int)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5Library::close()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5Library::dontAtExit()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5Library::garbageCollect()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5Library::getLibVersion(unsigned int&, unsigned int&, unsigned int&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5Library::initH5cpp()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::H5Library::open()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5Library::setFreeListLimits(int, int, int, int, int, int)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5Library::termH5cpp()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::H5Library::~H5Library()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::H5Location::H5Location()@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::childObjType(char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::childObjType(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::childObjType(unsigned long long, H5_index_t, H5_iter_order_t, char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::childObjVersion(char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::childObjVersion(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::copyLink(char const*, H5::Group const&, char const*, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::copyLink(char const*, char const*, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::copyLink(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::Group const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::copyLink(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::createDataSet(char const*, H5::DataType const&, H5::DataSpace const&, H5::DSetCreatPropList const&, H5::DSetAccPropList const&, H5::LinkCreatPropList const&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::H5Location::createDataSet(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::DataType const&, H5::DataSpace const&, H5::DSetCreatPropList const&, H5::DSetAccPropList const&, H5::LinkCreatPropList const&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::H5Location::createGroup(char const*, H5::LinkCreatPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::createGroup(char const*, unsigned long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::createGroup(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkCreatPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::createGroup(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::dereference(H5::H5Location const&, void const*, H5R_type_t, H5::PropList const&)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::H5Location::exists(char const*, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::exists(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::flush(H5F_scope_t) const@HDF5_CPP_1.8.12" 1.8.13
+ (arch-bits=64|optional|c++)"H5::H5Location::getComment(char const*, unsigned long, char*) const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::H5Location::getComment(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned long) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (arch-bits=64|optional|c++)"H5::H5Location::getComment[abi:cxx11](char const*, unsigned long) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5Location::getFileName[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5Location::getLinkInfo(char const*, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::getLinkInfo(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::getLinkval(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getLinkval[abi:cxx11](char const*, unsigned long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getNumObjs() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::getObjType(void*, H5R_type_t) const@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::getObjTypeByIdx(unsigned long long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getObjTypeByIdx(unsigned long long, char*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getObjTypeByIdx(unsigned long long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getObjinfo(H5O_info_t&, unsigned int) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::H5Location::getObjinfo(char const*, H5G_stat_t&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getObjinfo(char const*, H5O_info_t&, unsigned int, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::H5Location::getObjinfo(char const*, H5_index_t, H5_iter_order_t, unsigned long long, H5O_info_t&, unsigned int, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::H5Location::getObjinfo(char const*, bool, H5G_stat_t&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getObjinfo(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5G_stat_t&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getObjinfo(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5O_info_t&, unsigned int, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::H5Location::getObjinfo(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5_index_t, H5_iter_order_t, unsigned long long, H5O_info_t&, unsigned int, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::H5Location::getObjinfo(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, H5G_stat_t&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getObjnameByIdx(unsigned long long, char*, unsigned long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getObjnameByIdx(unsigned long long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, unsigned long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getObjnameByIdx[abi:cxx11](unsigned long long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::getRefObjType(void*, H5R_type_t) const@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::getRegion(void*, H5R_type_t) const@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::iterateElems(char const*, int*, int (*)(long, char const*, void*), void*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::iterateElems(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int*, int (*)(long, char const*, void*), void*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::link(H5L_type_t, char const*, char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::link(H5L_type_t, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::link(char const*, H5::Group const&, char const*, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::link(char const*, char const*, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::link(char const*, long, char const*, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::link(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::Group const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::link(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::link(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::mount(char const*, H5::H5File const&, H5::PropList const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::mount(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::H5File const&, H5::PropList const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::move(char const*, char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::move(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::moveLink(char const*, H5::Group const&, char const*, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::moveLink(char const*, char const*, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::moveLink(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::Group const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::moveLink(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkCreatPropList const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::nameExists(char const*, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::nameExists(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::openDataSet(char const*, H5::DSetAccPropList const&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::H5Location::openDataSet(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::DSetAccPropList const&) const@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"H5::H5Location::openGroup(char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::openGroup(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (arch-bits=64|optional|c++)"H5::H5Location::p_dereference(long, void const*, H5R_type_t, H5::PropList const&, char const*)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::H5Location::p_get_obj_type(void*, H5R_type_t) const@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::p_get_ref_obj_type(void*, H5R_type_t) const@HDF5_CPP_1.8.12" 1.8.13
+ (arch-bits=64|optional|c++)"H5::H5Location::p_reference(void*, char const*, long, H5R_type_t) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::H5Location::reference(void*, char const*, H5::DataSpace const&, H5R_type_t) const@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::reference(void*, char const*, H5R_type_t) const@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::reference(void*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::DataSpace const&, H5R_type_t) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5Location::reference(void*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5R_type_t) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5Location::removeComment(char const*) const@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::removeComment(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5Location::setComment(char const*) const@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::setComment(char const*, char const*) const@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Location::setComment(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5Location::setComment(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5Location::throwException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::unlink(char const*, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::unlink(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::LinkAccPropList const&) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::H5Location::unmount(char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::unmount(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Location::~H5Location()@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::H5Object::H5Object()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::H5Object::attrExists(char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::attrExists(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::createAttribute(char const*, H5::DataType const&, H5::DataSpace const&, H5::PropList const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::createAttribute(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, H5::DataType const&, H5::DataSpace const&, H5::PropList const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::getNumAttrs() const@HDF5_CPP_1.10.2" 1.10.2
+ (arch-bits=64|optional|c++)"H5::H5Object::getObjName(char*, unsigned long) const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::H5Object::getObjName(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, unsigned long) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5Object::getObjName[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::H5Object::iterateAttrs(void (*)(H5::H5Object&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, void*), unsigned int*, void*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::objVersion() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::openAttribute(char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::openAttribute(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::openAttribute(unsigned int) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::removeAttr(char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::removeAttr(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::renameAttr(char const*, char const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::renameAttr(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::H5Object::~H5Object()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IdComponent::H5cppinit@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::IdComponent::H5dontAtexit_called@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::IdComponent::IdComponent()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IdComponent::decRefCount() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::IdComponent::decRefCount(long) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::IdComponent::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::IdComponent::getCounter() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::IdComponent::getCounter(long) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::IdComponent::getHDFObjType() const@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::IdComponent::getHDFObjType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::IdComponent::getNumMembers(H5I_type_t)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::IdComponent::inMemFunc[abi:cxx11](char const*) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::IdComponent::incRefCount() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::IdComponent::incRefCount(long) const@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::IdComponent::isValid(long)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::IdComponent::operator=(H5::IdComponent const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IdComponent::p_get_file_name[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (arch-bits=64|optional|c++)"H5::IdComponent::p_valid_id(long)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::IdComponent::setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::IdComponent::typeExists(H5I_type_t)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::IdComponent::~IdComponent()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IdComponentException::IdComponentException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IdComponentException::IdComponentException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::IdComponentException::~IdComponentException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IntType::IntType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IntType::IntType(H5::DataSet const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IntType::IntType(H5::H5Location const&, char const*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::IntType::IntType(H5::H5Location const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::IntType::IntType(H5::IntType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IntType::IntType(H5::PredType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::IntType::IntType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::IntType::decode() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::IntType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::IntType::getSign() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IntType::setSign(H5T_sign_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::IntType::~IntType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::LibraryIException::LibraryIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::LibraryIException::LibraryIException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::LibraryIException::~LibraryIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::LinkAccPropList::DEFAULT@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::DEFAULT_@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::LinkAccPropList()@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::LinkAccPropList(H5::LinkAccPropList const&)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::LinkAccPropList(long)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::deleteConstants()@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::fromClass[abi:cxx11]() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::getConstant()@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::getNumLinks() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::setNumLinks(unsigned long) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkAccPropList::~LinkAccPropList()@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::LinkCreatPropList::DEFAULT@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::DEFAULT_@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::LinkCreatPropList()@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::LinkCreatPropList(H5::LinkCreatPropList const&)@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::LinkCreatPropList(long)@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::deleteConstants()@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::fromClass[abi:cxx11]() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::getCharEncoding() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::getConstant()@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::setCharEncoding(H5T_cset_t) const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LinkCreatPropList::~LinkCreatPropList()@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::LocationException::LocationException()@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::LocationException::LocationException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::LocationException::~LocationException()@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::ObjCreatPropList::DEFAULT@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::DEFAULT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::ObjCreatPropList()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::ObjCreatPropList(H5::ObjCreatPropList const&)@HDF5_CPP_1.8.16" 1.8.16
+ (arch-bits=64|optional|c++)"H5::ObjCreatPropList::ObjCreatPropList(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::ObjCreatPropList::deleteConstants()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::getAttrCrtOrder() const@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::getAttrPhaseChange(unsigned int&, unsigned int&) const@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::getConstant()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::setAttrCrtOrder(unsigned int) const@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::setAttrPhaseChange(unsigned int, unsigned int) const@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjCreatPropList::~ObjCreatPropList()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::ObjHeaderIException::ObjHeaderIException()@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::ObjHeaderIException::ObjHeaderIException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::ObjHeaderIException::~ObjHeaderIException()@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::PredType::ALPHA_B16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_B16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_B32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_B32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_B64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_B64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_B8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_B8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_F32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_F32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_F64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_F64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_I16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_I16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_I32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_I32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_I64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_I64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_I8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_I8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_U16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_U16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_U32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_U32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_U64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_U64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::ALPHA_U8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::ALPHA_U8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::C_S1@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::C_S1_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::FORTRAN_S1@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::FORTRAN_S1_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::IEEE_F32BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::IEEE_F32BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::IEEE_F32LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::IEEE_F32LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::IEEE_F64BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::IEEE_F64BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::IEEE_F64LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::IEEE_F64LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_B16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_B16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_B32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_B32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_B64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_B64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_B8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_B8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_F32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_F32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_F64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_F64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_I16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_I16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_I32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_I32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_I64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_I64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_I8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_I8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_U16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_U16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_U32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_U32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_U64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_U64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::INTEL_U8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::INTEL_U8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_B16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_B16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_B32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_B32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_B64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_B64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_B8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_B8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_F32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_F32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_F64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_F64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_I16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_I16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_I32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_I32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_I64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_I64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_I8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_I8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_U16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_U16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_U32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_U32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_U64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_U64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::MIPS_U8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::MIPS_U8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_B16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_B16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_B32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_B32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_B64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_B64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_B8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_B8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_CHAR@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_CHAR_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_DOUBLE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_DOUBLE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_FLOAT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_FLOAT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_HBOOL@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_HBOOL_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_HERR@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_HERR_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_HSIZE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_HSIZE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_HSSIZE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_HSSIZE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT_FAST16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT_FAST16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT_FAST32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT_FAST32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT_FAST64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT_FAST64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT_FAST8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT_FAST8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT_LEAST16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT_LEAST16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT_LEAST32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT_LEAST32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT_LEAST64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT_LEAST64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_INT_LEAST8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_INT_LEAST8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_LDOUBLE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_LDOUBLE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_LLONG@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_LLONG_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_LONG@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_LONG_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_OPAQUE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_OPAQUE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_SCHAR@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_SCHAR_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_SHORT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_SHORT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UCHAR@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UCHAR_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT_FAST16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT_FAST16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT_FAST32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT_FAST32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT_FAST64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT_FAST64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT_FAST8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT_FAST8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT_LEAST16@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT_LEAST16_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT_LEAST32@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT_LEAST32_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT_LEAST64@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT_LEAST64_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_UINT_LEAST8@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_UINT_LEAST8_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_ULLONG@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_ULLONG_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_ULONG@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_ULONG_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::NATIVE_USHORT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::NATIVE_USHORT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::PREDTYPE_CONST@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::PREDTYPE_CONST_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::PredType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::PredType(H5::PredType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::PredType::PredType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::PredType::STD_B16BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_B16BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_B16LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_B16LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_B32BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_B32BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_B32LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_B32LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_B64BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_B64BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_B64LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_B64LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_B8BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_B8BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_B8LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_B8LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_I16BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_I16BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_I16LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_I16LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_I32BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_I32BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_I32LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_I32LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_I64BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_I64BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_I64LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_I64LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_I8BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_I8BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_I8LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_I8LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_REF_DSETREG@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_REF_DSETREG_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_REF_OBJ@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_REF_OBJ_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_U16BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_U16BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_U16LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_U16LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_U32BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_U32BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_U32LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_U32LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_U64BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_U64BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_U64LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_U64LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_U8BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_U8BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::STD_U8LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::STD_U8LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::UNIX_D32BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::UNIX_D32BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::UNIX_D32LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::UNIX_D32LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::UNIX_D64BE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::UNIX_D64BE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::UNIX_D64LE@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::UNIX_D64LE_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::commit(H5::H5Location&, char const*)@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"H5::PredType::commit(H5::H5Location&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PredType::committed()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::deleteConstants()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PredType::getPredTypes()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::makePredTypes()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PredType::operator=(H5::PredType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PredType::~PredType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::DEFAULT@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::DEFAULT_@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PropList::PropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::PropList(H5::PropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::PropList::PropList(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::PropList::close()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::closeClass() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::copy(H5::PropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::copyProp(H5::PropList&, H5::PropList&, char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::copyProp(H5::PropList&, H5::PropList&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::copyProp(H5::PropList&, char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::copyProp(H5::PropList&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::deleteConstants()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PropList::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::getClass() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::getClassName[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::getClassParent() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::getConstant()@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"H5::PropList::getId() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::getNumProps() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::getPropSize(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::getPropSize(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::getProperty(char const*, void*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::getProperty(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::getProperty(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void*) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::getProperty[abi:cxx11](char const*) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::isAClass(H5::PropList const&) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::operator=(H5::PropList const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::operator==(H5::PropList const&) const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::PropList::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::PropList::propExist(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::propExist(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::removeProp(char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::removeProp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::setProperty(char const*, char const*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::setProperty(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::PropList::setProperty(char const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::setProperty(char const*, void const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::PropList::setProperty(char const*, void*) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropList::setProperty(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::PropList::setProperty(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::setProperty(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void const*) const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::PropList::setProperty(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, void*) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropList::~PropList()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropListIException::PropListIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::PropListIException::PropListIException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::PropListIException::~PropListIException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::ReferenceException::ReferenceException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::ReferenceException::ReferenceException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::ReferenceException::~ReferenceException()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::StrType::StrType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::StrType::StrType(H5::DataSet const&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::StrType::StrType(H5::H5Location const&, char const*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::StrType::StrType(H5::H5Location const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::StrType::StrType(H5::PredType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::StrType::StrType(H5::PredType const&, unsigned long const&)@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"H5::StrType::StrType(H5::StrType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::StrType::StrType(int, unsigned long const&)@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"H5::StrType::StrType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::StrType::decode() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::StrType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::StrType::getCset() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::StrType::getStrpad() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::StrType::setCset(H5T_cset_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::StrType::setStrpad(H5T_str_t) const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::StrType::~StrType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::VarLenType::VarLenType()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::VarLenType::VarLenType(H5::DataType const&)@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::VarLenType::VarLenType(H5::DataType const*)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"H5::VarLenType::VarLenType(H5::H5Location const&, char const*)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::VarLenType::VarLenType(H5::H5Location const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"H5::VarLenType::VarLenType(H5::VarLenType const&)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::VarLenType::VarLenType(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"H5::VarLenType::decode() const@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"H5::VarLenType::fromClass[abi:cxx11]() const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"H5::VarLenType::~VarLenType()@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"H5::f_Attribute_setId(H5::Attribute*, long)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::f_DataSet_setId(H5::DataSet*, long)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::f_DataSpace_setId(H5::DataSpace*, long)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::f_DataType_setId(H5::DataType*, long)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"H5::f_PropList_setId(H5::PropList*, long)@HDF5_CPP_1.10.0" 1.10.0
+ HDF5_CPP_1.10.0@HDF5_CPP_1.10.0 1.10.0
+ HDF5_CPP_1.10.1@HDF5_CPP_1.10.1 1.10.1
+ HDF5_CPP_1.10.2@HDF5_CPP_1.10.2 1.10.2
+ HDF5_CPP_1.10.3@HDF5_CPP_1.10.3 1.10.3
+ HDF5_CPP_1.8.10@HDF5_CPP_1.8.10 1.8.13
+ HDF5_CPP_1.8.11@HDF5_CPP_1.8.11 1.8.13
+ HDF5_CPP_1.8.12@HDF5_CPP_1.8.12 1.8.13
+ HDF5_CPP_1.8.13@HDF5_CPP_1.8.13 1.8.13
+ HDF5_CPP_1.8.14@HDF5_CPP_1.8.14 1.8.14
+ HDF5_CPP_1.8.15.1@HDF5_CPP_1.8.15.1 1.8.15-patch1
+ HDF5_CPP_1.8.15@HDF5_CPP_1.8.15 1.8.15
+ HDF5_CPP_1.8.16@HDF5_CPP_1.8.16 1.8.16
+ HDF5_CPP_1.8.7@HDF5_CPP_1.8.7 1.8.13
+ HDF5_CPP_1.8.8@HDF5_CPP_1.8.8 1.8.13
+ HDF5_CPP_1.8.9@HDF5_CPP_1.8.9 1.8.13
+ HDF5_SERIAL_1.10.0@HDF5_SERIAL_1.10.0 1.10.0
+ HDF5_SERIAL_1.10.1@HDF5_SERIAL_1.10.1 1.10.1
+ HDF5_SERIAL_1.10.2@HDF5_SERIAL_1.10.2 1.10.2
+ HDF5_SERIAL_1.10.3@HDF5_SERIAL_1.10.3 1.10.3
+ HDF5_SERIAL_1.8.10@HDF5_SERIAL_1.8.10 1.8.13
+ HDF5_SERIAL_1.8.11@HDF5_SERIAL_1.8.11 1.8.13
+ HDF5_SERIAL_1.8.12@HDF5_SERIAL_1.8.12 1.8.13
+ HDF5_SERIAL_1.8.13@HDF5_SERIAL_1.8.13 1.8.13
+ HDF5_SERIAL_1.8.14@HDF5_SERIAL_1.8.14 1.8.14
+ HDF5_SERIAL_1.8.15.1@HDF5_SERIAL_1.8.15.1 1.8.15-patch1
+ HDF5_SERIAL_1.8.15@HDF5_SERIAL_1.8.15 1.8.15
+ HDF5_SERIAL_1.8.16@HDF5_SERIAL_1.8.16 1.8.16
+ HDF5_SERIAL_1.8.7@HDF5_SERIAL_1.8.7 1.8.13
+ HDF5_SERIAL_1.8.8@HDF5_SERIAL_1.8.8 1.8.13
+ HDF5_SERIAL_1.8.9@HDF5_SERIAL_1.8.9 1.8.13
+ (optional|c++)"non-virtual thunk to H5::Attribute::close()@HDF5_CPP_1.8.11" 1.8.13
+ (optional|c++)"non-virtual thunk to H5::Attribute::fromClass[abi:cxx11]() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"non-virtual thunk to H5::Attribute::getId() const@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"non-virtual thunk to H5::Attribute::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"non-virtual thunk to H5::Attribute::~Attribute()@HDF5_CPP_1.8.11" 1.8.13
+ (optional|c++)"non-virtual thunk to H5::DataSet::fromClass[abi:cxx11]() const@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"non-virtual thunk to H5::DataSet::getInMemDataSize() const@HDF5_CPP_1.8.11" 1.8.13
+ (optional|c++)"non-virtual thunk to H5::DataSet::getSpace() const@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"non-virtual thunk to H5::DataSet::getStorageSize() const@HDF5_CPP_1.8.11" 1.8.13
+ (optional|c++)"non-virtual thunk to H5::DataSet::p_get_type() const@HDF5_CPP_1.8.11" 1.8.13
+ (optional|c++)"non-virtual thunk to H5::DataSet::~DataSet()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"non-virtual thunk to H5::Group::getLocId() const@HDF5_CPP_1.8.11" 1.8.13
+ (arch-bits=64|optional|c++)"non-virtual thunk to H5::Group::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"non-virtual thunk to H5::Group::throwException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"non-virtual thunk to H5::Group::~Group()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"non-virtual thunk to H5::H5File::getLocId() const@HDF5_CPP_1.8.11" 1.8.13
+ (arch-bits=64|optional|c++)"non-virtual thunk to H5::H5File::p_setId(long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"non-virtual thunk to H5::H5File::throwException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_1.8.15.1" 1.8.15-patch1
+ (optional|c++)"non-virtual thunk to H5::H5File::~H5File()@HDF5_CPP_1.8.11" 1.8.13
+ (optional|c++)"typeinfo for H5::AbstractDs@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::ArrayType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::AtomType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::Attribute@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::AttributeIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::CommonFG@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::CompType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::DSetAccPropList@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"typeinfo for H5::DSetCreatPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::DSetMemXferPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::DataSet@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::DataSetIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::DataSpace@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::DataSpaceIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::DataType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::DataTypeIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::EnumType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::Exception@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::FileAccPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::FileCreatPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::FileIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::FloatType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::Group@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::GroupIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::H5File@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::H5Location@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"typeinfo for H5::H5Object@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::IdComponent@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::IdComponentException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::IntType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::LibraryIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::LinkAccPropList@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"typeinfo for H5::LinkCreatPropList@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"typeinfo for H5::LocationException@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"typeinfo for H5::ObjCreatPropList@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"typeinfo for H5::ObjHeaderIException@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"typeinfo for H5::PredType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::PropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::PropListIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::ReferenceException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::StrType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for H5::VarLenType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::AbstractDs@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::ArrayType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::AtomType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::Attribute@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::AttributeIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::CommonFG@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::CompType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::DSetAccPropList@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"typeinfo name for H5::DSetCreatPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::DSetMemXferPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::DataSet@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::DataSetIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::DataSpace@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::DataSpaceIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::DataType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::DataTypeIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::EnumType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::Exception@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::FileAccPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::FileCreatPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::FileIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::FloatType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::Group@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::GroupIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::H5File@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::H5Location@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"typeinfo name for H5::H5Object@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::IdComponent@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::IdComponentException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::IntType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::LibraryIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::LinkAccPropList@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"typeinfo name for H5::LinkCreatPropList@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"typeinfo name for H5::LocationException@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"typeinfo name for H5::ObjCreatPropList@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"typeinfo name for H5::ObjHeaderIException@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"typeinfo name for H5::PredType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::PropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::PropListIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::ReferenceException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::StrType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for H5::VarLenType@HDF5_CPP_1.8.9" 1.8.13
+ userAttrOpWrpr@HDF5_CPP_1.8.9 1.8.13
+ (optional|c++)"vtable for H5::AbstractDs@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::ArrayType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::AtomType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::Attribute@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::AttributeIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::CommonFG@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::CompType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::DSetAccPropList@HDF5_CPP_1.10.3" 1.10.3
+ (optional|c++)"vtable for H5::DSetCreatPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::DSetMemXferPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::DataSet@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::DataSetIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::DataSpace@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::DataSpaceIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::DataType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::DataTypeIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::EnumType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::Exception@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::FileAccPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::FileCreatPropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::FileIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::FloatType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::Group@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::GroupIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::H5File@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::H5Location@HDF5_CPP_1.8.12" 1.8.13
+ (optional|c++)"vtable for H5::H5Object@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::IdComponent@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::IdComponentException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::IntType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::LibraryIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::LinkAccPropList@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"vtable for H5::LinkCreatPropList@HDF5_CPP_1.10.2" 1.10.2
+ (optional|c++)"vtable for H5::LocationException@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"vtable for H5::ObjCreatPropList@HDF5_CPP_1.8.16" 1.8.16
+ (optional|c++)"vtable for H5::ObjHeaderIException@HDF5_CPP_1.10.1" 1.10.1
+ (optional|c++)"vtable for H5::PredType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::PropList@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::PropListIException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::ReferenceException@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::StrType@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for H5::VarLenType@HDF5_CPP_1.8.9" 1.8.13
+libhdf5_hl_cpp.so.100 libhdf5-cpp-103 #MINVER#
+ (optional|c++)"FL_PacketTable::AppendPacket(void*)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"FL_PacketTable::AppendPackets(unsigned long, void*)@HDF5_CPP_1.8.13" 1.8.13
+ (arch-bits=64|optional|c++)"FL_PacketTable::FL_PacketTable(long, char const*)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"FL_PacketTable::FL_PacketTable(long, char const*, long, unsigned long long, long)@HDF5_CPP_1.10.1" 1.10.1
+ (arch-bits=64|optional|c++)"FL_PacketTable::FL_PacketTable(long, char*)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"FL_PacketTable::FL_PacketTable(long, char*, long, unsigned long long, int)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"FL_PacketTable::FL_PacketTable(long, long, char const*, long, unsigned long long)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"FL_PacketTable::GetNextPacket(void*)@HDF5_CPP_1.8.9" 1.8.13
+ (arch-bits=64|optional|c++)"FL_PacketTable::GetNextPackets(unsigned long, void*)@HDF5_CPP_1.8.13" 1.8.13
+ (optional|c++)"FL_PacketTable::GetPacket(unsigned long long, void*)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"FL_PacketTable::GetPackets(unsigned long long, unsigned long long, void*)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"FL_PacketTable::~FL_PacketTable()@HDF5_CPP_1.10.0" 1.10.0
+ HDF5_CPP_1.10.0@HDF5_CPP_1.10.0 1.10.0
+ HDF5_CPP_1.10.1@HDF5_CPP_1.10.1 1.10.1
+ HDF5_CPP_1.10.2@HDF5_CPP_1.10.2 1.10.2
+ HDF5_CPP_1.10.3@HDF5_CPP_1.10.3 1.10.3
+ HDF5_CPP_1.8.10@HDF5_CPP_1.8.10 1.8.13
+ HDF5_CPP_1.8.11@HDF5_CPP_1.8.11 1.8.13
+ HDF5_CPP_1.8.12@HDF5_CPP_1.8.12 1.8.13
+ HDF5_CPP_1.8.13@HDF5_CPP_1.8.13 1.8.13
+ HDF5_CPP_1.8.14@HDF5_CPP_1.8.14 1.8.14
+ HDF5_CPP_1.8.15.1@HDF5_CPP_1.8.15.1 1.8.15-patch1
+ HDF5_CPP_1.8.15@HDF5_CPP_1.8.15 1.8.15
+ HDF5_CPP_1.8.16@HDF5_CPP_1.8.16 1.8.16
+ HDF5_CPP_1.8.7@HDF5_CPP_1.8.7 1.8.13
+ HDF5_CPP_1.8.8@HDF5_CPP_1.8.8 1.8.13
+ HDF5_CPP_1.8.9@HDF5_CPP_1.8.9 1.8.13
+ HDF5_SERIAL_1.10.0@HDF5_SERIAL_1.10.0 1.10.0
+ HDF5_SERIAL_1.10.1@HDF5_SERIAL_1.10.1 1.10.1
+ HDF5_SERIAL_1.10.2@HDF5_SERIAL_1.10.2 1.10.2
+ HDF5_SERIAL_1.10.3@HDF5_SERIAL_1.10.3 1.10.3
+ HDF5_SERIAL_1.8.10@HDF5_SERIAL_1.8.10 1.8.13
+ HDF5_SERIAL_1.8.11@HDF5_SERIAL_1.8.11 1.8.13
+ HDF5_SERIAL_1.8.12@HDF5_SERIAL_1.8.12 1.8.13
+ HDF5_SERIAL_1.8.13@HDF5_SERIAL_1.8.13 1.8.13
+ HDF5_SERIAL_1.8.14@HDF5_SERIAL_1.8.14 1.8.14
+ HDF5_SERIAL_1.8.15.1@HDF5_SERIAL_1.8.15.1 1.8.15-patch1
+ HDF5_SERIAL_1.8.15@HDF5_SERIAL_1.8.15 1.8.15
+ HDF5_SERIAL_1.8.16@HDF5_SERIAL_1.8.16 1.8.16
+ HDF5_SERIAL_1.8.7@HDF5_SERIAL_1.8.7 1.8.13
+ HDF5_SERIAL_1.8.8@HDF5_SERIAL_1.8.8 1.8.13
+ HDF5_SERIAL_1.8.9@HDF5_SERIAL_1.8.9 1.8.13
+ (arch-bits=64|optional|c++)"PacketTable::FreeBuff(unsigned long, hvl_t*)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"PacketTable::GetDataset()@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"PacketTable::GetDatatype()@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"PacketTable::GetIndex(int&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"PacketTable::GetPacketCount(int&)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"PacketTable::GetTableId()@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"PacketTable::IsValid()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"PacketTable::IsVariableLength()@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"PacketTable::PacketTable(long, char const*)@HDF5_CPP_1.10.0" 1.10.0
+ (arch-bits=64|optional|c++)"PacketTable::PacketTable(long, char*)@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"PacketTable::ResetIndex()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"PacketTable::SetIndex(unsigned long long)@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"PacketTable::~PacketTable()@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"VTT for FL_PacketTable@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for FL_PacketTable@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo for PacketTable@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for FL_PacketTable@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"typeinfo name for PacketTable@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"virtual thunk to FL_PacketTable::~FL_PacketTable()@HDF5_CPP_1.10.0" 1.10.0
+ (optional|c++)"vtable for FL_PacketTable@HDF5_CPP_1.8.9" 1.8.13
+ (optional|c++)"vtable for PacketTable@HDF5_CPP_1.10.0" 1.10.0

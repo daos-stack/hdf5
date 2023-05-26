@@ -1,0 +1,10 @@
+hdf5 (1.10.3+repack-1~exp1) experimental; urgency=medium
+
+  Starting with release 1.10.3 the HDF Group is no longer providing the
+  source for the HDF5 User's Guide and the Reference Manual.
+  The latest documentation is on the support portal only [1], which is
+  freely available. However, it's not easily downloadable.
+
+  [1] https://portal.hdfgroup.org/display/HDF5/HDF5
+
+ -- Gilles Filippini <pini@debian.org>  Tue, 03 Apr 2018 22:05:51 +0200
