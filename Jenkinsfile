@@ -40,5 +40,5 @@
 // I.e. for testing library changes
 @Library(value="pipeline-lib@bmurrell/el9") _
 
-packageBuildingPipelineDAOSTest(['distros' : ['el8', 'el9', 'leap15', 'ubuntu20.04'],
+packageBuildingPipelineDAOSTest(['distros' : ['centos7', 'el8', 'el9', 'leap15', 'ubuntu20.04'],
                                  'test-tag': 'hdf5testsuite'])
