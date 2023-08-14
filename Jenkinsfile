@@ -40,5 +40,7 @@
 // I.e. for testing library changes
 //@Library(value="pipeline-lib@your_branch") _
 
-packageBuildingPipelineDAOSTest(['distros' : ['el8', 'leap15'],
+// Remove centos7 due to: https://bugzilla.redhat.com/show_bug.cgi?id=2210360
+/* groovylint-disable-next-line CompileStatic */
+packageBuildingPipelineDAOSTest(['distros' : ['el8', 'el9', 'leap15'],
                                  'test-tag': 'hdf5testsuite'])
