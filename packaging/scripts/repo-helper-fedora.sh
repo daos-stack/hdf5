@@ -10,8 +10,10 @@ set -uex
 : "${REPOSITORY_NAME:=artifactory}"
 : "${archive:=}"
 if [ "$FVERSION" != "latest" ]; then
-    if [ "$FVERSION" != "41" ]; then
-        archive="-archive"
+    if [ "$FVERSION" != "42" ]; then
+        if [ "$FVERSION" != "41" ]; then
+            archive="-archive"
+        fi
     fi
 fi
 
