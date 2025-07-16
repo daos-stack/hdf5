@@ -10,7 +10,9 @@ set -uex
 : "${REPOSITORY_NAME:=artifactory}"
 : "${archive:=}"
 if [ "$FVERSION" != "latest" ]; then
-    archive="-archive"
+    if [ "$FVERSION" != "41" ]; then
+        archive="-archive"
+    fi
 fi
 
 # shellcheck disable=SC2120
