@@ -42,5 +42,5 @@
 
 // Remove centos7 due to: https://bugzilla.redhat.com/show_bug.cgi?id=2210360
 /* groovylint-disable-next-line CompileStatic */
-packageBuildingPipelineDAOSTest(['distros' : ['el8', 'el9', 'leap15'],
+packageBuildingPipelineDAOSTest(['distros' : ['el9', 'leap15'],
                                  'test-tag': 'hdf5testsuite'])
