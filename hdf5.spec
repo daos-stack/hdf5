@@ -22,15 +22,13 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
-Release: 3%{?commit:.git%{shortcommit}}%{?dist}
+Release: 4%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 
 Source0: https://github.com/HDFGroup/%{name}/archive/%{name}-%{hdf5_tag}.tar.gz
 Source1: h5comp
-# For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.2+repack-1~exp1.debian.tar.xz
 Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Disable tests that don't work with DAOS
 Patch11: daos.patch
@@ -286,7 +284,7 @@ HDF5 tests with mpich
 %endif
 
 %prep
-%setup -q -a 2 -n %{name}-%{name}-%{hdf5_tag}
+%setup -q -a 1 -n %{name}-%{name}-%{hdf5_tag}
 %patch -P 1 -p1 -b .LD_LIBRARY_PATH
 %patch -P 11 -p1 -b .daos
 %patch -P 12 -p1 -b .examples
@@ -374,8 +372,7 @@ for mpi in %{?mpi_list}; do
     --sbindir=%{mpi_libdir}/$mpi/sbin \
     --includedir=%{mpi_includedir}/$mpi%{mpi_include_ext} \
     --libdir=%{mpi_libdir}/$mpi/%{mpi_lib_ext} \
-    --datarootdir=%{mpi_libdir}/$mpi/share \
-    --mandir=%{mpi_libdir}/$mpi/share/man
+    --datarootdir=%{mpi_libdir}/$mpi/share
   sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
   make LDFLAGS="%{?__global_ldflags} -fPIC -Wl,-z,now -Wl,--as-needed" %{?_smp_mflags}
   module purge
@@ -429,14 +426,6 @@ cat > %{buildroot}%{macrosdir}/macros.hdf5 <<EOF
 %%_hdf5_version %{version}
 EOF
 
-# Install man pages from debian
-mkdir -p %{buildroot}%{_mandir}/man1
-cp -p debian/man/*.1 %{buildroot}%{_mandir}/man1/
-for mpi in %{?mpi_list}; do
-  mkdir -p %{buildroot}%{mpi_libdir}/$mpi/share/man/man1
-  cp -p debian/man/h5p[cf]c.1 %{buildroot}%{mpi_libdir}/$mpi/share/man/man1/
-done
-rm %{buildroot}%{_mandir}/man1/h5p[cf]c*.1
 
 # Java
 mkdir -p %{buildroot}%{_libdir}/%{name}
@@ -503,20 +492,6 @@ done
 %{_libdir}/libhdf5hl_fortran.so.*
 %{_libdir}/libhdf5_hl.so.*
 %{_libdir}/libhdf5_hl_cpp.so.*
-%{_mandir}/man1/gif2h5.1*
-%{_mandir}/man1/h52gif.1*
-%{_mandir}/man1/h5copy.1*
-%{_mandir}/man1/h5diff.1*
-%{_mandir}/man1/h5dump.1*
-%{_mandir}/man1/h5import.1*
-%{_mandir}/man1/h5jam.1*
-%{_mandir}/man1/h5ls.1*
-%{_mandir}/man1/h5mkgrp.1*
-%{_mandir}/man1/h5perf_serial.1*
-%{_mandir}/man1/h5repack.1*
-%{_mandir}/man1/h5repart.1*
-%{_mandir}/man1/h5stat.1*
-%{_mandir}/man1/h5unjam.1*
 
 %files devel
 %{macrosdir}/macros.hdf5
@@ -529,11 +504,6 @@ done
 %{_libdir}/*.settings
 %{_fmoddir}/*.mod
 %{_datadir}/hdf5_examples/
-%{_mandir}/man1/h5c++.1*
-%{_mandir}/man1/h5cc.1*
-%{_mandir}/man1/h5debug.1*
-%{_mandir}/man1/h5fc.1*
-%{_mandir}/man1/h5redeploy.1*
 
 %files static
 %{_libdir}/*.a
@@ -583,8 +553,6 @@ done
 %{mpi_libdir}/openmpi/bin/h5pcc
 %{mpi_libdir}/openmpi/bin/h5pfc
 %{mpi_libdir}/openmpi/share/hdf5_examples/
-%{mpi_libdir}/openmpi/share/man/man1/h5pcc.1*
-%{mpi_libdir}/openmpi/share/man/man1/h5pfc.1*
 
 %files openmpi-static
 %{mpi_libdir}/openmpi/%{mpi_lib_ext}/*.a
@@ -635,8 +603,6 @@ done
 %{mpi_libdir}/openmpi3/bin/h5pcc
 %{mpi_libdir}/openmpi3/bin/h5pfc
 %{mpi_libdir}/openmpi3/share/hdf5_examples/
-%{mpi_libdir}/openmpi3/share/man/man1/h5pcc.1*
-%{mpi_libdir}/openmpi3/share/man/man1/h5pfc.1*
 
 %files openmpi3-static
 %{mpi_libdir}/openmpi3/%{mpi_lib_ext}/*.a
@@ -687,8 +653,6 @@ done
 %{mpi_libdir}/mpich/bin/h5pcc
 %{mpi_libdir}/mpich/bin/h5pfc
 %{mpi_libdir}/mpich/share/hdf5_examples/
-%{mpi_libdir}/mpich/share/man/man1/h5pcc.1*
-%{mpi_libdir}/mpich/share/man/man1/h5pfc.1*
 
 %files mpich-static
 %{mpi_libdir}/mpich/%{mpi_lib_ext}/*.a
