@@ -22,7 +22,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
-Release: 3%{?commit:.git%{shortcommit}}%{?dist}
+Release: 4%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -30,7 +30,7 @@ URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 Source0: https://github.com/HDFGroup/%{name}/archive/%{name}-%{hdf5_tag}.tar.gz
 Source1: h5comp
 # For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.2+repack-1~exp1.debian.tar.xz
+Source2: hdf5_1.12.2+repack-1~exp1.debian.tar.xz
 Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Disable tests that don't work with DAOS
 Patch11: daos.patch
