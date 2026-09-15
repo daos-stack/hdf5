@@ -30,7 +30,7 @@ URL: https://portal.hdfgroup.org/display/HDF5/HDF5
 Source0: https://github.com/HDFGroup/%{name}/archive/%{name}-%{hdf5_tag}.tar.gz
 Source1: h5comp
 # For man pages
-Source2: http://ftp.us.debian.org/debian/pool/main/h/hdf5/hdf5_1.12.2+repack-1~exp1.debian.tar.xz
+Source2: hdf5_1.12.2+repack-1~exp1.debian.tar.xz
 Patch1: hdf5-LD_LIBRARY_PATH.patch
 # Disable tests that don't work with DAOS
 Patch11: daos.patch
