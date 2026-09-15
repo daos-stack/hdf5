@@ -22,7 +22,7 @@
 # You need to recompile all users of HDF5 for each version change
 Name: hdf5
 Version: %{hdf5_major}.%{hdf5_minor}.%{hdf5_bugfix}%{?hdf5_prerelease:~%{hdf5_prerelease}}
-Release: 3%{?commit:.git%{shortcommit}}%{?dist}
+Release: 4%{?commit:.git%{shortcommit}}%{?dist}
 Summary: A general purpose library and file format for storing scientific data
 License: BSD
 URL: https://portal.hdfgroup.org/display/HDF5/HDF5
@@ -113,6 +113,8 @@ BuildRequires: environment-modules
 %global mpi_include_ext -%{_arch}
 %endif
 
+# Drop the openmpi module marker tag the dependency generator adds to libmpi.so.40
+%global __requires_exclude ^libmpi\\.so\\.40\\(\\)\\(64bit\\)\\(openmpi-x86_64\\)$
 
 %description
 HDF5 is a general purpose library and file format for storing scientific data.
@@ -160,6 +162,7 @@ HDF5 static libraries.
 Summary: HDF5 openmpi libraries
 BuildRequires: openmpi-devel
 Provides: %{name}-openmpi = %{version}-%{release}
+Requires: libmpi.so.40()(64bit)
 
 %description openmpi
 HDF5 parallel openmpi libraries
@@ -700,6 +703,9 @@ done
 %endif
 
 %changelog
+* Tue Sep 15 2026 Phillip Henderson <phillip.henderson@hpe.com> - 1.1.0-4
+- Use generic libmpi.so requirement
+
 * Wed May 24 2023 Brian J. Murrell <brian.murrell@intel.com> - 1.13.1-3
 - update %%patch usage
 - fix junit version extraction
